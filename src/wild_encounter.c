@@ -516,6 +516,21 @@ void CreateWildMon(enum Species species, u8 level)
     u32 personality = GetMonPersonality(species, GetSynchronizedGender(WILDMON_ORIGIN, species), PickWildMonNature(species), RANDOM_UNOWN_LETTER);
     CreateMonWithIVs(&gParties[B_TRAINER_OPPONENT_A][0], species, level, personality, OTID_STRUCT_PLAYER_ID, USE_RANDOM_IVS);
     GiveMonInitialMoveset(&gParties[B_TRAINER_OPPONENT_A][0]);
+        // Emerald Nuzlocke: habilidad aleatoria entre las oficiales (normal u oculta)
+        {
+            u32 slots[NUM_ABILITY_SLOTS];
+            u32 count = 0, i;
+            for (i = 0; i < NUM_ABILITY_SLOTS; i++)
+            {
+                if (GetSpeciesAbility(species, i) != ABILITY_NONE)
+                    slots[count++] = i;
+            }
+            if (count > 0)
+            {
+                u32 abilityNum = slots[Random() % count];
+                SetMonData(&gParties[B_TRAINER_OPPONENT_A][0], MON_DATA_ABILITY_NUM, &abilityNum);
+            }
+        }
 }
 
 #ifdef BUGFIX

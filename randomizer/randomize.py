@@ -10,7 +10,7 @@ Siempre parte de los archivos originales (se guardan una sola vez en
 randomizer/_original/), así que puedes ejecutarlo tantas veces como quieras.
 Después: make -j$(nproc)
 
-Partes hechas: 1 · Iniciales  ·  2 · Rival  ·  3 · Rutas.
+Partes hechas: 1 · Iniciales  ·  2 · Rival  ·  3 · Rutas  ·  4 · Evoluciones por intercambio.
 """
 import json
 import random
@@ -29,7 +29,7 @@ FILES = [
     "src/starter_choose.c",
     "src/data/trainers.party",
     "src/data/wild_encounters.json",
-]
+] + [f"src/data/pokemon/species_info/gen_{g}_families.h" for g in range(1, 10)]
 
 # 115 líneas evolutivas de 3 etapas (incluye bebés, excluye Cosmog).
 STARTER_POOL = [
@@ -124,11 +124,11 @@ def _stat_value(raw, defines):
     return int(m.group()) if m else 0
 
 
-def load_species_db():
-    """Devuelve {SPECIES_X: {"types", "evos", "bst", flags...}} leyendo los archivos del proyecto."""
+def load_species_db(originals):
+    """Devuelve {SPECIES_X: {"types", "evos", "bst", flags...}} leyendo los archivos originales."""
     db = {}
-    for path in sorted((ROOT / SPECIES_INFO_DIR).glob("gen_*_families.h")):
-        text = path.read_text(encoding="utf-8")
+    for rel in sorted(k for k in originals if k.startswith(SPECIES_INFO_DIR)):
+        text = originals[rel]
         defines = dict(re.findall(r"^\s*#define\s+(\w+)\s+(.+?)\s*$", text, re.M))
         starts = [(m.start(), m.group(1)) for m in re.finditer(r"^\s*\[(SPECIES_\w+)\]\s*=", text, re.M)]
         for i, (pos, name) in enumerate(starts):
@@ -435,6 +435,36 @@ def randomize_routes(text, db, aliases, rng):
     return json.dumps(data, indent=2, ensure_ascii=False) + "\n", report
 
 
+# --------------------------------------------------------------------------
+# Parte 4 · Evoluciones por intercambio
+# --------------------------------------------------------------------------
+TRADE_LEVEL = 36
+# Objetos que NO existen en el Esmeralda original: habrá que ponerlos a la venta o en el mapa.
+NOT_IN_EMERALD = {"ITEM_UPGRADE", "ITEM_DUBIOUS_DISC", "ITEM_PROTECTOR", "ITEM_ELECTIRIZER",
+                  "ITEM_MAGMARIZER", "ITEM_REAPER_CLOTH", "ITEM_PRISM_SCALE", "ITEM_SACHET",
+                  "ITEM_WHIPPED_DREAM", "ITEM_LINKING_CORD"}
+
+_TRADE_RE = re.compile(r"\{EVO_TRADE,\s*0,\s*(SPECIES_\w+)(?:,\s*CONDITIONS\(\{(IF_\w+),\s*(\w+)\}\))?\}")
+
+
+def convert_trade_evolutions(texts):
+    """Intercambio simple o con pareja -> nivel 36.  Intercambio con objeto -> usar el objeto como una piedra."""
+    changes = []
+
+    def repl(m):
+        target, cond, arg = m.group(1), m.group(2), m.group(3)
+        if cond == "IF_HOLD_ITEM":
+            changes.append((target, arg))
+            return "{EVO_ITEM, " + arg + ", " + target + "}"
+        changes.append((target, f"nivel {TRADE_LEVEL}"))
+        return "{EVO_LEVEL, " + str(TRADE_LEVEL) + ", " + target + "}"
+
+    out = {}
+    for rel, text in texts.items():
+        out[rel] = _TRADE_RE.sub(repl, text)
+    return out, changes
+
+
 def main():
     seed = int(sys.argv[1]) if len(sys.argv) > 1 else random.randrange(1, 10**6)
     rng = random.Random(seed)
@@ -442,7 +472,7 @@ def main():
 
     originals = backup_originals()
     check_species(STARTER_POOL)
-    db = load_species_db()
+    db = load_species_db(originals)
     aliases = load_aliases()
 
     result = {"seed": seed}
@@ -468,6 +498,17 @@ def main():
     result["routes"] = report
     n_leg = sum(1 for r in report if r["legend"])
     print(f"Rutas: {len(report)} zonas randomizadas, {n_leg} con un legendario escondido (1 %)")
+
+    species_files = {k: v for k, v in originals.items() if k.startswith(SPECIES_INFO_DIR)}
+    new_files, changes = convert_trade_evolutions(species_files)
+    for rel, text in new_files.items():
+        (ROOT / rel).write_text(text, encoding="utf-8")
+    result["trade_evolutions"] = [{"species": pretty(t), "how": h} for t, h in changes]
+    needed = sorted({h for _, h in changes if h in NOT_IN_EMERALD})
+    result["items_to_place"] = needed
+    print(f"Evoluciones por intercambio: {len(changes)} cambiadas (nivel {TRADE_LEVEL} u objeto)")
+    if needed:
+        print("  Objetos que habrá que poner en el juego:", ", ".join(n.replace("ITEM_", "").title() for n in needed))
 
     OUT.mkdir(exist_ok=True)
     (OUT / "last_run.json").write_text(json.dumps(result, indent=2), encoding="utf-8")
