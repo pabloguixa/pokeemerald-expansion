@@ -10,7 +10,7 @@ Siempre parte de los archivos originales (se guardan una sola vez en
 randomizer/_original/), así que puedes ejecutarlo tantas veces como quieras.
 Después: make -j$(nproc)
 
-Partes hechas: 1 · Iniciales  ·  2 · Rival  ·  3 · Rutas  ·  4 · Evoluciones por intercambio.
+Partes hechas: 1 · Iniciales  ·  2 · Rival  ·  3 · Rutas  ·  4 · Evoluciones por intercambio  ·  5 · Entrenadores y líderes.
 """
 import json
 import random
@@ -29,6 +29,7 @@ FILES = [
     "src/starter_choose.c",
     "src/data/trainers.party",
     "src/data/wild_encounters.json",
+    "src/caps.c",
 ] + [f"src/data/pokemon/species_info/gen_{g}_families.h" for g in range(1, 10)]
 
 # 115 líneas evolutivas de 3 etapas (incluye bebés, excluye Cosmog).
@@ -110,7 +111,8 @@ SPECIES_INFO_DIR = "src/data/pokemon/species_info"
 
 STAT_FIELDS = ["baseHP", "baseAttack", "baseDefense", "baseSpeed", "baseSpAttack", "baseSpDefense"]
 FLAG_FIELDS = ["isRestrictedLegendary", "isSubLegendary", "isMythical", "isUltraBeast", "isParadox",
-               "isAlolanForm", "isGalarianForm", "isHisuianForm", "isPaldeanForm"]
+               "isAlolanForm", "isGalarianForm", "isHisuianForm", "isPaldeanForm",
+               "isTotem", "isMegaEvolution", "isGigantamax", "isPrimalReversion", "isTeraForm"]
 
 
 def _stat_value(raw, defines):
@@ -147,7 +149,9 @@ def load_species_db(originals):
                 sm = re.search(r"\." + f + r"\s*=\s*([^,\n]+)", body)
                 if sm:
                     bst += _stat_value(sm.group(1), defines)
-            info = {"types": types, "evos": evos, "bst": bst}
+            a = re.search(r"\.abilities\s*=\s*\{([^}]*)\}", body)
+            abilities = [x.strip() for x in a.group(1).split(",")] if a else []
+            info = {"types": types, "evos": evos, "bst": bst, "abilities": abilities}
             for f in FLAG_FIELDS:
                 info[f] = bool(re.search(r"\." + f + r"\s*=\s*TRUE", body))
             if name not in db:
@@ -328,8 +332,10 @@ LEGEND_MAP_CHANCE = 0.25     # % de zonas de mitad de juego en adelante con un l
 
 def build_pools(db, aliases):
     dex = [s for s in national_dex_species(aliases) if s in db]
+    special = ("isTotem", "isMegaEvolution", "isGigantamax", "isPrimalReversion", "isTeraForm")
     regional = [s for s, i in db.items()
-                if (i["isAlolanForm"] or i["isGalarianForm"] or i["isHisuianForm"] or i["isPaldeanForm"])]
+                if (i["isAlolanForm"] or i["isGalarianForm"] or i["isHisuianForm"] or i["isPaldeanForm"])
+                and not any(i[f] for f in special) and not s.endswith("_ZEN")]   # Zen = forma de combate
     everyone = list(dict.fromkeys(dex + regional))
     normal = [s for s in everyone if not is_legend(db[s]) and db[s]["bst"] > 0]
     # En estado salvaje: subleyendas, míticos, ultraentes y paradojas. Los legendarios
@@ -465,6 +471,278 @@ def convert_trade_evolutions(texts):
     return out, changes
 
 
+# --------------------------------------------------------------------------
+# Parte 5 · Entrenadores, líderes, Alto Mando y rival (resto del equipo)
+# --------------------------------------------------------------------------
+LEVEL_MULT = 1.10            # +10 % de nivel a todos los entrenadores
+LEADERS = {                  # en orden de medalla
+    "ROXANNE": "TYPE_ROCK", "BRAWLY": "TYPE_FIGHTING", "WATTSON": "TYPE_ELECTRIC",
+    "FLANNERY": "TYPE_FIRE", "NORMAN": "TYPE_NORMAL", "WINONA": "TYPE_FLYING",
+    "TATE_AND_LIZA": "TYPE_PSYCHIC", "JUAN": "TYPE_WATER",
+}
+ELITE = {"SIDNEY": "TYPE_DARK", "PHOEBE": "TYPE_GHOST", "GLACIA": "TYPE_ICE",
+         "DRAKE": "TYPE_DRAGON", "WALLACE": "TYPE_WATER"}
+LEADER_TEAM_SIZE = [3, 3, 4, 4, 5, 5, 6, 6]   # el equipo crece con cada medalla
+REMATCH_TEAM_SIZE = 6
+ELITE_TEAM_SIZE = 6
+IVS_REGULAR, IVS_BOSS, IVS_CHAMPION = 15, 25, 31
+KEEP_FIELDS = ("Nature:", "Shiny:", "Ball:", "Happiness:", "EVs:")
+
+
+def species_name_index(aliases):
+    """'Mr. Mime' -> SPECIES_MR_MIME, etc. (para leer los nombres del archivo de entrenadores)."""
+    header = (ROOT / "include/constants/species.h").read_text(encoding="utf-8")
+    idx = {}
+    for name in re.findall(r"\b(SPECIES_\w+)\s*=", header):
+        key = re.sub(r"[^A-Z0-9]", "", name[len("SPECIES_"):])
+        idx.setdefault(key, name)
+    return idx
+
+
+def name_to_species(raw, idx, aliases):
+    raw = raw.strip()
+    if raw.startswith("SPECIES_"):
+        return resolve(raw, aliases)
+    key = re.sub(r"[^A-Z0-9]", "", raw.upper().replace("♂", "M").replace("♀", "F"))
+    sp = idx.get(key)
+    return resolve(sp, aliases) if sp else None
+
+
+class Lines:
+    """Ayudas sobre líneas evolutivas: base, etapa y ramas."""
+
+    def __init__(self, db):
+        self.db = db
+        self.pre = {}
+        for sp, info in db.items():
+            for _, _, nxt in info["evos"]:
+                self.pre.setdefault(nxt, sp)
+
+    def base(self, sp):
+        seen = set()
+        while sp in self.pre and sp not in seen:
+            seen.add(sp)
+            sp = self.pre[sp]
+        return sp
+
+    def stage(self, sp):
+        d, seen = 0, set()
+        while sp in self.pre and sp not in seen:
+            seen.add(sp)
+            sp = self.pre[sp]
+            d += 1
+        return d
+
+    def is_final(self, sp):
+        return not [e for e in self.db[sp]["evos"] if e[2] in self.db]
+
+    def line_through(self, sp, rng):
+        """Línea completa (base -> ... -> sp -> ...) con el formato de choose_line."""
+        path = [sp]
+        while path[0] in self.pre and self.pre[path[0]] not in path:
+            path.insert(0, self.pre[path[0]])
+        line = [(path[0], None, 0)]
+        for a, b in zip(path, path[1:]):
+            m = next(e for e in self.db[a]["evos"] if e[2] == b)
+            line.append((b, m[0], m[1]))
+        tail = choose_line(self.db, sp, rng)
+        return line + tail[1:]
+
+
+def parse_mon(text):
+    lines = text.strip("\n").split("\n")
+    first = lines[0]
+    if first.startswith(("/*", "//", "*")) or not any(l.startswith("Level:") for l in lines):
+        return None
+    m = re.match(r"^(.*?)(?:\s*@\s*(.+))?$", first)
+    name_part, item = m.group(1).strip(), m.group(2)
+    nick = re.match(r"^.*\(([^()]+)\)\s*(?:\((?:M|F)\))?$", name_part)
+    if nick and nick.group(1) not in ("M", "F"):
+        species_raw = nick.group(1)
+    else:
+        species_raw = re.sub(r"\s*\((?:M|F)\)$", "", name_part)
+    level = int(re.search(r"^Level:\s*(\d+)", text, re.M).group(1))
+    keep = [l for l in lines[1:] if l.startswith(KEEP_FIELDS)]
+    return {"species_raw": species_raw, "item": item, "level": level, "keep": keep}
+
+
+def render_mon(species, item, level, ivs, keep, ability=None):
+    out = [species + (f" @ {item}" if item else ""), f"Level: {level}",
+           "IVs: " + " / ".join(f"{ivs} {s}" for s in ["HP", "Atk", "Def", "SpA", "SpD", "Spe"])]
+    if ability:
+        out.append(f"Ability: {ability}")
+    return "\n".join(out + keep)
+
+
+def ace_ability(db, species):
+    """El as lleva su habilidad oculta (suele ser la más útil); si no tiene, la primera."""
+    abil = [a for a in db[species].get("abilities", []) if a and a != "ABILITY_NONE"]
+    if not abil:
+        return None
+    raw = db[species]["abilities"]
+    hidden = raw[2] if len(raw) > 2 and raw[2] not in ("", "ABILITY_NONE") else None
+    return hidden or abil[0]
+
+
+class TrainerRandomizer:
+    def __init__(self, db, aliases, normal, rng):
+        self.db, self.rng = db, rng
+        self.aliases = aliases
+        self.idx = species_name_index(aliases)
+        self.L = Lines(db)
+        self.pool = normal
+        self.min_lv, self.evolves_at = compute_level_info(db)
+        self.usage = {}
+        self.memory = {}          # (nombre del entrenador, base original) -> línea nueva
+        self.ace = {}             # nombre del líder -> especie del as (igual en las revanchas)
+        self.unknown = set()
+
+    def candidates(self, level, type_=None, exclude=(), final_only=False):
+        def ok(s, strict):
+            if s in exclude:
+                return False
+            if type_ and type_ not in self.db[s]["types"]:
+                return False
+            if final_only and not self.L.is_final(s):
+                return False
+            if strict:
+                return allowed_at(s, level, self.db, self.min_lv, self.evolves_at)
+            return self.db[s]["bst"] <= bst_cap(level) + 60
+        c = [s for s in self.pool if ok(s, True)]
+        if not c:
+            c = [s for s in self.pool if ok(s, False)]
+        if not c:
+            c = [s for s in self.pool if s not in exclude and (not type_ or type_ in self.db[s]["types"])]
+        return c
+
+    def pick(self, cands):
+        low = min(self.usage.get(s, 0) for s in cands)
+        choice = self.rng.choice([s for s in cands if self.usage.get(s, 0) == low])
+        self.usage[choice] = self.usage.get(choice, 0) + 1
+        return choice
+
+    def species_for(self, who, orig, level, type_, team):
+        """Especie nueva para un Pokémon de entrenador, coherente entre combates del mismo entrenador."""
+        orig_stage = self.L.stage(orig) if orig in self.db else 0
+        key = (who, self.L.base(orig) if orig in self.db else orig)
+        if key in self.memory:
+            sp = stage_for_level(self.memory[key], level, orig_stage)
+            if sp not in team:
+                return sp
+        sp = self.pick(self.candidates(level, type_, exclude=team))
+        self.memory[key] = self.L.line_through(sp, self.rng)
+        return sp
+
+    def ace_for(self, who, level, type_, team):
+        if who in self.ace and self.ace[who] not in team:
+            return self.ace[who]
+        sp = self.pick(self.candidates(level, type_, exclude=team, final_only=True))
+        self.ace[who] = sp
+        return sp
+
+
+def trainer_role(const):
+    """('leader', NOMBRE, nº medalla, es_revancha) / ('elite', NOMBRE) / ('rival', ...) / ('regular', ...)."""
+    base = re.sub(r"_\d+$", "", const)
+    if base in LEADERS:
+        return "leader", base, list(LEADERS).index(base), not const.endswith("_1")
+    if const in ELITE:
+        return "elite", const, None, False
+    if re.match(r"(MAY|BRENDAN)_", const):
+        return "rival", base, None, False
+    return "regular", base, None, False
+
+
+def randomize_trainers(text, db, aliases, normal, rng):
+    tr = TrainerRandomizer(db, aliases, normal, rng)
+    head, sep, body = text.partition("=== TRAINER_")
+    blocks = re.split(r"(?m)^(?==== TRAINER_)", sep + body)
+    leaders_report, ace_levels = {}, {}
+    out = []
+    for block in blocks:
+        m = re.match(r"=== TRAINER_(\w+) ===", block)
+        if not m:
+            out.append(block)
+            continue
+        const = m.group(1)
+        role, who, badge, rematch = trainer_role(const)
+        name = re.search(r"^Name:\s*(.*)$", block, re.M)
+        who_key = (name.group(1).strip() if name else who) + "|" + who.split("_")[0]
+        parts = block.rstrip("\n").split("\n\n")
+        header, mon_parts = parts[0], parts[1:]
+        mons = [(p, parse_mon(p)) for p in mon_parts]
+        real = [x for x in mons if x[1]]
+        if not real:
+            out.append(block)
+            continue
+        type_ = LEADERS.get(who) or ELITE.get(who)
+        ivs = IVS_REGULAR
+        if role in ("leader", "elite", "rival"):
+            ivs = IVS_BOSS
+        if who == "WALLACE":
+            ivs = IVS_CHAMPION
+        team, new_parts = [], []
+        n_real = len(real)
+        for i, (raw, mon) in enumerate(mons):
+            if not mon:
+                new_parts.append(raw)
+                continue
+            level = min(100, round(mon["level"] * LEVEL_MULT))
+            orig = name_to_species(mon["species_raw"], tr.idx, aliases)
+            if role == "rival" and mon["species_raw"].upper() in ORIGINAL_STAGE:
+                sp = mon["species_raw"]                    # el inicial del rival lo pone la parte 2
+            elif orig is None:
+                tr.unknown.add(mon["species_raw"])
+                sp = mon["species_raw"]
+            elif type_ and real[-1][0] is raw:             # el último de un líder/Alto Mando: el as
+                sp = tr.ace_for(who, level, type_, team)
+            else:
+                sp = tr.species_for(who_key, orig, level, type_, team)
+            team.append(sp)
+            is_ace = bool(type_) and real[-1][0] is raw and sp in db
+            new_parts.append(render_mon(sp, mon["item"], level, ivs, mon["keep"],
+                                        ace_ability(db, sp) if is_ace else None))
+        # Equipos que crecen (líderes y Alto Mando): se añaden Pokémon antes del as
+        if type_:
+            if role == "leader":
+                target = REMATCH_TEAM_SIZE if rematch else LEADER_TEAM_SIZE[badge]
+            else:
+                target = ELITE_TEAM_SIZE
+            mon_idx = [i for i, (_, mon) in enumerate(mons) if mon]
+            ace_pos = mon_idx[-1]
+            fill_level = min(100, round(mons[mon_idx[-2]][1]["level"] * LEVEL_MULT)) if len(mon_idx) > 1 \
+                else max(1, round(mons[ace_pos][1]["level"] * LEVEL_MULT) - 2)
+            k = 0
+            while len(team) < target:
+                sp = tr.species_for(who_key, f"EXTRA_{k}", fill_level, type_, team)
+                team.insert(-1, sp)
+                new_parts.insert(ace_pos, render_mon(sp, None, fill_level, ivs, []))
+                ace_pos += 1
+                k += 1
+            levels = [int(re.search(r"Level: (\d+)", p).group(1)) for p in new_parts if re.search(r"^Level:", p, re.M)]
+            leaders_report[const] = [{"species": pretty(x), "level": l} for x, l in zip(team, levels)]
+            if role == "leader" and not rematch:
+                ace_levels[badge] = max(levels)
+            if who == "WALLACE":
+                ace_levels["champion"] = max(levels)
+        out.append("\n\n".join([header] + new_parts) + "\n\n")
+    if tr.unknown:
+        print("  Aviso: nombres no reconocidos (se dejan igual):", ", ".join(sorted(tr.unknown)))
+    return head + "".join(out).rstrip("\n") + "\n", leaders_report, ace_levels
+
+
+def update_level_caps(text, ace_levels):
+    """El límite de cada medalla = nivel del as del siguiente líder (ya con el +10 %)."""
+    for badge in range(8):
+        if badge in ace_levels:
+            text = re.sub(r"(\{FLAG_BADGE0" + str(badge + 1) + r"_GET,\s*)\d+(\})",
+                          lambda m: m.group(1) + str(ace_levels[badge]) + m.group(2), text)
+    if "champion" in ace_levels:
+        text = re.sub(r"(\{FLAG_IS_CHAMPION,\s*)\d+(\})",
+                      lambda m: m.group(1) + str(ace_levels["champion"]) + m.group(2), text)
+    return text
+
+
 def main():
     seed = int(sys.argv[1]) if len(sys.argv) > 1 else random.randrange(1, 10**6)
     rng = random.Random(seed)
@@ -486,7 +764,18 @@ def main():
     lines = [choose_line(db, s, rng) for s in starters]
     result["starter_lines"] = [[x[0] for x in l] for l in lines]
 
-    text, rival_slot, n = randomize_rival(originals["src/data/trainers.party"], db, lines, rng)
+    normal_pool, _ = build_pools(db, aliases)
+    trainers_text, leaders_report, ace_levels = randomize_trainers(
+        originals["src/data/trainers.party"], db, aliases, normal_pool, rng)
+    result["leaders"] = leaders_report
+    caps = update_level_caps(originals["src/caps.c"], ace_levels)
+    (ROOT / "src/caps.c").write_text(caps, encoding="utf-8")
+    result["level_caps"] = {str(k): v for k, v in ace_levels.items()}
+    print("Entrenadores: +10 % de nivel; líderes y Alto Mando por tipo con as final")
+    print("  Límites de nivel:", ", ".join(str(ace_levels[b]) for b in range(8) if b in ace_levels),
+          "· Campeón:", ace_levels.get("champion"))
+
+    text, rival_slot, n = randomize_rival(trainers_text, db, lines, rng)
     (ROOT / "src/data/trainers.party").write_text(text, encoding="utf-8")
     result["rival"] = {pretty(starters[p]): pretty(starters[r]) for p, r in rival_slot.items()}
     print(f"Rival ({n} Pokémon cambiados):")
