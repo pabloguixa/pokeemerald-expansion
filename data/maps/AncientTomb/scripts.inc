@@ -58,10 +58,10 @@ AncientTomb_EventScript_Registeel::
 	lock
 	faceplayer
 	waitse
-	playmoncry SPECIES_DIALGA, CRY_MODE_ENCOUNTER
+	playmoncry SPECIES_ZYGARDE_50, CRY_MODE_ENCOUNTER
 	delay 40
 	waitmoncry
-	setwildbattle SPECIES_DIALGA, 40
+	setwildbattle SPECIES_ZYGARDE_50, 40
 	setflag FLAG_SYS_CTRL_OBJ_DELETE
 	special StartRegiBattle
 	clearflag FLAG_SYS_CTRL_OBJ_DELETE
@@ -79,7 +79,7 @@ AncientTomb_EventScript_DefeatedRegisteel::
 	end
 
 AncientTomb_EventScript_RanFromRegisteel::
-	setvar VAR_0x8004, SPECIES_DIALGA
+	setvar VAR_0x8004, SPECIES_ZYGARDE_50
 	goto Common_EventScript_LegendaryFlewAway
 	end
 

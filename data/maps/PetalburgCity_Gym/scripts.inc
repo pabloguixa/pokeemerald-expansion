@@ -342,6 +342,14 @@ PetalburgCity_Gym_EventScript_GiveFacade2::
 
 PetalburgCity_Gym_EventScript_NormanRematch::
 	trainerbattle_rematch_double TRAINER_NORMAN_1, PetalburgCity_Gym_Text_NormanPreRematch, PetalburgCity_Gym_Text_NormanRematchDefeat, PetalburgCity_Gym_Text_NormanRematchNeedTwoMons
+	goto_if_set FLAG_UNUSED_0x024, PetalburgCity_Gym_EventScript_NuzRematchDone
+	msgbox PetalburgCity_Gym_Text_NormanNuzReward, MSGBOX_DEFAULT
+	giveitem ITEM_PIDGEOTITE
+	giveitem ITEM_REVIVE
+	giveitem ITEM_AURORA_TICKET
+	setflag FLAG_ENABLE_SHIP_BIRTH_ISLAND
+	setflag FLAG_UNUSED_0x024
+PetalburgCity_Gym_EventScript_NuzRematchDone::
 	msgbox PetalburgCity_Gym_Text_NormanPostRematch, MSGBOX_AUTOCLOSE
 	end
 
@@ -1554,27 +1562,21 @@ PetalburgCity_Gym_Text_GymStatueCertified:
 	.string "{PLAYER}$"
 
 PetalburgCity_Gym_Text_NormanPreRematch:
-	.string "DAD: {PLAYER}…\n"
-	.string "I had a feeling that you would come.\p"
-	.string "I would never refuse to accept\n"
-	.string "a challenge from you.\p"
-	.string "You do understand, don't you?\p"
-	.string "Inside a GYM, it doesn't matter that\n"
-	.string "we are a parent and child.\p"
-	.string "…No, because we are parent and child,\n"
-	.string "we owe it to each other to do the best\l"
-	.string "we can. Isn't that right, {PLAYER}?$"
+	.string "NORMAN: So my child has become the\n"
+	.string "CHAMPION…\p"
+	.string "Then I won't hold back, not as your\n"
+	.string "father and not as a LEADER. Show me\p"
+	.string "everything!$"
 
 PetalburgCity_Gym_Text_NormanRematchDefeat:
-	.string "Uh… Haha…\n"
-	.string "Maybe that was going too hard…$"
+	.string "…I couldn't be prouder.$"
 
 PetalburgCity_Gym_Text_NormanPostRematch:
-	.string "DAD: {PLAYER}…\n"
-	.string "What is your dream?\p"
-	.string "My dream…\n"
-	.string "Hahaha…\l"
-	.string "It has already come true, actually.$"
+	.string "NORMAN: The ticket leads to BIRTH\n"
+	.string "ISLAND, far beyond any route.\p"
+	.string "Board the ferry at LILYCOVE. They\n"
+	.string "say a strange triangle floats there,\p"
+	.string "waiting to be solved.$"
 
 PetalburgCity_Gym_Text_NormanRematchNeedTwoMons:
 	.string "DAD: {PLAYER}…\n"
@@ -1590,3 +1592,8 @@ PetalburgCity_Gym_Text_NormanRematchNeedTwoMons:
 	.string "Sorry, but you'll have to come back\n"
 	.string "with at least two POKéMON.$"
 
+PetalburgCity_Gym_Text_NormanNuzReward:
+	.string "NORMAN: This MEGA STONE was my\n"
+	.string "partner's secret. And this AURORA\p"
+	.string "TICKET came from DEVON. I think it\n"
+	.string "was meant for you.$"

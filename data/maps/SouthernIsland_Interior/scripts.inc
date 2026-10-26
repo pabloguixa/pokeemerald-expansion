@@ -20,13 +20,13 @@ SouthernIsland_Interior_OnTransition:
 	end
 
 SouthernIsland_Interior_EventScript_SetUpLatios::
-	setvar VAR_OBJ_GFX_ID_1, OBJ_EVENT_GFX_SPECIES(ZEKROM)
-	setvar VAR_TEMP_4, SPECIES_ZEKROM
+	setvar VAR_OBJ_GFX_ID_1, OBJ_EVENT_GFX_SPECIES(ZAMAZENTA_HERO)
+	setvar VAR_TEMP_4, SPECIES_ZAMAZENTA_HERO
 	return
 
 SouthernIsland_Interior_EventScript_SetUpLatias::
-	setvar VAR_OBJ_GFX_ID_1, OBJ_EVENT_GFX_SPECIES(NECROZMA)
-	setvar VAR_TEMP_4, SPECIES_NECROZMA
+	setvar VAR_OBJ_GFX_ID_1, OBJ_EVENT_GFX_SPECIES(LUNALA)
+	setvar VAR_TEMP_4, SPECIES_LUNALA
 	return
 
 SouthernIsland_Interior_EventScript_SetUpPlayerGfx::
@@ -102,11 +102,11 @@ SouthernIsland_Interior_EventScript_Sign::
 	end
 
 SouthernIsland_Interior_EventScript_SetLatiosBattleVars::
-	seteventmon SPECIES_ZEKROM, 50, ITEM_SOUL_DEW
+	seteventmon SPECIES_ZAMAZENTA_HERO, 50, ITEM_SOUL_DEW
 	return
 
 SouthernIsland_Interior_EventScript_SetLatiasBattleVars::
-	seteventmon SPECIES_NECROZMA, 50, ITEM_SOUL_DEW
+	seteventmon SPECIES_LUNALA, 50, ITEM_SOUL_DEW
 	return
 
 SouthernIsland_Interior_Movement_CameraPanUp:

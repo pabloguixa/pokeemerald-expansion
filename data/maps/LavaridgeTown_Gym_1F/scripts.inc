@@ -96,6 +96,14 @@ LavaridgeTown_Gym_1F_EventScript_GiveOverheat::
 
 LavaridgeTown_Gym_1F_EventScript_FlanneryRematch::
 	trainerbattle_rematch_double TRAINER_FLANNERY_1, LavaridgeTown_Gym_1F_Text_FlanneryPreRematch, LavaridgeTown_Gym_1F_Text_FlanneryRematchDefeat, LavaridgeTown_Gym_1F_Text_FlanneryRematchNeedTwoMons
+	goto_if_set FLAG_UNUSED_0x023, LavaridgeTown_Gym_1F_EventScript_NuzRematchDone
+	msgbox LavaridgeTown_Gym_1F_Text_FlanneryNuzReward, MSGBOX_DEFAULT
+	giveitem ITEM_DELPHOXITE
+	giveitem ITEM_REVIVE
+	giveitem ITEM_OLD_SEA_MAP
+	setflag FLAG_ENABLE_SHIP_FARAWAY_ISLAND
+	setflag FLAG_UNUSED_0x023
+LavaridgeTown_Gym_1F_EventScript_NuzRematchDone::
 	msgbox LavaridgeTown_Gym_1F_Text_FlanneryPostRematch, MSGBOX_AUTOCLOSE
 	end
 
@@ -365,25 +373,22 @@ LavaridgeTown_Gym_1F_Text_GymStatueCertified:
 	.string "{PLAYER}$"
 
 LavaridgeTown_Gym_1F_Text_FlanneryPreRematch:
-	.string "FLANNERY: Losing a battle isn't going\n"
-	.string "to deflate me.\p"
-	.string "I love POKéMON.\n"
-	.string "I love to battle.\l"
-	.string "And… I love this GYM!\p"
-	.string "Let's exchange superhot moves\n"
-	.string "in another battle!$"
+	.string "FLANNERY: CHAMPION! I've trained in\n"
+	.string "the heat of MT. CHIMNEY every single\p"
+	.string "day.\p"
+	.string "This time I'm not holding anything\n"
+	.string "back!$"
 
 LavaridgeTown_Gym_1F_Text_FlanneryRematchDefeat:
-	.string "Whew!\n"
-	.string "On the verge of eruption!$"
+	.string "Phew… you really are on fire.$"
 
 LavaridgeTown_Gym_1F_Text_FlanneryPostRematch:
-	.string "FLANNERY: I lost the match,\n"
-	.string "but I'm completely satisfied.\p"
-	.string "It's not often I get to enjoy a battle\n"
-	.string "this heated.\p"
-	.string "Let's have another one like this\n"
-	.string "again sometime!$"
+	.string "FLANNERY: The map shows an island\n"
+	.string "nobody has ever charted.\p"
+	.string "Show it at the LILYCOVE harbor and\n"
+	.string "the ferry will take you there.\p"
+	.string "Grandpa swore something hides in its\n"
+	.string "jungle, watching every visitor…$"
 
 LavaridgeTown_Gym_1F_Text_FlanneryRematchNeedTwoMons:
 	.string "FLANNERY: Losing a battle isn't going\n"
@@ -397,3 +402,8 @@ LavaridgeTown_Gym_1F_Text_FlanneryRematchNeedTwoMons:
 	.string "that can battle?\p"
 	.string "I hate to say this, but when you come\n"
 	.string "see me, bring at least two POKéMON.$"
+
+LavaridgeTown_Gym_1F_Text_FlanneryNuzReward:
+	.string "FLANNERY: Take this MEGA STONE. And\n"
+	.string "this… an OLD SEA MAP my grandpa\p"
+	.string "found in the hot springs.$"

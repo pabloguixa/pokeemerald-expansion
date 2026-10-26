@@ -36,6 +36,12 @@ RustboroCity_Gym_EventScript_GiveRockTomb::
 
 RustboroCity_Gym_EventScript_RoxanneRematch::
 	trainerbattle_rematch_double TRAINER_ROXANNE_1, RustboroCity_Gym_Text_RoxannePreRematch, RustboroCity_Gym_Text_RoxanneRematchDefeat, RustboroCity_Gym_Text_RoxanneRematchNeedTwoMons
+	goto_if_set FLAG_UNUSED_0x020, RustboroCity_Gym_EventScript_NuzRematchDone
+	msgbox RustboroCity_Gym_Text_RoxanneNuzReward, MSGBOX_DEFAULT
+	giveitem ITEM_AERODACTYLITE
+	giveitem ITEM_REVIVE
+	setflag FLAG_UNUSED_0x020
+RustboroCity_Gym_EventScript_NuzRematchDone::
 	msgbox RustboroCity_Gym_Text_RoxannePostRematch, MSGBOX_AUTOCLOSE
 	end
 
@@ -254,22 +260,24 @@ RustboroCity_Gym_Text_RegisteredRoxanne:
 	.string "in the POKéNAV.$"
 
 RustboroCity_Gym_Text_RoxannePreRematch:
-	.string "ROXANNE: I'm so glad to see you again.\n"
-	.string "I'm ROXANNE, the GYM LEADER here.\p"
-	.string "I'm sure we've both experienced many\n"
-	.string "battles since we last met.\p"
-	.string "I would like to see how much better\n"
-	.string "we've become. Let us battle!$"
+	.string "ROXANNE: The new CHAMPION, here in\n"
+	.string "my humble GYM?\p"
+	.string "I have studied every page since our\n"
+	.string "last battle. Today you face my true\p"
+	.string "strength!$"
 
 RustboroCity_Gym_Text_RoxanneRematchDefeat:
-	.string "Grr…\n"
-	.string "Again, I have lost…$"
+	.string "Remarkable… Not even my new partner\n"
+	.string "could stop you.$"
 
 RustboroCity_Gym_Text_RoxannePostRematch:
-	.string "ROXANNE: I still have much to learn\n"
-	.string "when it comes to battling POKéMON.\p"
-	.string "That awareness makes me love battling\n"
-	.string "all that much more!$"
+	.string "ROXANNE: An old text speaks of ruins\n"
+	.string "swallowed by the sands of ROUTE 111.\p"
+	.string "Its door only answers to those who\n"
+	.string "solved the SEALED CHAMBER under the\p"
+	.string "sea of ROUTE 134.\p"
+	.string "Something ancient sleeps there… and\n"
+	.string "it is not what the old stories say.$"
 
 RustboroCity_Gym_Text_RoxanneRematchNeedTwoMons:
 	.string "ROXANNE: I'm so glad to see you again.\n"
@@ -282,3 +290,8 @@ RustboroCity_Gym_Text_RoxanneRematchNeedTwoMons:
 	.string "You only have one POKéMON with you?\p"
 	.string "Please return with at least one more\n"
 	.string "POKéMON.$"
+
+RustboroCity_Gym_Text_RoxanneNuzReward:
+	.string "ROXANNE: You have earned this. My\n"
+	.string "partner's MEGA STONE… and something\p"
+	.string "for the fallen.$"

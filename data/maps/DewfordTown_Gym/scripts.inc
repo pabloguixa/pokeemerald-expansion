@@ -185,6 +185,12 @@ DewfordTown_Gym_EventScript_GiveBulkUp2:
 
 DewfordTown_Gym_EventScript_BrawlyRematch::
 	trainerbattle_rematch_double TRAINER_BRAWLY_1, DewfordTown_Gym_Text_BrawlyPreRematch, DewfordTown_Gym_Text_BrawlyRematchDefeat, DewfordTown_Gym_Text_BrawlyRematchNeedTwoMons
+	goto_if_set FLAG_UNUSED_0x021, DewfordTown_Gym_EventScript_NuzRematchDone
+	msgbox DewfordTown_Gym_Text_BrawlyNuzReward, MSGBOX_DEFAULT
+	giveitem ITEM_MEDICHAMITE
+	giveitem ITEM_REVIVE
+	setflag FLAG_UNUSED_0x021
+DewfordTown_Gym_EventScript_NuzRematchDone::
 	msgbox DewfordTown_Gym_Text_BrawlyPostRematch, MSGBOX_AUTOCLOSE
 	end
 
@@ -433,21 +439,23 @@ DewfordTown_Gym_Text_GymStatueCertified:
 	.string "{PLAYER}$"
 
 DewfordTown_Gym_Text_BrawlyPreRematch:
-	.string "BRAWLY: A wave may draw back, but it\n"
-	.string "always returns to the shore.\p"
-	.string "A giant wave of a talent like you…\n"
-	.string "I knew you would return!\p"
-	.string "Show me how much higher\n"
-	.string "you've gone!$"
+	.string "BRAWLY: Whoa, the CHAMPION! I've\n"
+	.string "been riding bigger waves since you\p"
+	.string "left.\p"
+	.string "Let's see if you can still keep your\n"
+	.string "balance!$"
 
 DewfordTown_Gym_Text_BrawlyRematchDefeat:
-	.string "Wow!\n"
-	.string "Swamped again!$"
+	.string "Wiped out… and I loved every second\n"
+	.string "of it!$"
 
 DewfordTown_Gym_Text_BrawlyPostRematch:
-	.string "BRAWLY: Battling is vast and it's deep.\n"
-	.string "You can't see the bottom.\l"
-	.string "It's just like the sea of HOENN!$"
+	.string "BRAWLY: Fishermen talk about a cave\n"
+	.string "on ROUTE 105 that only opens when\p"
+	.string "the SEALED CHAMBER is solved.\p"
+	.string "They say the air inside freezes your\n"
+	.string "breath. Whatever waits there, it's\p"
+	.string "waiting for you.$"
 
 DewfordTown_Gym_Text_BrawlyRematchNeedTwoMons:
 	.string "BRAWLY: A wave may draw back, but it\n"
@@ -458,3 +466,8 @@ DewfordTown_Gym_Text_BrawlyRematchNeedTwoMons:
 	.string "that can battle.\p"
 	.string "I'm sorry, but I'd like you to come back\n"
 	.string "with at least two POKéMON.$"
+
+DewfordTown_Gym_Text_BrawlyNuzReward:
+	.string "BRAWLY: Here, take these! A MEGA\n"
+	.string "STONE and a REVIVE. You'll need both\p"
+	.string "where you're heading.$"

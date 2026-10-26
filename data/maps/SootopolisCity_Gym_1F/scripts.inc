@@ -138,6 +138,12 @@ SootopolisCity_Gym_1F_EventScript_GoGetFortreeBadge::
 
 SootopolisCity_Gym_1F_EventScript_JuanRematch::
 	trainerbattle_rematch_double TRAINER_JUAN_1, SootopolisCity_Gym_1F_Text_JuanPreRematch, SootopolisCity_Gym_1F_Text_JuanRematchDefeat, SootopolisCity_Gym_1F_Text_JuanRematchNeedTwoMons
+	goto_if_set FLAG_UNUSED_0x027, SootopolisCity_Gym_1F_EventScript_NuzRematchDone
+	msgbox SootopolisCity_Gym_1F_Text_JuanNuzReward, MSGBOX_DEFAULT
+	giveitem ITEM_BLASTOISINITE
+	giveitem ITEM_REVIVE
+	setflag FLAG_UNUSED_0x027
+SootopolisCity_Gym_1F_EventScript_NuzRematchDone::
 	msgbox SootopolisCity_Gym_1F_Text_JuanPostRematch, MSGBOX_AUTOCLOSE
 	end
 
@@ -284,27 +290,20 @@ SootopolisCity_Gym_1F_Text_GymStatueCertified:
 	.string "{PLAYER}$"
 
 SootopolisCity_Gym_1F_Text_JuanPreRematch:
-	.string "JUAN: Ah, this GYM had returned to its\n"
-	.string "usual state of serenity…\p"
-	.string "But our young typhoon has returned\n"
-	.string "to put us to the test again!\p"
-	.string "Well, my friend, most certainly!\p"
-	.string "I shall be delighted to dance with you\n"
-	.string "as often as you wish!$"
+	.string "JUAN: Ah, the CHAMPION returns to\n"
+	.string "SOOTOPOLIS.\p"
+	.string "Allow me to show you the true\n"
+	.string "elegance of water, polished to\p"
+	.string "perfection.$"
 
 SootopolisCity_Gym_1F_Text_JuanRematchDefeat:
-	.string "Ahahaha, you are the winner!\n"
-	.string "You have defeated me again!$"
+	.string "Magnificent. You are a true artist.$"
 
 SootopolisCity_Gym_1F_Text_JuanPostRematch:
-	.string "JUAN: If I told you to become my\n"
-	.string "apprentice, you will refuse, I am sure.\p"
-	.string "I would like to make a gift of my coat\n"
-	.string "to you.\p"
-	.string "But again, you will refuse.\n"
-	.string "I imagine that to be so.\p"
-	.string "And that, my friend, is a certain sign\n"
-	.string "of nobility!$"
+	.string "JUAN: There is one TRAINER you have\n"
+	.string "not yet surpassed.\p"
+	.string "STEVEN waits deep inside METEOR\n"
+	.string "FALLS. Go, and finish your journey.$"
 
 SootopolisCity_Gym_1F_Text_JuanRematchNeedTwoMons:
 	.string "JUAN: Ah, this GYM had returned to its\n"
@@ -318,3 +317,8 @@ SootopolisCity_Gym_1F_Text_JuanRematchNeedTwoMons:
 	.string "I wish that you would return with\n"
 	.string "two, perhaps more, POKéMON, please.$"
 
+SootopolisCity_Gym_1F_Text_JuanNuzReward:
+	.string "JUAN: Accept this MEGA STONE, a\n"
+	.string "jewel worthy of your talent. And a\p"
+	.string "REVIVE, for those who fell along the\n"
+	.string "way.$"

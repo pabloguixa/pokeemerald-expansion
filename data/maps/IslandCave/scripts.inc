@@ -91,10 +91,10 @@ IslandCave_EventScript_Regice::
 	lock
 	faceplayer
 	waitse
-	playmoncry SPECIES_KORAIDON, CRY_MODE_ENCOUNTER
+	playmoncry SPECIES_MEW, CRY_MODE_ENCOUNTER
 	delay 40
 	waitmoncry
-	setwildbattle SPECIES_KORAIDON, 40
+	setwildbattle SPECIES_MEW, 40
 	setflag FLAG_SYS_CTRL_OBJ_DELETE
 	special StartRegiBattle
 	clearflag FLAG_SYS_CTRL_OBJ_DELETE
@@ -112,6 +112,6 @@ IslandCave_EventScript_DefeatedRegice::
 	end
 
 IslandCave_EventScript_RanFromRegice::
-	setvar VAR_0x8004, SPECIES_KORAIDON
+	setvar VAR_0x8004, SPECIES_MEW
 	goto Common_EventScript_LegendaryFlewAway
 	end

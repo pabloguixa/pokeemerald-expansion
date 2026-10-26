@@ -48,10 +48,10 @@ NavelRock_Bottom_EventScript_Lugia::
 	delay 30
 	delay 50
 	waitse
-	playmoncry SPECIES_MELMETAL, CRY_MODE_ENCOUNTER
+	playmoncry SPECIES_DIANCIE, CRY_MODE_ENCOUNTER
 	waitmoncry
 	delay 20
-	seteventmon SPECIES_MELMETAL, 70
+	seteventmon SPECIES_DIANCIE, 70
 	setflag FLAG_SYS_CTRL_OBJ_DELETE
 	special BattleSetup_StartLegendaryBattle
 	clearflag FLAG_SYS_CTRL_OBJ_DELETE
@@ -65,11 +65,11 @@ NavelRock_Bottom_EventScript_Lugia::
 
 NavelRock_Bottom_EventScript_DefeatedLugia::
 	setflag FLAG_DEFEATED_LUGIA
-	setvar VAR_0x8004, SPECIES_MELMETAL
+	setvar VAR_0x8004, SPECIES_DIANCIE
 	goto Common_EventScript_LegendaryFlewAway
 	end
 
 NavelRock_Bottom_EventScript_RanFromLugia::
-	setvar VAR_0x8004, SPECIES_MELMETAL
+	setvar VAR_0x8004, SPECIES_DIANCIE
 	goto Common_EventScript_LegendaryFlewAway
 	end

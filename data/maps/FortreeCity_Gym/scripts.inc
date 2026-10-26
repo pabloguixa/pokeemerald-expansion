@@ -67,6 +67,14 @@ FortreeCity_Gym_EventScript_GiveAerialAce::
 
 FortreeCity_Gym_EventScript_WinonaRematch::
 	trainerbattle_rematch_double TRAINER_WINONA_1, FortreeCity_Gym_Text_WinonaPreRematch, FortreeCity_Gym_Text_WinonaRematchDefeat, FortreeCity_Gym_Text_WinonaRematchNeedTwoMons
+	goto_if_set FLAG_UNUSED_0x025, FortreeCity_Gym_EventScript_NuzRematchDone
+	msgbox FortreeCity_Gym_Text_WinonaNuzReward, MSGBOX_DEFAULT
+	giveitem ITEM_SALAMENCITE
+	giveitem ITEM_REVIVE
+	giveitem ITEM_EON_TICKET
+	setflag FLAG_ENABLE_SHIP_SOUTHERN_ISLAND
+	setflag FLAG_UNUSED_0x025
+FortreeCity_Gym_EventScript_NuzRematchDone::
 	msgbox FortreeCity_Gym_Text_WinonaPostRematch, MSGBOX_AUTOCLOSE
 	end
 
@@ -286,24 +294,21 @@ FortreeCity_Gym_Text_GymStatueCertified:
 	.string "{PLAYER}$"
 
 FortreeCity_Gym_Text_WinonaPreRematch:
-	.string "WINONA: We humans can never escape\n"
-	.string "gravity's pull on the ground.\p"
-	.string "But by striving for excellence,\n"
-	.string "we have the power to soar!\p"
-	.string "You have scaled the pinnacle as\n"
-	.string "the reigning CHAMPION.\p"
-	.string "Please, allow me to see your power\n"
-	.string "at full flight!$"
+	.string "WINONA: The CHAMPION, soaring back\n"
+	.string "to FORTREE.\p"
+	.string "My birds have grown stronger in the\n"
+	.string "high winds. Let's take to the sky\p"
+	.string "once more!$"
 
 FortreeCity_Gym_Text_WinonaRematchDefeat:
-	.string "I failed to reach your height again…$"
+	.string "We were outflown… beautifully.$"
 
 FortreeCity_Gym_Text_WinonaPostRematch:
-	.string "WINONA: Even though I have lost,\n"
-	.string "the wings of my heart remain unbroken.\p"
-	.string "I can rise and soar again and\n"
-	.string "yet again.\p"
-	.string "I am convinced of it!$"
+	.string "WINONA: The ticket points to\n"
+	.string "SOUTHERN ISLAND. Take the ferry from\p"
+	.string "LILYCOVE.\p"
+	.string "Something flies over that island at\n"
+	.string "dawn, faster than any of my POKéMON.$"
 
 FortreeCity_Gym_Text_WinonaRematchNeedTwoMons:
 	.string "WINONA: We humans can never escape\n"
@@ -318,3 +323,8 @@ FortreeCity_Gym_Text_WinonaRematchNeedTwoMons:
 	.string "POKéMON with you?\p"
 	.string "Please return with two POKéMON\n"
 	.string "at the very least.$"
+
+FortreeCity_Gym_Text_WinonaNuzReward:
+	.string "WINONA: Please, take this MEGA\n"
+	.string "STONE. And this EON TICKET… a bird\p"
+	.string "left it at my window.$"

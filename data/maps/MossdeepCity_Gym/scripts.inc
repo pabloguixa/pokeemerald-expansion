@@ -112,6 +112,14 @@ MossdeepCity_Gym_EventScript_GiveCalmMind::
 
 MossdeepCity_Gym_EventScript_TateAndLizaRematch::
 	trainerbattle_rematch_double TRAINER_TATE_AND_LIZA_1, MossdeepCity_Gym_Text_TateAndLizaPreRematch, MossdeepCity_Gym_Text_TateAndLizaRematchDefeat, MossdeepCity_Gym_Text_TateAndLizaRematchNeedTwoMons
+	goto_if_set FLAG_UNUSED_0x026, MossdeepCity_Gym_EventScript_NuzRematchDone
+	msgbox MossdeepCity_Gym_Text_TateAndLizaNuzReward, MSGBOX_DEFAULT
+	giveitem ITEM_STARMINITE
+	giveitem ITEM_REVIVE
+	giveitem ITEM_MYSTIC_TICKET
+	setflag FLAG_ENABLE_SHIP_NAVEL_ROCK
+	setflag FLAG_UNUSED_0x026
+MossdeepCity_Gym_EventScript_NuzRematchDone::
 	msgbox MossdeepCity_Gym_Text_TateAndLizaPostRematch, MSGBOX_AUTOCLOSE
 	end
 
@@ -620,26 +628,23 @@ MossdeepCity_Gym_Text_GymStatueCertified:
 	.string "{PLAYER}$"
 
 MossdeepCity_Gym_Text_TateAndLizaPreRematch:
-	.string "TATE: POKéMON…\n"
-	.string "LIZA: POKéMON…\p"
-	.string "TATE: By changing the party's mix…\n"
-	.string "LIZA: The battle style changes.\p"
-	.string "TATE: But me…\n"
-	.string "LIZA: But me…\p"
-	.string "TATE: I'll always be with LIZA!\n"
-	.string "LIZA: I'll always be with TATE!\p"
-	.string "TATE: Our combination…\n"
-	.string "LIZA: We'll show you again and again!$"
+	.string "TATE: We saw you coming!\p"
+	.string "LIZA: We always do!\p"
+	.string "TATE: But this time…\p"
+	.string "LIZA: …we're ready!$"
 
 MossdeepCity_Gym_Text_TateAndLizaRematchDefeat:
-	.string "TATE: You and your POKéMON…\n"
-	.string "LIZA: It's as if you were siblings!$"
+	.string "TATE: We didn't see… LIZA: …that\n"
+	.string "coming at all.$"
 
 MossdeepCity_Gym_Text_TateAndLizaPostRematch:
-	.string "TATE: You can knock us down,\n"
-	.string "but we'll never stay down!\p"
-	.string "LIZA: Because the two of us,\n"
-	.string "we always support each other!$"
+	.string "TATE: NAVEL ROCK sits at the edge of\n"
+	.string "the sea.\p"
+	.string "LIZA: Two legends rest there. One at\n"
+	.string "the very top…\p"
+	.string "TATE: …and one at the very bottom.\p"
+	.string "LIZA: The LILYCOVE ferry will take\n"
+	.string "you.$"
 
 MossdeepCity_Gym_Text_TateAndLizaRematchNeedTwoMons:
 	.string "TATE: You're back again…\n"
@@ -652,3 +657,8 @@ MossdeepCity_Gym_Text_TateAndLizaRematchNeedTwoMons:
 	.string "LIZA: You brought just one POKéMON!\p"
 	.string "TATE: We need you to bring at least…\n"
 	.string "LIZA: Two POKéMON when you come back.$"
+
+MossdeepCity_Gym_Text_TateAndLizaNuzReward:
+	.string "LIZA: Here's a MEGA STONE!\p"
+	.string "TATE: And a MYSTIC TICKET.\p"
+	.string "LIZA: We dreamed you'd need it.$"

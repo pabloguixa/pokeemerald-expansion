@@ -134,6 +134,12 @@ MauvilleCity_Gym_EventScript_CompletedNewMauville::
 
 MauvilleCity_Gym_EventScript_WattsonRematch::
 	trainerbattle_rematch_double TRAINER_WATTSON_1, MauvilleCity_Gym_Text_WattsonPreRematch, MauvilleCity_Gym_Text_WattsonRematchDefeat, MauvilleCity_Gym_Text_WattsonRematchNeedTwoMons
+	goto_if_set FLAG_UNUSED_0x022, MauvilleCity_Gym_EventScript_NuzRematchDone
+	msgbox MauvilleCity_Gym_Text_WattsonNuzReward, MSGBOX_DEFAULT
+	giveitem ITEM_RAICHUNITE_Y
+	giveitem ITEM_REVIVE
+	setflag FLAG_UNUSED_0x022
+MauvilleCity_Gym_EventScript_NuzRematchDone::
 	msgbox MauvilleCity_Gym_Text_WattsonPostRematch, MSGBOX_AUTOCLOSE
 	end
 
@@ -391,24 +397,21 @@ MauvilleCity_Gym_Text_GymStatueCertified:
 	.string "{PLAYER}$"
 
 MauvilleCity_Gym_Text_WattsonPreRematch:
-	.string "WATTSON: Ah-ha! Here at last!\n"
-	.string "I know what you want.\l"
-	.string "You want to battle my POKéMON!\p"
-	.string "Wahahahaha!\p"
-	.string "I'll make sparks fly from you!\n"
-	.string "Don't say I didn't warn you!$"
+	.string "WATTSON: Wahahahah! The CHAMPION,\n"
+	.string "back in MAUVILLE!\p"
+	.string "My POKéMON have been charging up\n"
+	.string "just for you!$"
 
 MauvilleCity_Gym_Text_WattsonRematchDefeat:
-	.string "Oof…\n"
-	.string "Our batteries ran dry…$"
+	.string "Wahahah! You fried my circuits\n"
+	.string "again!$"
 
 MauvilleCity_Gym_Text_WattsonPostRematch:
-	.string "WATTSON: We'll have to recharge our\n"
-	.string "batteries again.\p"
-	.string "When we're fully charged up, we'll\n"
-	.string "gladly accept your challenge.\p"
-	.string "So, come back again sometime,\n"
-	.string "won't you?$"
+	.string "WATTSON: Out on ROUTE 120 there's a\n"
+	.string "tomb nobody dares to enter.\p"
+	.string "Folks say its walls hum like a power\n"
+	.string "plant at night. Wahahah! Sounds like\p"
+	.string "your kind of place!$"
 
 MauvilleCity_Gym_Text_WattsonRematchNeedTwoMons:
 	.string "WATTSON: Ah-ha! Here at last!\n"
@@ -420,3 +423,7 @@ MauvilleCity_Gym_Text_WattsonRematchNeedTwoMons:
 	.string "Come see me with two or more\n"
 	.string "POKéMON, all right?$"
 
+MauvilleCity_Gym_Text_WattsonNuzReward:
+	.string "WATTSON: A promise is a promise!\n"
+	.string "Take this MEGA STONE, and a little\p"
+	.string "spark of life for emergencies.$"

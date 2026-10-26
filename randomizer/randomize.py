@@ -10,7 +10,7 @@ Siempre parte de los archivos originales (se guardan una sola vez en
 randomizer/_original/), así que puedes ejecutarlo tantas veces como quieras.
 Después: make -j$(nproc)
 
-Partes hechas: 1 · Iniciales  ·  2 · Rival  ·  3 · Rutas  ·  4 · Evoluciones por intercambio  ·  5 · Entrenadores y líderes  ·  6 · Legendarios fijos  ·  7 · Nuzlocke (Revivir).
+Partes hechas: 1 · Iniciales  ·  2 · Rival  ·  3 · Rutas  ·  4 · Evoluciones por intercambio  ·  5 · Entrenadores y líderes  ·  6 · Legendarios fijos  ·  7 · Nuzlocke (Revivir)  ·  8 · Revanchas.
 """
 import json
 import random
@@ -495,12 +495,26 @@ LEADERS = {                  # en orden de medalla
     "TATE_AND_LIZA": "TYPE_PSYCHIC", "JUAN": "TYPE_WATER",
 }
 ELITE = {"SIDNEY": "TYPE_DARK", "PHOEBE": "TYPE_GHOST", "GLACIA": "TYPE_ICE",
-         "DRAKE": "TYPE_DRAGON", "WALLACE": "TYPE_WATER"}
+         "DRAKE": "TYPE_DRAGON", "WALLACE": "TYPE_WATER",
+         "STEVEN": "TYPE_STEEL"}          # Máximo: jefe final del post-game (Meteoritos)
+FORCED_ACE = {"STEVEN": ("SPECIES_METAGROSS", "ITEM_METAGROSSITE")}
 LEADER_TEAM_SIZE = [3, 3, 4, 4, 5, 5, 6, 6]   # el equipo crece con cada medalla
 REMATCH_TEAM_SIZE = 6
 ELITE_TEAM_SIZE = 6
 IVS_REGULAR, IVS_BOSS, IVS_CHAMPION = 15, 25, 31
 KEEP_FIELDS = ("Nature:", "Shiny:", "Ball:", "Happiness:", "EVs:")
+
+
+def load_mega_stones():
+    """{SPECIES_BASE: [ITEM_PIEDRA, ...]} leyendo las tablas de cambio de forma del proyecto."""
+    text = (ROOT / "src/data/pokemon/form_change_tables.h").read_text(encoding="utf-8")
+    stones = {}
+    for mega, item in re.findall(r"FORM_CHANGE_BATTLE_MEGA_EVOLUTION_ITEM,\s*(SPECIES_\w+),\s*(ITEM_\w+)", text):
+        base = re.sub(r"_MEGA(_[XYZ])?$", "", mega)
+        stones.setdefault(base, [])
+        if item not in stones[base]:
+            stones[base].append(item)
+    return stones
 
 
 def species_name_index(aliases):
@@ -608,7 +622,9 @@ class TrainerRandomizer:
         self.min_lv, self.evolves_at = compute_level_info(db)
         self.usage = {}
         self.memory = {}          # (nombre del entrenador, base original) -> línea nueva
-        self.ace = {}             # nombre del líder -> especie del as (igual en las revanchas)
+        self.ace = {}             # nombre del líder -> especie del as
+        self.mega_ace = {}        # nombre del líder -> (especie, megapiedra) para la revancha
+        self.stones = load_mega_stones()
         self.unknown = set()
 
     def candidates(self, level, type_=None, exclude=(), final_only=False):
@@ -647,6 +663,20 @@ class TrainerRandomizer:
         self.memory[key] = self.L.line_through(sp, self.rng)
         return sp
 
+    def mega_ace_for(self, who, level, type_, team):
+        """As de la revancha: de su tipo, en etapa final y con megaevolución."""
+        if who in self.mega_ace:
+            return self.mega_ace[who]
+        megas = [sp for sp in self.stones if sp in self.db and sp in self.pool]
+        c = [sp for sp in self.candidates(level, type_, exclude=team, final_only=True) if sp in megas]
+        if not c:
+            c = [sp for sp in megas if type_ in self.db[sp]["types"] and sp not in team]
+        if not c:
+            c = [sp for sp in megas if sp not in team]
+        sp = self.pick(c)
+        self.mega_ace[who] = (sp, self.rng.choice(self.stones[sp]))
+        return self.mega_ace[who]
+
     def ace_for(self, who, level, type_, team):
         if who in self.ace and self.ace[who] not in team:
             return self.ace[who]
@@ -672,6 +702,7 @@ def randomize_trainers(text, db, aliases, normal, rng):
     head, sep, body = text.partition("=== TRAINER_")
     blocks = re.split(r"(?m)^(?==== TRAINER_)", sep + body)
     leaders_report, ace_levels = {}, {}
+    rematch_parts = {}        # NOMBRE -> Pokémon de la revancha _2 (se copian en _3, _4 y _5)
     out = []
     for block in blocks:
         m = re.match(r"=== TRAINER_(\w+) ===", block)
@@ -690,10 +721,16 @@ def randomize_trainers(text, db, aliases, normal, rng):
             out.append(block)
             continue
         type_ = LEADERS.get(who) or ELITE.get(who)
+        if role == "leader" and rematch and not const.endswith("_2") and who in rematch_parts:
+            # Solo hay una revancha de verdad: las siguientes repiten el mismo equipo
+            out.append("\n\n".join([header] + rematch_parts[who]) + "\n\n")
+            continue
+        if who == "STEVEN":
+            role = "elite"
         ivs = IVS_REGULAR
         if role in ("leader", "elite", "rival"):
             ivs = IVS_BOSS
-        if who == "WALLACE":
+        if who in ("WALLACE", "STEVEN"):
             ivs = IVS_CHAMPION
         team, new_parts = [], []
         n_real = len(real)
@@ -708,6 +745,10 @@ def randomize_trainers(text, db, aliases, normal, rng):
             elif orig is None:
                 tr.unknown.add(mon["species_raw"])
                 sp = mon["species_raw"]
+            elif type_ and real[-1][0] is raw and who in FORCED_ACE:
+                sp, mon["item"] = FORCED_ACE[who]
+            elif type_ and real[-1][0] is raw and role == "leader" and rematch:
+                sp, mon["item"] = tr.mega_ace_for(who, level, type_, team)   # el as megaevoluciona
             elif type_ and real[-1][0] is raw:             # el último de un líder/Alto Mando: el as
                 sp = tr.ace_for(who, level, type_, team)
             else:
@@ -739,10 +780,12 @@ def randomize_trainers(text, db, aliases, normal, rng):
                 ace_levels[badge] = max(levels)
             if who == "WALLACE":
                 ace_levels["champion"] = max(levels)
+            if role == "leader" and const.endswith("_2"):
+                rematch_parts[who] = new_parts
         out.append("\n\n".join([header] + new_parts) + "\n\n")
     if tr.unknown:
         print("  Aviso: nombres no reconocidos (se dejan igual):", ", ".join(sorted(tr.unknown)))
-    return head + "".join(out).rstrip("\n") + "\n", leaders_report, ace_levels
+    return head + "".join(out).rstrip("\n") + "\n", leaders_report, ace_levels, tr.mega_ace
 
 
 def update_level_caps(text, ace_levels):
@@ -826,6 +869,160 @@ def apply_nuzlocke(texts):
     return out, removed, swapped, gyms
 
 
+# --------------------------------------------------------------------------
+# Parte 8 · Revanchas de líderes (después del Alto Mando)
+# Diálogos nuevos + megapiedra del as + 1 Revivir + desbloqueo de un legendario
+# --------------------------------------------------------------------------
+REMATCHES = [
+    # (carpeta del gimnasio, prefijo de textos, líder, flag libre, objeto/flag que desbloquea)
+    ("RustboroCity_Gym", "RustboroCity_Gym_Text_Roxanne", "ROXANNE", "FLAG_UNUSED_0x020", None),
+    ("DewfordTown_Gym", "DewfordTown_Gym_Text_Brawly", "BRAWLY", "FLAG_UNUSED_0x021", None),
+    ("MauvilleCity_Gym", "MauvilleCity_Gym_Text_Wattson", "WATTSON", "FLAG_UNUSED_0x022", None),
+    ("LavaridgeTown_Gym_1F", "LavaridgeTown_Gym_1F_Text_Flannery", "FLANNERY", "FLAG_UNUSED_0x023",
+     ("ITEM_OLD_SEA_MAP", "FLAG_ENABLE_SHIP_FARAWAY_ISLAND")),
+    ("PetalburgCity_Gym", "PetalburgCity_Gym_Text_Norman", "NORMAN", "FLAG_UNUSED_0x024",
+     ("ITEM_AURORA_TICKET", "FLAG_ENABLE_SHIP_BIRTH_ISLAND")),
+    ("FortreeCity_Gym", "FortreeCity_Gym_Text_Winona", "WINONA", "FLAG_UNUSED_0x025",
+     ("ITEM_EON_TICKET", "FLAG_ENABLE_SHIP_SOUTHERN_ISLAND")),
+    ("MossdeepCity_Gym", "MossdeepCity_Gym_Text_TateAndLiza", "TATE_AND_LIZA", "FLAG_UNUSED_0x026",
+     ("ITEM_MYSTIC_TICKET", "FLAG_ENABLE_SHIP_NAVEL_ROCK")),
+    ("SootopolisCity_Gym_1F", "SootopolisCity_Gym_1F_Text_Juan", "JUAN", "FLAG_UNUSED_0x027", None),
+]
+
+# Cada texto es una lista de párrafos; se reparten solos en líneas de la caja de diálogo.
+REMATCH_TEXTS = {
+    "ROXANNE": {
+        "pre": ["ROXANNE: The new CHAMPION, here in my humble GYM?",
+                "I have studied every page since our last battle. Today you face my true strength!"],
+        "defeat": ["Remarkable… Not even my new partner could stop you."],
+        "reward": ["ROXANNE: You have earned this. My partner's MEGA STONE… and something for the fallen."],
+        "post": ["ROXANNE: An old text speaks of ruins swallowed by the sands of ROUTE 111.",
+                 "Its door only answers to those who solved the SEALED CHAMBER under the sea of ROUTE 134.",
+                 "Something ancient sleeps there… and it is not what the old stories say."],
+    },
+    "BRAWLY": {
+        "pre": ["BRAWLY: Whoa, the CHAMPION! I've been riding bigger waves since you left.",
+                "Let's see if you can still keep your balance!"],
+        "defeat": ["Wiped out… and I loved every second of it!"],
+        "reward": ["BRAWLY: Here, take these! A MEGA STONE and a REVIVE. You'll need both where you're heading."],
+        "post": ["BRAWLY: Fishermen talk about a cave on ROUTE 105 that only opens when the SEALED CHAMBER is solved.",
+                 "They say the air inside freezes your breath. Whatever waits there, it's waiting for you."],
+    },
+    "WATTSON": {
+        "pre": ["WATTSON: Wahahahah! The CHAMPION, back in MAUVILLE!",
+                "My POKéMON have been charging up just for you!"],
+        "defeat": ["Wahahah! You fried my circuits again!"],
+        "reward": ["WATTSON: A promise is a promise! Take this MEGA STONE, and a little spark of life for emergencies."],
+        "post": ["WATTSON: Out on ROUTE 120 there's a tomb nobody dares to enter.",
+                 "Folks say its walls hum like a power plant at night. Wahahah! Sounds like your kind of place!"],
+    },
+    "FLANNERY": {
+        "pre": ["FLANNERY: CHAMPION! I've trained in the heat of MT. CHIMNEY every single day.",
+                "This time I'm not holding anything back!"],
+        "defeat": ["Phew… you really are on fire."],
+        "reward": ["FLANNERY: Take this MEGA STONE. And this… an OLD SEA MAP my grandpa found in the hot springs."],
+        "post": ["FLANNERY: The map shows an island nobody has ever charted.",
+                 "Show it at the LILYCOVE harbor and the ferry will take you there.",
+                 "Grandpa swore something hides in its jungle, watching every visitor…"],
+    },
+    "NORMAN": {
+        "pre": ["NORMAN: So my child has become the CHAMPION…",
+                "Then I won't hold back, not as your father and not as a LEADER. Show me everything!"],
+        "defeat": ["…I couldn't be prouder."],
+        "reward": ["NORMAN: This MEGA STONE was my partner's secret. And this AURORA TICKET came from DEVON. I think it was meant for you."],
+        "post": ["NORMAN: The ticket leads to BIRTH ISLAND, far beyond any route.",
+                 "Board the ferry at LILYCOVE. They say a strange triangle floats there, waiting to be solved."],
+    },
+    "WINONA": {
+        "pre": ["WINONA: The CHAMPION, soaring back to FORTREE.",
+                "My birds have grown stronger in the high winds. Let's take to the sky once more!"],
+        "defeat": ["We were outflown… beautifully."],
+        "reward": ["WINONA: Please, take this MEGA STONE. And this EON TICKET… a bird left it at my window."],
+        "post": ["WINONA: The ticket points to SOUTHERN ISLAND. Take the ferry from LILYCOVE.",
+                 "Something flies over that island at dawn, faster than any of my POKéMON."],
+    },
+    "TATE_AND_LIZA": {
+        "pre": ["TATE: We saw you coming!", "LIZA: We always do!",
+                "TATE: But this time…", "LIZA: …we're ready!"],
+        "defeat": ["TATE: We didn't see… LIZA: …that coming at all."],
+        "reward": ["LIZA: Here's a MEGA STONE!", "TATE: And a MYSTIC TICKET.", "LIZA: We dreamed you'd need it."],
+        "post": ["TATE: NAVEL ROCK sits at the edge of the sea.",
+                 "LIZA: Two legends rest there. One at the very top…",
+                 "TATE: …and one at the very bottom.", "LIZA: The LILYCOVE ferry will take you."],
+    },
+    "JUAN": {
+        "pre": ["JUAN: Ah, the CHAMPION returns to SOOTOPOLIS.",
+                "Allow me to show you the true elegance of water, polished to perfection."],
+        "defeat": ["Magnificent. You are a true artist."],
+        "reward": ["JUAN: Accept this MEGA STONE, a jewel worthy of your talent. And a REVIVE, for those who fell along the way."],
+        "post": ["JUAN: There is one TRAINER you have not yet surpassed.",
+                 "STEVEN waits deep inside METEOR FALLS. Go, and finish your journey."],
+    },
+}
+TEXT_LINE_WIDTH = 36
+
+
+def gba_text(paragraphs):
+    """Convierte párrafos en líneas .string (2 líneas por caja, \\p entre cajas)."""
+    boxes = []
+    for para in paragraphs:
+        lines, cur = [], ""
+        for word in para.split():
+            if cur and len(cur) + 1 + len(word) > TEXT_LINE_WIDTH:
+                lines.append(cur)
+                cur = word
+            else:
+                cur = f"{cur} {word}" if cur else word
+        if cur:
+            lines.append(cur)
+        for i in range(0, len(lines), 2):
+            boxes.append(lines[i:i + 2])
+    out = []
+    for bi, box in enumerate(boxes):
+        for li, line in enumerate(box):
+            last_line = li == len(box) - 1
+            end = ("$" if bi == len(boxes) - 1 else "\\p") if last_line else "\\n"
+            out.append(f'\t.string "{line}{end}"')
+    return "\n".join(out) + "\n"
+
+
+def replace_text_block(text, label, paragraphs):
+    pat = re.compile(r"^" + re.escape(label) + r":\n(?:[ \t]*\.string .*\n)+", re.M)
+    if not pat.search(text):
+        sys.exit(f"ERROR: no encuentro el texto {label}")
+    return pat.sub(lambda m: f"{label}:\n" + gba_text(paragraphs), text, count=1)
+
+
+def apply_rematches(texts, mega_aces):
+    out = dict(texts)
+    report = []
+    for gym, prefix, leader, flag, unlock in REMATCHES:
+        rel = f"data/maps/{gym}/scripts.inc"
+        t = out[rel]
+        stone = mega_aces[leader][1] if leader in mega_aces else "ITEM_REVIVE"
+        done = f"{gym}_EventScript_NuzRematchDone"
+        pat = re.compile(r"(^\ttrainerbattle_rematch_double [^\n]*\n)(\tmsgbox " + re.escape(prefix) + r"PostRematch)", re.M)
+        if not pat.search(t):
+            sys.exit(f"ERROR: no encuentro la revancha de {leader}")
+        reward = [f"\tgoto_if_set {flag}, {done}",
+                  f"\tmsgbox {prefix}NuzReward, MSGBOX_DEFAULT",
+                  f"\tgiveitem {stone}",
+                  "\tgiveitem ITEM_REVIVE"]
+        if unlock:
+            reward += [f"\tgiveitem {unlock[0]}", f"\tsetflag {unlock[1]}"]
+        reward += [f"\tsetflag {flag}", f"{done}::"]
+        t = pat.sub(lambda m: m.group(1) + "\n".join(reward) + "\n" + m.group(2), t, count=1)
+        tx = REMATCH_TEXTS[leader]
+        t = replace_text_block(t, prefix + "PreRematch", tx["pre"])
+        t = replace_text_block(t, prefix + "RematchDefeat", tx["defeat"])
+        t = replace_text_block(t, prefix + "PostRematch", tx["post"])
+        t = t.rstrip("\n") + f"\n\n{prefix}NuzReward:\n" + gba_text(tx["reward"])
+        out[rel] = t
+        report.append({"leader": leader, "mega_ace": pretty(mega_aces[leader][0]) if leader in mega_aces else None,
+                       "stone": stone, "unlock": unlock[0] if unlock else None})
+    return out, report
+
+
 def main():
     seed = int(sys.argv[1]) if len(sys.argv) > 1 else random.randrange(1, 10**6)
     rng = random.Random(seed)
@@ -848,7 +1045,7 @@ def main():
     result["starter_lines"] = [[x[0] for x in l] for l in lines]
 
     normal_pool, _ = build_pools(db, aliases)
-    trainers_text, leaders_report, ace_levels = randomize_trainers(
+    trainers_text, leaders_report, ace_levels, mega_aces = randomize_trainers(
         originals["src/data/trainers.party"], db, aliases, normal_pool, rng)
     result["leaders"] = leaders_report
     caps = update_level_caps(originals["src/caps.c"], ace_levels)
@@ -890,6 +1087,9 @@ def main():
     map_texts, removed, swapped, gyms = apply_nuzlocke(map_texts)
     print(f"Nuzlocke: {removed} Revivir quitados de tiendas, {swapped} del mapa cambiados por curas, "
           f"{gyms}/8 líderes dan 1 Revivir")
+    map_texts, rematch_report = apply_rematches(map_texts, mega_aces)
+    result["rematches"] = rematch_report
+    print("Revanchas:", ", ".join(f"{r['leader'].title()} ({r['mega_ace']})" for r in rematch_report))
     for rel, text in map_texts.items():
         (ROOT / rel).write_text(text, encoding="utf-8")
 
