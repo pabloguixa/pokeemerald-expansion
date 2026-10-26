@@ -538,10 +538,18 @@ AI: Basic Trainer
 SPECIES_MORGREM
 Level: 37
 IVs: 15 HP / 15 Atk / 15 Def / 15 SpA / 15 SpD / 15 Spe
+- Dark Pulse
+- Dazzling Gleam
+- Burning Jealousy
+- Reflect
 
 SPECIES_SWANNA
 Level: 37
 IVs: 15 HP / 15 Atk / 15 Def / 15 SpA / 15 SpD / 15 Spe
+- Surf
+- Hurricane
+- Ice Beam
+- Tailwind
 
 === TRAINER_ZANDER ===
 Name: ZANDER
@@ -568,10 +576,18 @@ AI: Basic Trainer
 SPECIES_MAROWAK_ALOLA
 Level: 31
 IVs: 15 HP / 15 Atk / 15 Def / 15 SpA / 15 SpD / 15 Spe
+- Fire Punch
+- Shadow Bone
+- Earthquake
+- Brick Break
 
 SPECIES_GOLEM_ALOLA
 Level: 31
 IVs: 15 HP / 15 Atk / 15 Def / 15 SpA / 15 SpD / 15 Spe
+- Stone Edge
+- Supercell Slam
+- Earthquake
+- Protect
 
 === TRAINER_SHELLY_SEAFLOOR_CAVERN ===
 Name: SHELLY
@@ -585,10 +601,18 @@ AI: Basic Trainer
 SPECIES_MAROWAK_ALOLA
 Level: 41
 IVs: 15 HP / 15 Atk / 15 Def / 15 SpA / 15 SpD / 15 Spe
+- Flare Blitz
+- Shadow Bone
+- Earthquake
+- Outrage
 
 SPECIES_GRAVELER_ALOLA
 Level: 41
 IVs: 15 HP / 15 Atk / 15 Def / 15 SpA / 15 SpD / 15 Spe
+- Stone Edge
+- Supercell Slam
+- Superpower
+- Thunder Wave
 
 === TRAINER_ARCHIE ===
 Name: ARCHIE
@@ -603,14 +627,26 @@ AI: Basic Trainer
 SPECIES_LAMPENT
 Level: 45
 IVs: 15 HP / 15 Atk / 15 Def / 15 SpA / 15 SpD / 15 Spe
+- Shadow Ball
+- Overheat
+- Energy Ball
+- Psychic
 
 SPECIES_SEAKING
 Level: 45
 IVs: 15 HP / 15 Atk / 15 Def / 15 SpA / 15 SpD / 15 Spe
+- Aqua Tail
+- Megahorn
+- Drill Run
+- Toxic
 
 SPECIES_FARFETCHD
 Level: 47
 IVs: 15 HP / 15 Atk / 15 Def / 15 SpA / 15 SpD / 15 Spe
+- Double Edge
+- Brave Bird
+- Close Combat
+- Swords Dance
 
 === TRAINER_LEAH ===
 Name: LEAH
@@ -4358,27 +4394,51 @@ Mugshot: Purple
 SPECIES_MALAMAR
 Level: 51
 IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Foul Play
+- Zen Headbutt
+- Superpower
+- Protect
 
 SPECIES_RATICATE_ALOLA
 Level: 53
 IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Crunch
+- Double Edge
+- Iron Tail
+- Zen Headbutt
 
 SPECIES_BISHARP
 Level: 51
 IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Foul Play
+- Iron Head
+- Stone Edge
+- Brick Break
 
 SPECIES_SCRAFTY
 Level: 53
 IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Foul Play
+- Close Combat
+- Head Smash
+- Substitute
 
 SPECIES_MANDIBUZZ
 Level: 53
 IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Foul Play
+- Brave Bird
+- Double Edge
+- Bone Rush
 
 SPECIES_PANGORO @ Sitrus Berry
 Level: 54
 IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
 Ability: ABILITY_SCRAPPY
+- Close Combat
+- Foul Play
+- Earthquake
+- Swords Dance
 
 === TRAINER_PHOEBE ===
 Name: PHOEBE
@@ -4394,27 +4454,51 @@ Mugshot: Green
 SPECIES_POLTCHAGEIST_COUNTERFEIT
 Level: 53
 IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Leaf Storm
+- Shadow Ball
+- Scald
+- Trick Room
 
 SPECIES_SKELEDIRGE
 Level: 54
 IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Overheat
+- Shadow Ball
+- Earth Power
+- Hyper Voice
 
 SPECIES_BANETTE
 Level: 55
 IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Shadow Claw
+- Gunk Shot
+- Zen Headbutt
+- Double Edge
 
 SPECIES_CHANDELURE
 Level: 54
 IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Shadow Ball
+- Overheat
+- Energy Ball
+- Will O Wisp
 
 SPECIES_DUSCLOPS
 Level: 54
 IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Shadow Punch
+- Earthquake
+- Ice Punch
+- Brick Break
 
 SPECIES_CURSOLA @ Sitrus Berry
 Level: 56
 IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
 Ability: ABILITY_PERISH_BODY
+- Shadow Ball
+- Earth Power
+- Ice Beam
+- Calm Mind
 
 === TRAINER_GLACIA ===
 Name: GLACIA
@@ -4430,27 +4514,51 @@ Mugshot: Pink
 SPECIES_SANDSHREW_ALOLA
 Level: 55
 IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Ice Spinner
+- Iron Head
+- Earthquake
+- Protect
 
 SPECIES_GLACEON
 Level: 55
 IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Ice Beam
+- Alluring Voice
+- Shadow Ball
+- Protect
 
 SPECIES_SANDSLASH_ALOLA
 Level: 57
 IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Ice Spinner
+- Iron Head
+- Earthquake
+- Spikes
 
 SPECIES_WEAVILE
 Level: 57
 IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Foul Play
+- Ice Spinner
+- Brick Break
+- Protect
 
 SPECIES_DEWGONG
 Level: 57
 IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Surf
+- Ice Beam
+- Drill Run
+- Megahorn
 
 SPECIES_GLALIE @ Sitrus Berry
 Level: 58
 IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
 Ability: ABILITY_MOODY
+- Ice Beam
+- Earthquake
+- Foul Play
+- Substitute
 
 === TRAINER_DRAKE ===
 Name: DRAKE
@@ -4466,27 +4574,51 @@ Mugshot: Blue
 SPECIES_KINGDRA
 Level: 57
 IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Wave Crash
+- Outrage
+- Ice Beam
+- Double Edge
 
 SPECIES_ZWEILOUS
 Level: 59
 IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Crunch
+- Outrage
+- Superpower
+- Substitute
 
 SPECIES_DURALUDON
 Level: 58
 IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Flash Cannon
+- Draco Meteor
+- Thunderbolt
+- Light Screen
 
 SPECIES_APPLIN
 Level: 58
 IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Draco Meteor
+- Sucker Punch
+- Pounce
+- Astonish
 
 SPECIES_DRAKLOAK
 Level: 58
 IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Outrage
+- Double Edge
+- Fire Blast
+- Will O Wisp
 
 SPECIES_BAXCALIBUR @ Sitrus Berry
 Level: 61
 IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
 Ability: ABILITY_ICE_BODY
+- Glaive Rush
+- Icicle Crash
+- Earthquake
+- Swords Dance
 
 === TRAINER_ROXANNE_1 ===
 Name: ROXANNE
@@ -4501,15 +4633,27 @@ AI: Basic Trainer
 SPECIES_TYRUNT
 Level: 13
 IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Rock Tomb
+- Dragon Tail
+- Bulldoze
+- Toxic
 
 SPECIES_AMAURA
 Level: 13
 IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Ancient Power
+- Aurora Beam
+- Mud Shot
+- Toxic
 
 SPECIES_CORSOLA @ Oran Berry
 Level: 16
 IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
 Ability: ABILITY_REGENERATOR
+- Brine
+- Ancient Power
+- Icy Wind
+- Calm Mind
 
 === TRAINER_BRAWLY_1 ===
 Name: BRAWLY
@@ -4524,15 +4668,27 @@ AI: Basic Trainer
 SPECIES_MANKEY
 Level: 18
 IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Brick Break
+- Ice Punch
+- Bulldoze
+- Lash Out
 
 SPECIES_HITMONTOP
 Level: 18
 IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Brick Break
+- Rock Slide
+- Sucker Punch
+- Aerial Ace
 
 SPECIES_BRELOOM @ Sitrus Berry
 Level: 21
 IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
 Ability: ABILITY_TECHNICIAN
+- Seed Bomb
+- Brick Break
+- Rock Slide
+- Swords Dance
 
 === TRAINER_WATTSON_1 ===
 Name: WATTSON
@@ -4547,19 +4703,35 @@ AI: Basic Trainer
 SPECIES_TADBULB
 Level: 22
 IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Discharge
+- Water Pulse
+- Swift
+- Thunder Wave
 
 SPECIES_MAGNEMITE
 Level: 22
 IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Discharge
+- Flash Cannon
+- Signal Beam
+- Reflect
 
 SPECIES_PINCURCHIN
 Level: 24
 IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Zing Zap
+- Liquidation
+- Pin Missile
+- Poison Jab
 
 SPECIES_MINUN @ Sitrus Berry
 Level: 26
 IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
 Ability: ABILITY_VOLT_ABSORB
+- Thunderbolt
+- Alluring Voice
+- Signal Beam
+- Nasty Plot
 
 === TRAINER_FLANNERY_1 ===
 Name: FLANNERY
@@ -4574,19 +4746,35 @@ AI: Basic Trainer
 SPECIES_BRAIXEN
 Level: 26
 IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Flamethrower
+- Psychic
+- Mud Shot
+- Hypnosis
 
 SPECIES_LITLEO
 Level: 26
 IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Flamethrower
+- Hyper Voice
+- Earth Power
+- Dark Pulse
 
 SPECIES_SALANDIT
 Level: 29
 IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Sludge Wave
+- Flamethrower
+- Dragon Pulse
+- Thunder Wave
 
 SPECIES_CAMERUPT @ White Herb
 Level: 32
 IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
 Ability: ABILITY_ANGER_POINT
+- Eruption
+- Earthquake
+- Lash Out
+- Toxic
 
 === TRAINER_NORMAN_1 ===
 Name: NORMAN
@@ -4601,23 +4789,43 @@ AI: Basic Trainer
 SPECIES_DUBWOOL
 Level: 30
 IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Body Slam
+- Wild Charge
+- Zen Headbutt
+- Substitute
 
 SPECIES_GRAFAIAI
 Level: 30
 IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Poison Jab
+- Slash
+- Low Sweep
+- Taunt
 
 SPECIES_CHATOT
 Level: 32
 IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Hyper Voice
+- Air Slash
+- Heat Wave
+- Roost
 
 SPECIES_MILTANK
 Level: 32
 IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Body Slam
+- Earthquake
+- Ice Punch
+- Brick Break
 
 SPECIES_BEWEAR @ Sitrus Berry
 Level: 34
 IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
 Ability: ABILITY_UNNERVE
+- Body Slam
+- Brick Break
+- Earthquake
+- Swords Dance
 
 === TRAINER_WINONA_1 ===
 Name: WINONA
@@ -4632,23 +4840,43 @@ AI: Basic Trainer / Risky
 SPECIES_NINJASK
 Level: 32
 IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Leech Life
+- Dual Wingbeat
+- Night Slash
+- Substitute
 
 SPECIES_VESPIQUEN
 Level: 32
 IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Attack Order
+- Dual Wingbeat
+- Power Gem
+- Sludge Bomb
 
 SPECIES_TOUCANNON
 Level: 33
 IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Take Down
+- Drill Peck
+- Brick Break
+- Seed Bomb
 
 SPECIES_HAWLUCHA
 Level: 34
 IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Flying Press
+- Dual Wingbeat
+- Stone Edge
+- Throat Chop
 
 SPECIES_EMOLGA @ Oran Berry
 Level: 36
 IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
 Ability: ABILITY_MOTOR_DRIVE
+- Thunderbolt
+- Dual Wingbeat
+- Iron Tail
+- Taunt
 
 === TRAINER_TATE_AND_LIZA_1 ===
 Name: TATE&LIZA
@@ -4663,27 +4891,51 @@ AI: Basic Trainer
 SPECIES_GALLADE
 Level: 45
 IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Zen Headbutt
+- Close Combat
+- Earthquake
+- Trick Room
 
 SPECIES_SIGILYPH
 Level: 45
 IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Psychic
+- Air Slash
+- Energy Ball
+- Substitute
 
 SPECIES_HATTERENE @ Sitrus Berry
 Level: 46
 IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Psychic
+- Dazzling Gleam
+- Mystical Fire
+- Giga Drain
 
 SPECIES_DUOSION
 Level: 46
 IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Psychic
+- Energy Ball
+- Signal Beam
+- Encore
 
 SPECIES_GOTHITELLE
 Level: 46
 IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Psychic
+- Focus Blast
+- Energy Ball
+- Substitute
 
 SPECIES_MR_MIME @ Sitrus Berry
 Level: 46
 IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
 Ability: ABILITY_TECHNICIAN
+- Psychic
+- Dazzling Gleam
+- Focus Blast
+- Nasty Plot
 
 === TRAINER_JUAN_1 ===
 Name: JUAN
@@ -4698,27 +4950,51 @@ AI: Basic Trainer
 SPECIES_QWILFISH
 Level: 45
 IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Liquidation
+- Gunk Shot
+- Crunch
+- Protect
 
 SPECIES_SLOWKING
 Level: 45
 IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Surf
+- Psychic
+- Fire Blast
+- Ice Beam
 
 SPECIES_BASCULIN_RED_STRIPED
 Level: 47
 IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Wave Crash
+- Superpower
+- Double Edge
+- Ice Beam
 
 SPECIES_SLOWBRO
 Level: 47
 IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Surf
+- Psychic
+- Fire Blast
+- Yawn
 
 SPECIES_LAPRAS
 Level: 47
 IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Sparkling Aria
+- Ice Beam
+- Earthquake
+- Protect
 
 SPECIES_KABUTOPS @ Chesto Berry
 Level: 51
 IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
 Ability: ABILITY_WEAK_ARMOR
+- Stone Edge
+- Liquidation
+- Superpower
+- Swords Dance
 
 === TRAINER_JERRY_1 ===
 Name: JERRY
@@ -5738,27 +6014,51 @@ Mugshot: Yellow
 SPECIES_DREDNAW
 Level: 63
 IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
+- Liquidation
+- Head Smash
+- Superpower
+- Protect
 
 SPECIES_LUVDISC
 Level: 61
 IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
+- Surf
+- Ice Beam
+- Double Edge
+- Toxic
 
 SPECIES_TENTACRUEL
 Level: 62
 IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
+- Surf
+- Sludge Wave
+- Dazzling Gleam
+- Ice Beam
 
 SPECIES_BARBARACLE
 Level: 62
 IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
+- Stone Edge
+- Liquidation
+- Close Combat
+- Protect
 
 SPECIES_QUAQUAVAL
 Level: 62
 IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
+- Wave Crash
+- Close Combat
+- Brave Bird
+- Mega Kick
 
 SPECIES_SAMUROTT @ Sitrus Berry
 Level: 64
 IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
 Ability: ABILITY_SHELL_ARMOR
+- Surf
+- Superpower
+- Ice Beam
+- Taunt
 
 === TRAINER_ANDREW ===
 Name: ANDREW
@@ -8674,14 +8974,26 @@ Multi Party: Half
 SPECIES_GABITE
 Level: 40
 IVs: 15 HP / 15 Atk / 15 Def / 15 SpA / 15 SpD / 15 Spe
+- Outrage
+- Earthquake
+- Double Edge
+- Stone Edge
 
 SPECIES_SNORLAX
 Level: 42
 IVs: 15 HP / 15 Atk / 15 Def / 15 SpA / 15 SpD / 15 Spe
+- Double Edge
+- Superpower
+- Earthquake
+- Toxic
 
 SPECIES_AGGRON
 Level: 44
 IVs: 15 HP / 15 Atk / 15 Def / 15 SpA / 15 SpD / 15 Spe
+- Iron Head
+- Stone Edge
+- Superpower
+- Hone Claws
 
 === TRAINER_EDWIN_2 ===
 Name: EDWIN
@@ -8764,22 +9076,42 @@ AI: Basic Trainer
 SPECIES_GRENINJA
 Level: 48
 IVs: 15 HP / 15 Atk / 15 Def / 15 SpA / 15 SpD / 15 Spe
+- Surf
+- Dark Pulse
+- Ice Beam
+- Toxic Spikes
 
 SPECIES_CRUSTLE
 Level: 47
 IVs: 15 HP / 15 Atk / 15 Def / 15 SpA / 15 SpD / 15 Spe
+- X Scissor
+- Stone Edge
+- Earthquake
+- Protect
 
 SPECIES_SLIGGOO
 Level: 48
 IVs: 15 HP / 15 Atk / 15 Def / 15 SpA / 15 SpD / 15 Spe
+- Draco Meteor
+- Ice Beam
+- Surf
+- Sludge Wave
 
 SPECIES_BELLOSSOM
 Level: 45
 IVs: 15 HP / 15 Atk / 15 Def / 15 SpA / 15 SpD / 15 Spe
+- Leaf Storm
+- Moonblast
+- Pollen Puff
+- Protect
 
 SPECIES_QUAGSIRE
 Level: 50
 IVs: 15 HP / 15 Atk / 15 Def / 15 SpA / 15 SpD / 15 Spe
+- Liquidation
+- Earthquake
+- Stone Edge
+- Recover
 
 === TRAINER_BRENDAN_ROUTE_103_MUDKIP ===
 Name: BRENDAN
@@ -8793,6 +9125,10 @@ AI: Basic Trainer
 SPECIES_BELLSPROUT
 Level: 6
 IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Trailblaze
+- Clear Smog
+- Pounce
+- Swords Dance
 
 === TRAINER_BRENDAN_ROUTE_110_MUDKIP ===
 Name: BRENDAN
@@ -8806,14 +9142,26 @@ AI: Basic Trainer
 SPECIES_KABUTO
 Level: 20
 IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Rock Blast
+- Waterfall
+- Leech Life
+- Reflect
 
 SPECIES_STARLY
 Level: 20
 IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Facade
+- Dual Wingbeat
+- Steel Wing
+- U Turn
 
 SPECIES_WEEPINBELL
 Level: 22
 IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Seed Bomb
+- Poison Jab
+- Leech Life
+- Swords Dance
 
 === TRAINER_BRENDAN_ROUTE_119_MUDKIP ===
 Name: BRENDAN
@@ -8827,14 +9175,26 @@ AI: Basic Trainer
 SPECIES_KABUTO
 Level: 32
 IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Stone Edge
+- Liquidation
+- Leech Life
+- Toxic
 
 SPECIES_STARAVIA
 Level: 32
 IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Take Down
+- Dual Wingbeat
+- Steel Wing
+- Protect
 
 SPECIES_WEEPINBELL
 Level: 34
 IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Energy Ball
+- Sludge Wave
+- Leech Life
+- Swords Dance
 
 === TRAINER_BRENDAN_ROUTE_103_TREECKO ===
 Name: BRENDAN
@@ -8848,6 +9208,8 @@ AI: Check Bad Move / Try To Faint / Force Setup First Turn
 SPECIES_CATERPIE
 Level: 6
 IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Tackle
+- String Shot
 
 === TRAINER_BRENDAN_ROUTE_110_TREECKO ===
 Name: BRENDAN
@@ -8861,14 +9223,26 @@ AI: Basic Trainer
 SPECIES_STARAVIA
 Level: 20
 IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Facade
+- Dual Wingbeat
+- Steel Wing
+- Roost
 
 SPECIES_CHIMCHAR
 Level: 20
 IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Fire Pledge
+- Brick Break
+- Thunder Punch
+- Zen Headbutt
 
 SPECIES_BUTTERFREE
 Level: 22
 IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Signal Beam
+- Air Slash
+- Giga Drain
+- Quiver Dance
 
 === TRAINER_BRENDAN_ROUTE_119_TREECKO ===
 Name: BRENDAN
@@ -8882,14 +9256,26 @@ AI: Basic Trainer
 SPECIES_STARAVIA
 Level: 32
 IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Take Down
+- Dual Wingbeat
+- Steel Wing
+- Tailwind
 
 SPECIES_MONFERNO
 Level: 32
 IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Flamethrower
+- Brick Break
+- Lash Out
+- Thunder Punch
 
 SPECIES_BUTTERFREE
 Level: 34
 IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Bug Buzz
+- Air Slash
+- Energy Ball
+- Quiver Dance
 
 === TRAINER_BRENDAN_ROUTE_103_TORCHIC ===
 Name: BRENDAN
@@ -8903,6 +9289,8 @@ AI: Basic Trainer
 SPECIES_CATERPIE
 Level: 6
 IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Tackle
+- String Shot
 
 === TRAINER_BRENDAN_ROUTE_110_TORCHIC ===
 Name: BRENDAN
@@ -8916,14 +9304,26 @@ AI: Basic Trainer
 SPECIES_MONFERNO
 Level: 20
 IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Fire Pledge
+- Brick Break
+- Lash Out
+- Stealth Rock
 
 SPECIES_KABUTO
 Level: 20
 IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Rock Blast
+- Waterfall
+- Leech Life
+- Reflect
 
 SPECIES_BUTTERFREE
 Level: 22
 IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Signal Beam
+- Air Slash
+- Giga Drain
+- Quiver Dance
 
 === TRAINER_BRENDAN_ROUTE_119_TORCHIC ===
 Name: BRENDAN
@@ -8937,14 +9337,26 @@ AI: Basic Trainer
 SPECIES_MONFERNO
 Level: 32
 IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Flamethrower
+- Brick Break
+- Lash Out
+- Will O Wisp
 
 SPECIES_KABUTO
 Level: 32
 IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Stone Edge
+- Liquidation
+- Leech Life
+- Knock Off
 
 SPECIES_BUTTERFREE
 Level: 34
 IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Bug Buzz
+- Air Slash
+- Energy Ball
+- Quiver Dance
 
 === TRAINER_MAY_ROUTE_103_MUDKIP ===
 Name: MAY
@@ -8958,6 +9370,10 @@ AI: Basic Trainer
 SPECIES_BELLSPROUT
 Level: 6
 IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Trailblaze
+- Clear Smog
+- Pounce
+- Swords Dance
 
 === TRAINER_MAY_ROUTE_110_MUDKIP ===
 Name: MAY
@@ -8971,14 +9387,26 @@ AI: Basic Trainer
 SPECIES_ROLYCOLY
 Level: 20
 IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Power Gem
+- Bulldoze
+- Iron Head
+- Temper Flare
 
 SPECIES_SNOM
 Level: 20
 IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Icy Wind
+- Struggle Bug
+- Fairy Wind
+- Facade
 
 SPECIES_WEEPINBELL
 Level: 22
 IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Seed Bomb
+- Poison Jab
+- Leech Life
+- Swords Dance
 
 === TRAINER_MAY_ROUTE_119_MUDKIP ===
 Name: MAY
@@ -8992,14 +9420,26 @@ AI: Basic Trainer
 SPECIES_SNOM
 Level: 32
 IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Icy Wind
+- Bug Buzz
+- Fairy Wind
+- Substitute
 
 SPECIES_SLOWBRO_GALAR
 Level: 32
 IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Sludge Wave
+- Psychic
+- Earthquake
+- Ice Beam
 
 SPECIES_WEEPINBELL
 Level: 34
 IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Energy Ball
+- Sludge Wave
+- Leech Life
+- Swords Dance
 
 === TRAINER_MAY_ROUTE_103_TREECKO ===
 Name: MAY
@@ -9013,6 +9453,8 @@ AI: Basic Trainer
 SPECIES_CATERPIE
 Level: 6
 IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Tackle
+- String Shot
 
 === TRAINER_MAY_ROUTE_110_TREECKO ===
 Name: MAY
@@ -9026,14 +9468,26 @@ AI: Basic Trainer
 SPECIES_CARKOL
 Level: 20
 IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Power Gem
+- Temper Flare
+- Scorching Sands
+- Iron Head
 
 SPECIES_SLOWBRO_GALAR
 Level: 20
 IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Poison Jab
+- Psyshock
+- Brick Break
+- Slack Off
 
 SPECIES_BUTTERFREE
 Level: 22
 IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Signal Beam
+- Air Slash
+- Giga Drain
+- Quiver Dance
 
 === TRAINER_MAY_ROUTE_119_TREECKO ===
 Name: MAY
@@ -9047,14 +9501,26 @@ AI: Basic Trainer
 SPECIES_CARKOL
 Level: 32
 IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Power Gem
+- Flamethrower
+- High Horsepower
+- Will O Wisp
 
 SPECIES_SLOWBRO_GALAR
 Level: 32
 IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Sludge Wave
+- Psychic
+- Earthquake
+- Yawn
 
 SPECIES_BUTTERFREE
 Level: 34
 IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Bug Buzz
+- Air Slash
+- Energy Ball
+- Quiver Dance
 
 === TRAINER_MAY_ROUTE_103_TORCHIC ===
 Name: MAY
@@ -9068,6 +9534,8 @@ AI: Basic Trainer
 SPECIES_CATERPIE
 Level: 6
 IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Tackle
+- String Shot
 
 === TRAINER_MAY_ROUTE_110_TORCHIC ===
 Name: MAY
@@ -9081,14 +9549,26 @@ AI: Basic Trainer
 SPECIES_SLOWBRO_GALAR
 Level: 20
 IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Poison Jab
+- Psyshock
+- Brick Break
+- Substitute
 
 SPECIES_SNOM
 Level: 20
 IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Icy Wind
+- Struggle Bug
+- Fairy Wind
+- Facade
 
 SPECIES_BUTTERFREE
 Level: 22
 IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Signal Beam
+- Air Slash
+- Giga Drain
+- Quiver Dance
 
 === TRAINER_MAY_ROUTE_119_TORCHIC ===
 Name: MAY
@@ -9102,14 +9582,26 @@ AI: Basic Trainer
 SPECIES_SLOWBRO_GALAR
 Level: 32
 IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Sludge Wave
+- Psychic
+- Earthquake
+- Slack Off
 
 SPECIES_SNOM
 Level: 32
 IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Icy Wind
+- Bug Buzz
+- Fairy Wind
+- Facade
 
 SPECIES_BUTTERFREE
 Level: 34
 IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Bug Buzz
+- Air Slash
+- Energy Ball
+- Quiver Dance
 
 === TRAINER_ISAAC_1 ===
 Name: ISAAC
@@ -10121,10 +10613,18 @@ AI: Check Bad Move
 SPECIES_MONFERNO
 Level: 14
 IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Flame Wheel
+- Low Sweep
+- Knock Off
+- Taunt
 
 SPECIES_BUTTERFREE
 Level: 16
 IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Silver Wind
+- Air Cutter
+- Electroweb
+- Quiver Dance
 
 === TRAINER_BRENDAN_RUSTBORO_MUDKIP ===
 Name: BRENDAN
@@ -10138,10 +10638,18 @@ AI: Check Bad Move
 SPECIES_STARAVIA
 Level: 14
 IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Tackle
+- Wing Attack
+- Pursuit
+- Mud Slap
 
 SPECIES_BELLSPROUT
 Level: 16
 IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Magical Leaf
+- Venoshock
+- Sucker Punch
+- Swords Dance
 
 === TRAINER_PAXTON ===
 Name: PAXTON
@@ -10202,18 +10710,34 @@ AI: Basic Trainer
 SPECIES_GIBLE
 Level: 20
 IVs: 15 HP / 15 Atk / 15 Def / 15 SpA / 15 SpD / 15 Spe
+- Dragon Claw
+- Bulldoze
+- Rock Slide
+- Shadow Claw
 
 SPECIES_MUNCHLAX
 Level: 22
 IVs: 15 HP / 15 Atk / 15 Def / 15 SpA / 15 SpD / 15 Spe
+- Strength
+- Brick Break
+- Ice Punch
+- Encore
 
 SPECIES_GABITE
 Level: 24
 IVs: 15 HP / 15 Atk / 15 Def / 15 SpA / 15 SpD / 15 Spe
+- Dragon Claw
+- Bulldoze
+- Brick Break
+- Aerial Ace
 
 SPECIES_ARON
 Level: 24
 IVs: 15 HP / 15 Atk / 15 Def / 15 SpA / 15 SpD / 15 Spe
+- Iron Head
+- Rock Slide
+- Bulldoze
+- Hone Claws
 
 === TRAINER_JONATHAN ===
 Name: JONATHAN
@@ -10245,10 +10769,18 @@ AI: Basic Trainer
 SPECIES_KABUTO
 Level: 14
 IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Rock Tomb
+- Aqua Jet
+- Knock Off
+- Substitute
 
 SPECIES_BUTTERFREE
 Level: 16
 IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Silver Wind
+- Air Cutter
+- Electroweb
+- Quiver Dance
 
 === TRAINER_MAY_RUSTBORO_MUDKIP ===
 Name: MAY
@@ -10262,10 +10794,18 @@ AI: Check Bad Move / Try To Faint / Force Setup First Turn
 SPECIES_ROLYCOLY
 Level: 14
 IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Ancient Power
+- Bulldoze
+- Incinerate
+- Rapid Spin
 
 SPECIES_BELLSPROUT
 Level: 16
 IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Magical Leaf
+- Venoshock
+- Sucker Punch
+- Swords Dance
 
 === TRAINER_MAXIE_MAGMA_HIDEOUT ===
 Name: MAXIE
@@ -10280,14 +10820,26 @@ AI: Basic Trainer
 SPECIES_CLEFABLE
 Level: 41
 IVs: 15 HP / 15 Atk / 15 Def / 15 SpA / 15 SpD / 15 Spe
+- Focus Blast
+- Ice Beam
+- Psychic
+- Shadow Ball
 
 SPECIES_PROBOPASS
 Level: 42
 IVs: 15 HP / 15 Atk / 15 Def / 15 SpA / 15 SpD / 15 Spe
+- Power Gem
+- Flash Cannon
+- Earth Power
+- Dazzling Gleam
 
 SPECIES_PASSIMIAN
 Level: 43
 IVs: 15 HP / 15 Atk / 15 Def / 15 SpA / 15 SpD / 15 Spe
+- Close Combat
+- Earthquake
+- Gunk Shot
+- Bulk Up
 
 === TRAINER_MAXIE_MT_CHIMNEY ===
 Name: MAXIE
@@ -10302,14 +10854,26 @@ AI: Basic Trainer
 SPECIES_CLEFAIRY
 Level: 26
 IVs: 15 HP / 15 Atk / 15 Def / 15 SpA / 15 SpD / 15 Spe
+- Flamethrower
+- Ice Beam
+- Psychic
+- Shadow Ball
 
 SPECIES_NOSEPASS
 Level: 26
 IVs: 15 HP / 15 Atk / 15 Def / 15 SpA / 15 SpD / 15 Spe
+- Power Gem
+- Earth Power
+- Dazzling Gleam
+- Ice Punch
 
 SPECIES_PASSIMIAN
 Level: 28
 IVs: 15 HP / 15 Atk / 15 Def / 15 SpA / 15 SpD / 15 Spe
+- Brick Break
+- Rock Slide
+- Seed Bomb
+- Bulk Up
 
 === TRAINER_TIANA ===
 Name: TIANA
@@ -11265,6 +11829,10 @@ AI: Basic Trainer
 SPECIES_WOOPER
 Level: 18
 IVs: 15 HP / 15 Atk / 15 Def / 15 SpA / 15 SpD / 15 Spe
+- Water Pulse
+- Bulldoze
+- Ice Punch
+- Yawn
 
 === TRAINER_WALLY_VR_2 ===
 Name: WALLY
@@ -11279,22 +11847,42 @@ AI: Basic Trainer
 SPECIES_GRENINJA
 Level: 52
 IVs: 15 HP / 15 Atk / 15 Def / 15 SpA / 15 SpD / 15 Spe
+- Surf
+- Dark Pulse
+- Ice Beam
+- Extrasensory
 
 SPECIES_CRUSTLE
 Level: 51
 IVs: 15 HP / 15 Atk / 15 Def / 15 SpA / 15 SpD / 15 Spe
+- X Scissor
+- Stone Edge
+- Earthquake
+- Spikes
 
 SPECIES_GOODRA
 Level: 52
 IVs: 15 HP / 15 Atk / 15 Def / 15 SpA / 15 SpD / 15 Spe
+- Draco Meteor
+- Superpower
+- Ice Beam
+- Sludge Wave
 
 SPECIES_GLOOM
 Level: 48
 IVs: 15 HP / 15 Atk / 15 Def / 15 SpA / 15 SpD / 15 Spe
+- Leaf Storm
+- Sludge Bomb
+- Moonblast
+- Pollen Puff
 
 SPECIES_QUAGSIRE
 Level: 53
 IVs: 15 HP / 15 Atk / 15 Def / 15 SpA / 15 SpD / 15 Spe
+- Liquidation
+- Earthquake
+- Stone Edge
+- Stealth Rock
 
 === TRAINER_WALLY_VR_3 ===
 Name: WALLY
@@ -11309,22 +11897,42 @@ AI: Basic Trainer
 SPECIES_GRENINJA
 Level: 55
 IVs: 15 HP / 15 Atk / 15 Def / 15 SpA / 15 SpD / 15 Spe
+- Surf
+- Dark Pulse
+- Ice Beam
+- Extrasensory
 
 SPECIES_CRUSTLE
 Level: 54
 IVs: 15 HP / 15 Atk / 15 Def / 15 SpA / 15 SpD / 15 Spe
+- X Scissor
+- Stone Edge
+- Earthquake
+- Poison Jab
 
 SPECIES_GOODRA
 Level: 55
 IVs: 15 HP / 15 Atk / 15 Def / 15 SpA / 15 SpD / 15 Spe
+- Draco Meteor
+- Superpower
+- Ice Beam
+- Toxic
 
 SPECIES_GLOOM
 Level: 52
 IVs: 15 HP / 15 Atk / 15 Def / 15 SpA / 15 SpD / 15 Spe
+- Leaf Storm
+- Sludge Bomb
+- Moonblast
+- Pollen Puff
 
 SPECIES_QUAGSIRE
 Level: 56
 IVs: 15 HP / 15 Atk / 15 Def / 15 SpA / 15 SpD / 15 Spe
+- Liquidation
+- Earthquake
+- Stone Edge
+- Spikes
 
 === TRAINER_WALLY_VR_4 ===
 Name: WALLY
@@ -11339,22 +11947,42 @@ AI: Basic Trainer
 SPECIES_GRENINJA
 Level: 58
 IVs: 15 HP / 15 Atk / 15 Def / 15 SpA / 15 SpD / 15 Spe
+- Surf
+- Dark Pulse
+- Ice Beam
+- Extrasensory
 
 SPECIES_CRUSTLE
 Level: 57
 IVs: 15 HP / 15 Atk / 15 Def / 15 SpA / 15 SpD / 15 Spe
+- X Scissor
+- Stone Edge
+- Earthquake
+- Protect
 
 SPECIES_GOODRA
 Level: 58
 IVs: 15 HP / 15 Atk / 15 Def / 15 SpA / 15 SpD / 15 Spe
+- Draco Meteor
+- Superpower
+- Ice Beam
+- Sludge Wave
 
 SPECIES_GLOOM
 Level: 55
 IVs: 15 HP / 15 Atk / 15 Def / 15 SpA / 15 SpD / 15 Spe
+- Leaf Storm
+- Sludge Bomb
+- Moonblast
+- Stun Spore
 
 SPECIES_QUAGSIRE
 Level: 59
 IVs: 15 HP / 15 Atk / 15 Def / 15 SpA / 15 SpD / 15 Spe
+- Liquidation
+- Earthquake
+- Stone Edge
+- Stealth Rock
 
 === TRAINER_WALLY_VR_5 ===
 Name: WALLY
@@ -11369,22 +11997,42 @@ AI: Basic Trainer
 SPECIES_GRENINJA
 Level: 62
 IVs: 15 HP / 15 Atk / 15 Def / 15 SpA / 15 SpD / 15 Spe
+- Surf
+- Dark Pulse
+- Ice Beam
+- Extrasensory
 
 SPECIES_CRUSTLE
 Level: 61
 IVs: 15 HP / 15 Atk / 15 Def / 15 SpA / 15 SpD / 15 Spe
+- X Scissor
+- Stone Edge
+- Earthquake
+- Spikes
 
 SPECIES_GOODRA
 Level: 62
 IVs: 15 HP / 15 Atk / 15 Def / 15 SpA / 15 SpD / 15 Spe
+- Draco Meteor
+- Superpower
+- Ice Beam
+- Protect
 
 SPECIES_GLOOM
 Level: 58
 IVs: 15 HP / 15 Atk / 15 Def / 15 SpA / 15 SpD / 15 Spe
+- Leaf Storm
+- Sludge Bomb
+- Moonblast
+- Pollen Puff
 
 SPECIES_QUAGSIRE
 Level: 63
 IVs: 15 HP / 15 Atk / 15 Def / 15 SpA / 15 SpD / 15 Spe
+- Liquidation
+- Earthquake
+- Stone Edge
+- Protect
 
 === TRAINER_BRENDAN_LILYCOVE_MUDKIP ===
 Name: BRENDAN
@@ -11398,18 +12046,34 @@ AI: Basic Trainer
 SPECIES_PACHIRISU
 Level: 34
 IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Thunderbolt
+- Play Rough
+- Iron Tail
+- Encore
 
 SPECIES_KABUTO
 Level: 35
 IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Stone Edge
+- Liquidation
+- Leech Life
+- Knock Off
 
 SPECIES_STARAPTOR
 Level: 35
 IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Take Down
+- Dual Wingbeat
+- Close Combat
+- Substitute
 
 SPECIES_WEEPINBELL
 Level: 37
 IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Energy Ball
+- Sludge Wave
+- Leech Life
+- Swords Dance
 
 === TRAINER_BRENDAN_LILYCOVE_TREECKO ===
 Name: BRENDAN
@@ -11423,18 +12087,34 @@ AI: Basic Trainer
 SPECIES_PACHIRISU
 Level: 34
 IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Thunderbolt
+- Play Rough
+- Iron Tail
+- Crunch
 
 SPECIES_STARAPTOR
 Level: 35
 IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Take Down
+- Dual Wingbeat
+- Close Combat
+- Tailwind
 
 SPECIES_MONFERNO
 Level: 35
 IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Fire Blast
+- Brick Break
+- Lash Out
+- Stealth Rock
 
 SPECIES_BUTTERFREE
 Level: 37
 IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Bug Buzz
+- Hurricane
+- Energy Ball
+- Quiver Dance
 
 === TRAINER_BRENDAN_LILYCOVE_TORCHIC ===
 Name: BRENDAN
@@ -11448,18 +12128,34 @@ AI: Basic Trainer
 SPECIES_PACHIRISU
 Level: 34
 IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Thunderbolt
+- Play Rough
+- Iron Tail
+- Crunch
 
 SPECIES_MONFERNO
 Level: 35
 IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Fire Blast
+- Brick Break
+- Lash Out
+- Will O Wisp
 
 SPECIES_KABUTO
 Level: 35
 IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Stone Edge
+- Liquidation
+- Leech Life
+- Knock Off
 
 SPECIES_BUTTERFREE
 Level: 37
 IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Bug Buzz
+- Hurricane
+- Energy Ball
+- Quiver Dance
 
 === TRAINER_MAY_LILYCOVE_MUDKIP ===
 Name: MAY
@@ -11473,18 +12169,34 @@ AI: Basic Trainer
 SPECIES_JYNX
 Level: 34
 IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Ice Beam
+- Psychic
+- Energy Ball
+- Shadow Ball
 
 SPECIES_SNOM
 Level: 35
 IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Icy Wind
+- Bug Buzz
+- Fairy Wind
+- Substitute
 
 SPECIES_COALOSSAL
 Level: 35
 IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Power Gem
+- Fire Blast
+- Earthquake
+- Protect
 
 SPECIES_WEEPINBELL
 Level: 37
 IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Energy Ball
+- Sludge Wave
+- Leech Life
+- Swords Dance
 
 === TRAINER_MAY_LILYCOVE_TREECKO ===
 Name: MAY
@@ -11498,18 +12210,34 @@ AI: Basic Trainer
 SPECIES_JYNX
 Level: 34
 IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Ice Beam
+- Psychic
+- Energy Ball
+- Trick Room
 
 SPECIES_COALOSSAL
 Level: 35
 IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Power Gem
+- Fire Blast
+- Earthquake
+- Iron Head
 
 SPECIES_SLOWBRO_GALAR
 Level: 35
 IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Sludge Wave
+- Psychic
+- Earthquake
+- Ice Beam
 
 SPECIES_BUTTERFREE
 Level: 37
 IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Bug Buzz
+- Hurricane
+- Energy Ball
+- Quiver Dance
 
 === TRAINER_MAY_LILYCOVE_TORCHIC ===
 Name: MAY
@@ -11523,18 +12251,34 @@ AI: Basic Trainer
 SPECIES_JYNX
 Level: 34
 IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Ice Beam
+- Psychic
+- Energy Ball
+- Trick Room
 
 SPECIES_SLOWBRO_GALAR
 Level: 35
 IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Sludge Wave
+- Psychic
+- Earthquake
+- Slack Off
 
 SPECIES_SNOM
 Level: 35
 IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Icy Wind
+- Bug Buzz
+- Fairy Wind
+- Facade
 
 SPECIES_BUTTERFREE
 Level: 37
 IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Bug Buzz
+- Hurricane
+- Energy Ball
+- Quiver Dance
 
 === TRAINER_JONAH ===
 Name: JONAH
@@ -12572,18 +13316,34 @@ AI: Check Bad Move
 SPECIES_GABITE
 Level: 29
 IVs: 15 HP / 15 Atk / 15 Def / 15 SpA / 15 SpD / 15 Spe
+- Dragon Claw
+- Bulldoze
+- Brick Break
+- Stealth Rock
 
 SPECIES_SNORLAX
 Level: 31
 IVs: 15 HP / 15 Atk / 15 Def / 15 SpA / 15 SpD / 15 Spe
+- Body Slam
+- Earthquake
+- Ice Punch
+- Brick Break
 
 SPECIES_LAIRON
 Level: 33
 IVs: 15 HP / 15 Atk / 15 Def / 15 SpA / 15 SpD / 15 Spe
+- Iron Head
+- Stone Edge
+- Earthquake
+- Shadow Claw
 
 SPECIES_LURANTIS
 Level: 36
 IVs: 15 HP / 15 Atk / 15 Def / 15 SpA / 15 SpD / 15 Spe
+- Petal Blizzard
+- Brick Break
+- X Scissor
+- Swords Dance
 
 === TRAINER_DARCY ===
 Name: DARCY
@@ -12616,14 +13376,26 @@ Multi Party: Half
 SPECIES_CLEFAIRY
 Level: 46
 IVs: 15 HP / 15 Atk / 15 Def / 15 SpA / 15 SpD / 15 Spe
+- Fire Blast
+- Moonblast
+- Ice Beam
+- Substitute
 
 SPECIES_PROBOPASS
 Level: 47
 IVs: 15 HP / 15 Atk / 15 Def / 15 SpA / 15 SpD / 15 Spe
+- Power Gem
+- Flash Cannon
+- Earth Power
+- Dazzling Gleam
 
 SPECIES_PASSIMIAN
 Level: 48
 IVs: 15 HP / 15 Atk / 15 Def / 15 SpA / 15 SpD / 15 Spe
+- Close Combat
+- Earthquake
+- Gunk Shot
+- Bulk Up
 
 === TRAINER_PETE ===
 Name: PETE
@@ -13206,10 +13978,18 @@ AI: Basic Trainer
 SPECIES_SLOWPOKE_GALAR
 Level: 14
 IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Psybeam
+- Bulldoze
+- Stomp
+- Icy Wind
 
 SPECIES_BUTTERFREE
 Level: 16
 IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Silver Wind
+- Air Cutter
+- Electroweb
+- Quiver Dance
 
 === TRAINER_MAY_RUSTBORO_TORCHIC ===
 Name: MAY
@@ -13223,10 +14003,18 @@ AI: Basic Trainer
 SPECIES_TANDEMAUS
 Level: 14
 IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Double Hit
+- Low Sweep
+- Aerial Ace
+- Bite
 
 SPECIES_BUTTERFREE
 Level: 16
 IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Silver Wind
+- Air Cutter
+- Electroweb
+- Quiver Dance
 
 === TRAINER_ROXANNE_2 ===
 Name: ROXANNE
@@ -13241,27 +14029,51 @@ AI: Basic Trainer
 SPECIES_AMAURA
 Level: 35
 IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Stone Edge
+- Ice Beam
+- Earth Power
+- Dark Pulse
 
 SPECIES_CRADILY @ Sitrus Berry
 Level: 38
 IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Stone Edge
+- Energy Ball
+- Earthquake
+- Sludge Wave
 
 SPECIES_AVALUGG_HISUI
 Level: 38
 IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Ice Spinner
+- Stone Edge
+- Earthquake
+- Stealth Rock
 
 SPECIES_COALOSSAL
 Level: 38
 IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Power Gem
+- Fire Blast
+- Earthquake
+- Iron Head
 
 SPECIES_AURORUS
 Level: 38
 IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Ancient Power
+- Ice Beam
+- Earth Power
+- Dark Pulse
 
 SPECIES_AERODACTYL @ ITEM_AERODACTYLITE
 Level: 41
 IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
 Ability: ABILITY_UNNERVE
+- Stone Edge
+- Dual Wingbeat
+- Earthquake
+- Dragon Dance
 
 === TRAINER_ROXANNE_3 ===
 Name: ROXANNE
@@ -13276,27 +14088,51 @@ AI: Basic Trainer
 SPECIES_AMAURA
 Level: 35
 IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Stone Edge
+- Ice Beam
+- Earth Power
+- Reflect
 
 SPECIES_CRADILY @ Sitrus Berry
 Level: 38
 IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Stone Edge
+- Energy Ball
+- Earthquake
+- Sludge Wave
 
 SPECIES_AVALUGG_HISUI
 Level: 38
 IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Ice Spinner
+- Stone Edge
+- Earthquake
+- Stealth Rock
 
 SPECIES_COALOSSAL
 Level: 38
 IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Power Gem
+- Fire Blast
+- Earthquake
+- Protect
 
 SPECIES_AURORUS
 Level: 38
 IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Ancient Power
+- Ice Beam
+- Earth Power
+- Dark Pulse
 
 SPECIES_AERODACTYL @ ITEM_AERODACTYLITE
 Level: 41
 IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
 Ability: ABILITY_UNNERVE
+- Stone Edge
+- Dual Wingbeat
+- Earthquake
+- Dragon Dance
 
 === TRAINER_ROXANNE_4 ===
 Name: ROXANNE
@@ -13311,27 +14147,51 @@ AI: Basic Trainer
 SPECIES_AMAURA
 Level: 35
 IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Stone Edge
+- Ice Beam
+- Earth Power
+- Dark Pulse
 
 SPECIES_CRADILY @ Sitrus Berry
 Level: 38
 IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Stone Edge
+- Energy Ball
+- Earthquake
+- Recover
 
 SPECIES_AVALUGG_HISUI
 Level: 38
 IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Ice Spinner
+- Stone Edge
+- Earthquake
+- Crunch
 
 SPECIES_COALOSSAL
 Level: 38
 IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Power Gem
+- Fire Blast
+- Earthquake
+- Iron Head
 
 SPECIES_AURORUS
 Level: 38
 IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Ancient Power
+- Ice Beam
+- Earth Power
+- Toxic
 
 SPECIES_AERODACTYL @ ITEM_AERODACTYLITE
 Level: 41
 IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
 Ability: ABILITY_UNNERVE
+- Stone Edge
+- Dual Wingbeat
+- Earthquake
+- Dragon Dance
 
 === TRAINER_ROXANNE_5 ===
 Name: ROXANNE
@@ -13346,27 +14206,51 @@ AI: Basic Trainer
 SPECIES_AMAURA
 Level: 35
 IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Stone Edge
+- Ice Beam
+- Earth Power
+- Dark Pulse
 
 SPECIES_CRADILY @ Sitrus Berry
 Level: 38
 IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Stone Edge
+- Energy Ball
+- Earthquake
+- Protect
 
 SPECIES_AVALUGG_HISUI
 Level: 38
 IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Ice Spinner
+- Stone Edge
+- Earthquake
+- Recover
 
 SPECIES_COALOSSAL
 Level: 38
 IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Power Gem
+- Fire Blast
+- Earthquake
+- Stealth Rock
 
 SPECIES_AURORUS
 Level: 38
 IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Ancient Power
+- Ice Beam
+- Earth Power
+- Encore
 
 SPECIES_AERODACTYL @ ITEM_AERODACTYLITE
 Level: 41
 IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
 Ability: ABILITY_UNNERVE
+- Stone Edge
+- Dual Wingbeat
+- Earthquake
+- Dragon Dance
 
 === TRAINER_BRAWLY_2 ===
 Name: BRAWLY
@@ -13381,27 +14265,51 @@ AI: Basic Trainer
 SPECIES_ANNIHILAPE @ Sitrus Berry
 Level: 36
 IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Close Combat
+- Earthquake
+- Shadow Claw
+- Ice Punch
 
 SPECIES_HITMONTOP
 Level: 36
 IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Close Combat
+- Earthquake
+- Ice Spinner
+- Sucker Punch
 
 SPECIES_TOXICROAK
 Level: 38
 IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Poison Jab
+- Cross Chop
+- Earthquake
+- Ice Punch
 
 SPECIES_POLIWRATH
 Level: 38
 IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Liquidation
+- Brick Break
+- Ice Punch
+- Encore
 
 SPECIES_PASSIMIAN
 Level: 38
 IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Brick Break
+- Earthquake
+- Aerial Ace
+- Seed Bomb
 
 SPECIES_MEDICHAM @ ITEM_MEDICHAMITE
 Level: 41
 IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
 Ability: ABILITY_TELEPATHY
+- Close Combat
+- Psychic
+- Energy Ball
+- Bulk Up
 
 === TRAINER_BRAWLY_3 ===
 Name: BRAWLY
@@ -13416,27 +14324,51 @@ AI: Basic Trainer
 SPECIES_ANNIHILAPE @ Sitrus Berry
 Level: 36
 IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Close Combat
+- Earthquake
+- Shadow Claw
+- Taunt
 
 SPECIES_HITMONTOP
 Level: 36
 IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Close Combat
+- Earthquake
+- Ice Spinner
+- Substitute
 
 SPECIES_TOXICROAK
 Level: 38
 IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Poison Jab
+- Cross Chop
+- Earthquake
+- Taunt
 
 SPECIES_POLIWRATH
 Level: 38
 IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Liquidation
+- Brick Break
+- Ice Punch
+- Encore
 
 SPECIES_PASSIMIAN
 Level: 38
 IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Brick Break
+- Earthquake
+- Aerial Ace
+- Seed Bomb
 
 SPECIES_MEDICHAM @ ITEM_MEDICHAMITE
 Level: 41
 IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
 Ability: ABILITY_TELEPATHY
+- Close Combat
+- Psychic
+- Energy Ball
+- Bulk Up
 
 === TRAINER_BRAWLY_4 ===
 Name: BRAWLY
@@ -13451,27 +14383,51 @@ AI: Basic Trainer
 SPECIES_ANNIHILAPE @ Sitrus Berry
 Level: 36
 IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Close Combat
+- Earthquake
+- Shadow Claw
+- Ice Punch
 
 SPECIES_HITMONTOP
 Level: 36
 IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Close Combat
+- Earthquake
+- Ice Spinner
+- Toxic
 
 SPECIES_TOXICROAK
 Level: 38
 IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Poison Jab
+- Cross Chop
+- Earthquake
+- Ice Punch
 
 SPECIES_POLIWRATH
 Level: 38
 IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Liquidation
+- Brick Break
+- Ice Punch
+- Earthquake
 
 SPECIES_PASSIMIAN
 Level: 38
 IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Brick Break
+- Earthquake
+- Aerial Ace
+- Seed Bomb
 
 SPECIES_MEDICHAM @ ITEM_MEDICHAMITE
 Level: 41
 IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
 Ability: ABILITY_TELEPATHY
+- Close Combat
+- Psychic
+- Energy Ball
+- Bulk Up
 
 === TRAINER_BRAWLY_5 ===
 Name: BRAWLY
@@ -13486,27 +14442,51 @@ AI: Basic Trainer
 SPECIES_ANNIHILAPE @ Sitrus Berry
 Level: 36
 IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Close Combat
+- Earthquake
+- Shadow Claw
+- Taunt
 
 SPECIES_HITMONTOP
 Level: 36
 IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Close Combat
+- Earthquake
+- Ice Spinner
+- Protect
 
 SPECIES_TOXICROAK
 Level: 38
 IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Poison Jab
+- Cross Chop
+- Earthquake
+- Encore
 
 SPECIES_POLIWRATH
 Level: 38
 IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Liquidation
+- Brick Break
+- Ice Punch
+- Toxic
 
 SPECIES_PASSIMIAN
 Level: 38
 IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Brick Break
+- Earthquake
+- Aerial Ace
+- Seed Bomb
 
 SPECIES_MEDICHAM @ ITEM_MEDICHAMITE
 Level: 41
 IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
 Ability: ABILITY_TELEPATHY
+- Close Combat
+- Psychic
+- Energy Ball
+- Bulk Up
 
 === TRAINER_WATTSON_2 ===
 Name: WATTSON
@@ -13521,27 +14501,51 @@ AI: Basic Trainer
 SPECIES_EELEKTROSS
 Level: 40
 IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Supercell Slam
+- Close Combat
+- Outrage
+- Liquidation
 
 SPECIES_BELLIBOLT
 Level: 40
 IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Thunderbolt
+- Muddy Water
+- Hyper Voice
+- Mud Shot
 
 SPECIES_PINCURCHIN @ Sitrus Berry
 Level: 42
 IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Supercell Slam
+- Liquidation
+- Pin Missile
+- Toxic Spikes
 
 SPECIES_RAICHU_ALOLA
 Level: 42
 IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Volt Tackle
+- Psychic
+- Focus Blast
+- Light Screen
 
 SPECIES_EELEKTRIK
 Level: 42
 IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Wild Charge
+- Aqua Tail
+- Lunge
+- Substitute
 
 SPECIES_RAICHU @ ITEM_RAICHUNITE_Y
 Level: 44
 IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
 Ability: ABILITY_LIGHTNING_ROD
+- Volt Tackle
+- Surf
+- Double Edge
+- Light Screen
 
 === TRAINER_WATTSON_3 ===
 Name: WATTSON
@@ -13556,27 +14560,51 @@ AI: Basic Trainer
 SPECIES_EELEKTROSS
 Level: 40
 IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Supercell Slam
+- Close Combat
+- Outrage
+- Liquidation
 
 SPECIES_BELLIBOLT
 Level: 40
 IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Thunderbolt
+- Muddy Water
+- Hyper Voice
+- Mud Shot
 
 SPECIES_PINCURCHIN @ Sitrus Berry
 Level: 42
 IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Supercell Slam
+- Liquidation
+- Pin Missile
+- Toxic Spikes
 
 SPECIES_RAICHU_ALOLA
 Level: 42
 IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Volt Tackle
+- Psychic
+- Focus Blast
+- Surf
 
 SPECIES_EELEKTRIK
 Level: 42
 IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Wild Charge
+- Aqua Tail
+- Lunge
+- Iron Tail
 
 SPECIES_RAICHU @ ITEM_RAICHUNITE_Y
 Level: 44
 IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
 Ability: ABILITY_LIGHTNING_ROD
+- Volt Tackle
+- Surf
+- Double Edge
+- Encore
 
 === TRAINER_WATTSON_4 ===
 Name: WATTSON
@@ -13591,27 +14619,51 @@ AI: Basic Trainer
 SPECIES_EELEKTROSS
 Level: 40
 IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Supercell Slam
+- Close Combat
+- Outrage
+- Thunder Wave
 
 SPECIES_BELLIBOLT
 Level: 40
 IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Thunderbolt
+- Muddy Water
+- Hyper Voice
+- Mud Shot
 
 SPECIES_PINCURCHIN @ Sitrus Berry
 Level: 42
 IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Supercell Slam
+- Liquidation
+- Pin Missile
+- Substitute
 
 SPECIES_RAICHU_ALOLA
 Level: 42
 IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Volt Tackle
+- Psychic
+- Focus Blast
+- Substitute
 
 SPECIES_EELEKTRIK
 Level: 42
 IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Wild Charge
+- Aqua Tail
+- Lunge
+- Iron Tail
 
 SPECIES_RAICHU @ ITEM_RAICHUNITE_Y
 Level: 44
 IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
 Ability: ABILITY_LIGHTNING_ROD
+- Volt Tackle
+- Surf
+- Double Edge
+- Light Screen
 
 === TRAINER_WATTSON_5 ===
 Name: WATTSON
@@ -13626,27 +14678,51 @@ AI: Basic Trainer
 SPECIES_EELEKTROSS
 Level: 40
 IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Supercell Slam
+- Close Combat
+- Outrage
+- Liquidation
 
 SPECIES_BELLIBOLT
 Level: 40
 IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Thunderbolt
+- Muddy Water
+- Hyper Voice
+- Mud Shot
 
 SPECIES_PINCURCHIN @ Sitrus Berry
 Level: 42
 IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Supercell Slam
+- Liquidation
+- Pin Missile
+- Poison Jab
 
 SPECIES_RAICHU_ALOLA
 Level: 42
 IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Volt Tackle
+- Psychic
+- Focus Blast
+- Toxic
 
 SPECIES_EELEKTRIK
 Level: 42
 IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Wild Charge
+- Aqua Tail
+- Lunge
+- Light Screen
 
 SPECIES_RAICHU @ ITEM_RAICHUNITE_Y
 Level: 44
 IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
 Ability: ABILITY_LIGHTNING_ROD
+- Volt Tackle
+- Surf
+- Double Edge
+- Encore
 
 === TRAINER_FLANNERY_2 ===
 Name: FLANNERY
@@ -13661,27 +14737,51 @@ AI: Basic Trainer
 SPECIES_PYROAR @ White Herb
 Level: 42
 IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Fire Blast
+- Hyper Voice
+- Earth Power
+- Dark Pulse
 
 SPECIES_RAPIDASH
 Level: 40
 IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Flare Blitz
+- High Horsepower
+- Megahorn
+- Substitute
 
 SPECIES_SALAZZLE_TOTEM @ White Herb
 Level: 42
 IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Sludge Wave
+- Fire Blast
+- Dragon Pulse
+- Will O Wisp
 
 SPECIES_CHARIZARD
 Level: 42
 IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Fire Blast
+- Hurricane
+- Focus Blast
+- Toxic
 
 SPECIES_TYPHLOSION
 Level: 42
 IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Eruption
+- Scorching Sands
+- Focus Blast
+- Shadow Ball
 
 SPECIES_DELPHOX @ ITEM_DELPHOXITE
 Level: 44
 IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
 Ability: ABILITY_MAGICIAN
+- Fire Blast
+- Psychic
+- Focus Blast
+- Nasty Plot
 
 === TRAINER_FLANNERY_3 ===
 Name: FLANNERY
@@ -13696,27 +14796,51 @@ AI: Basic Trainer
 SPECIES_PYROAR @ White Herb
 Level: 42
 IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Fire Blast
+- Hyper Voice
+- Earth Power
+- Dark Pulse
 
 SPECIES_RAPIDASH
 Level: 40
 IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Flare Blitz
+- High Horsepower
+- Megahorn
+- Wild Charge
 
 SPECIES_SALAZZLE_TOTEM @ White Herb
 Level: 42
 IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Sludge Wave
+- Fire Blast
+- Dragon Pulse
+- Toxic
 
 SPECIES_CHARIZARD
 Level: 42
 IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Fire Blast
+- Hurricane
+- Focus Blast
+- Substitute
 
 SPECIES_TYPHLOSION
 Level: 42
 IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Eruption
+- Scorching Sands
+- Focus Blast
+- Protect
 
 SPECIES_DELPHOX @ ITEM_DELPHOXITE
 Level: 44
 IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
 Ability: ABILITY_MAGICIAN
+- Fire Blast
+- Psychic
+- Focus Blast
+- Nasty Plot
 
 === TRAINER_FLANNERY_4 ===
 Name: FLANNERY
@@ -13731,27 +14855,51 @@ AI: Basic Trainer
 SPECIES_PYROAR @ White Herb
 Level: 42
 IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Fire Blast
+- Hyper Voice
+- Earth Power
+- Dark Pulse
 
 SPECIES_RAPIDASH
 Level: 40
 IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Flare Blitz
+- High Horsepower
+- Megahorn
+- Wild Charge
 
 SPECIES_SALAZZLE_TOTEM @ White Herb
 Level: 42
 IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Sludge Wave
+- Fire Blast
+- Dragon Pulse
+- Encore
 
 SPECIES_CHARIZARD
 Level: 42
 IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Fire Blast
+- Hurricane
+- Focus Blast
+- Dragon Pulse
 
 SPECIES_TYPHLOSION
 Level: 42
 IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Eruption
+- Scorching Sands
+- Focus Blast
+- Shadow Ball
 
 SPECIES_DELPHOX @ ITEM_DELPHOXITE
 Level: 44
 IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
 Ability: ABILITY_MAGICIAN
+- Fire Blast
+- Psychic
+- Focus Blast
+- Nasty Plot
 
 === TRAINER_FLANNERY_5 ===
 Name: FLANNERY
@@ -13766,27 +14914,51 @@ AI: Basic Trainer
 SPECIES_PYROAR @ White Herb
 Level: 42
 IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Fire Blast
+- Hyper Voice
+- Earth Power
+- Substitute
 
 SPECIES_RAPIDASH
 Level: 40
 IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Flare Blitz
+- High Horsepower
+- Megahorn
+- Hypnosis
 
 SPECIES_SALAZZLE_TOTEM @ White Herb
 Level: 42
 IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Sludge Wave
+- Fire Blast
+- Dragon Pulse
+- Encore
 
 SPECIES_CHARIZARD
 Level: 42
 IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Fire Blast
+- Hurricane
+- Focus Blast
+- Dragon Pulse
 
 SPECIES_TYPHLOSION
 Level: 42
 IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Eruption
+- Scorching Sands
+- Focus Blast
+- Shadow Ball
 
 SPECIES_DELPHOX @ ITEM_DELPHOXITE
 Level: 44
 IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
 Ability: ABILITY_MAGICIAN
+- Fire Blast
+- Psychic
+- Focus Blast
+- Nasty Plot
 
 === TRAINER_NORMAN_2 ===
 Name: NORMAN
@@ -13801,27 +14973,51 @@ AI: Basic Trainer
 SPECIES_PURUGLY
 Level: 46
 IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Double Edge
+- Foul Play
+- Wake Up Slap
+- Play Rough
 
 SPECIES_GRAFAIAI @ Sitrus Berry
 Level: 46
 IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Gunk Shot
+- Double Edge
+- Foul Play
+- Low Sweep
 
 SPECIES_DUBWOOL
 Level: 47
 IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Double Edge
+- Wild Charge
+- Double Kick
+- Zen Headbutt
 
 SPECIES_MILTANK
 Level: 47
 IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Double Edge
+- Earthquake
+- Ice Punch
+- Brick Break
 
 SPECIES_SAWSBUCK_SPRING
 Level: 47
 IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Double Edge
+- Petal Blizzard
+- Jump Kick
+- Synthesis
 
 SPECIES_PIDGEOT @ ITEM_PIDGEOTITE
 Level: 50
 IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
 Ability: ABILITY_BIG_PECKS
+- Double Edge
+- Brave Bird
+- Steel Wing
+- Reflect
 
 === TRAINER_NORMAN_3 ===
 Name: NORMAN
@@ -13836,27 +15032,51 @@ AI: Basic Trainer
 SPECIES_PURUGLY
 Level: 46
 IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Double Edge
+- Foul Play
+- Wake Up Slap
+- Play Rough
 
 SPECIES_GRAFAIAI @ Sitrus Berry
 Level: 46
 IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Gunk Shot
+- Double Edge
+- Foul Play
+- Low Sweep
 
 SPECIES_DUBWOOL
 Level: 47
 IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Double Edge
+- Wild Charge
+- Double Kick
+- Zen Headbutt
 
 SPECIES_MILTANK
 Level: 47
 IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Double Edge
+- Earthquake
+- Ice Punch
+- Brick Break
 
 SPECIES_SAWSBUCK_SPRING
 Level: 47
 IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Double Edge
+- Petal Blizzard
+- Jump Kick
+- High Horsepower
 
 SPECIES_PIDGEOT @ ITEM_PIDGEOTITE
 Level: 50
 IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
 Ability: ABILITY_BIG_PECKS
+- Double Edge
+- Brave Bird
+- Steel Wing
+- Protect
 
 === TRAINER_NORMAN_4 ===
 Name: NORMAN
@@ -13871,27 +15091,51 @@ AI: Basic Trainer
 SPECIES_PURUGLY
 Level: 46
 IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Double Edge
+- Foul Play
+- Wake Up Slap
+- Hypnosis
 
 SPECIES_GRAFAIAI @ Sitrus Berry
 Level: 46
 IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Gunk Shot
+- Double Edge
+- Foul Play
+- Low Sweep
 
 SPECIES_DUBWOOL
 Level: 47
 IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Double Edge
+- Wild Charge
+- Double Kick
+- Zen Headbutt
 
 SPECIES_MILTANK
 Level: 47
 IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Double Edge
+- Earthquake
+- Ice Punch
+- Brick Break
 
 SPECIES_SAWSBUCK_SPRING
 Level: 47
 IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Double Edge
+- Petal Blizzard
+- Jump Kick
+- Substitute
 
 SPECIES_PIDGEOT @ ITEM_PIDGEOTITE
 Level: 50
 IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
 Ability: ABILITY_BIG_PECKS
+- Double Edge
+- Brave Bird
+- Steel Wing
+- Roost
 
 === TRAINER_NORMAN_5 ===
 Name: NORMAN
@@ -13906,27 +15150,51 @@ AI: Basic Trainer
 SPECIES_PURUGLY
 Level: 46
 IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Double Edge
+- Foul Play
+- Wake Up Slap
+- Toxic
 
 SPECIES_GRAFAIAI @ Sitrus Berry
 Level: 46
 IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Gunk Shot
+- Double Edge
+- Foul Play
+- Substitute
 
 SPECIES_DUBWOOL
 Level: 47
 IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Double Edge
+- Wild Charge
+- Double Kick
+- Thunder Wave
 
 SPECIES_MILTANK
 Level: 47
 IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Double Edge
+- Earthquake
+- Ice Punch
+- Toxic
 
 SPECIES_SAWSBUCK_SPRING
 Level: 47
 IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Double Edge
+- Petal Blizzard
+- Jump Kick
+- Protect
 
 SPECIES_PIDGEOT @ ITEM_PIDGEOTITE
 Level: 50
 IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
 Ability: ABILITY_BIG_PECKS
+- Double Edge
+- Brave Bird
+- Steel Wing
+- Protect
 
 === TRAINER_WINONA_2 ===
 Name: WINONA
@@ -13941,27 +15209,51 @@ AI: Basic Trainer / Risky
 SPECIES_ALTARIA @ Sitrus Berry
 Level: 44
 IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Outrage
+- Brave Bird
+- Earthquake
+- Ice Beam
 
 SPECIES_VESPIQUEN
 Level: 42
 IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Attack Order
+- Hurricane
+- Power Gem
+- Sludge Bomb
 
 SPECIES_TOUCANNON
 Level: 45
 IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Take Down
+- Brave Bird
+- Gunk Shot
+- Brick Break
 
 SPECIES_HAWLUCHA
 Level: 47
 IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Close Combat
+- Brave Bird
+- Mega Kick
+- Roost
 
 SPECIES_NOIVERN
 Level: 47
 IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Hurricane
+- Draco Meteor
+- Flamethrower
+- Psychic
 
 SPECIES_SALAMENCE @ ITEM_SALAMENCITE
 Level: 50
 IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
 Ability: ABILITY_MOXIE
+- Outrage
+- Dual Wingbeat
+- Earthquake
+- Dragon Dance
 
 === TRAINER_WINONA_3 ===
 Name: WINONA
@@ -13976,27 +15268,51 @@ AI: Basic Trainer / Risky
 SPECIES_ALTARIA @ Sitrus Berry
 Level: 44
 IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Outrage
+- Brave Bird
+- Earthquake
+- Ice Beam
 
 SPECIES_VESPIQUEN
 Level: 42
 IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Attack Order
+- Hurricane
+- Power Gem
+- Sludge Bomb
 
 SPECIES_TOUCANNON
 Level: 45
 IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Take Down
+- Brave Bird
+- Gunk Shot
+- Substitute
 
 SPECIES_HAWLUCHA
 Level: 47
 IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Close Combat
+- Brave Bird
+- Mega Kick
+- Roost
 
 SPECIES_NOIVERN
 Level: 47
 IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Hurricane
+- Draco Meteor
+- Flamethrower
+- Substitute
 
 SPECIES_SALAMENCE @ ITEM_SALAMENCITE
 Level: 50
 IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
 Ability: ABILITY_MOXIE
+- Outrage
+- Dual Wingbeat
+- Earthquake
+- Dragon Dance
 
 === TRAINER_WINONA_4 ===
 Name: WINONA
@@ -14011,27 +15327,51 @@ AI: Basic Trainer / Risky
 SPECIES_ALTARIA @ Sitrus Berry
 Level: 44
 IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Outrage
+- Brave Bird
+- Earthquake
+- Roost
 
 SPECIES_VESPIQUEN
 Level: 42
 IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Attack Order
+- Hurricane
+- Power Gem
+- Sludge Bomb
 
 SPECIES_TOUCANNON
 Level: 45
 IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Take Down
+- Brave Bird
+- Gunk Shot
+- Brick Break
 
 SPECIES_HAWLUCHA
 Level: 47
 IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Close Combat
+- Brave Bird
+- Mega Kick
+- Stone Edge
 
 SPECIES_NOIVERN
 Level: 47
 IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Hurricane
+- Draco Meteor
+- Flamethrower
+- Psychic
 
 SPECIES_SALAMENCE @ ITEM_SALAMENCITE
 Level: 50
 IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
 Ability: ABILITY_MOXIE
+- Outrage
+- Dual Wingbeat
+- Earthquake
+- Dragon Dance
 
 === TRAINER_WINONA_5 ===
 Name: WINONA
@@ -14046,27 +15386,51 @@ AI: Basic Trainer / Risky
 SPECIES_ALTARIA @ Sitrus Berry
 Level: 44
 IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Outrage
+- Brave Bird
+- Earthquake
+- Substitute
 
 SPECIES_VESPIQUEN
 Level: 42
 IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Attack Order
+- Hurricane
+- Power Gem
+- Recover
 
 SPECIES_TOUCANNON
 Level: 45
 IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Take Down
+- Brave Bird
+- Gunk Shot
+- Encore
 
 SPECIES_HAWLUCHA
 Level: 47
 IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Close Combat
+- Brave Bird
+- Mega Kick
+- Taunt
 
 SPECIES_NOIVERN
 Level: 47
 IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Hurricane
+- Draco Meteor
+- Flamethrower
+- Psychic
 
 SPECIES_SALAMENCE @ ITEM_SALAMENCITE
 Level: 50
 IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
 Ability: ABILITY_MOXIE
+- Outrage
+- Dual Wingbeat
+- Earthquake
+- Dragon Dance
 
 === TRAINER_TATE_AND_LIZA_2 ===
 Name: TATE&LIZA
@@ -14081,27 +15445,51 @@ AI: Basic Trainer
 SPECIES_REUNICLUS
 Level: 53
 IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Psychic
+- Focus Blast
+- Energy Ball
+- Shadow Ball
 
 SPECIES_KIRLIA
 Level: 54
 IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Psychic
+- Ice Beam
+- Mystical Fire
+- Shadow Ball
 
 SPECIES_SIGILYPH @ Chesto Berry
 Level: 54
 IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Psychic
+- Air Slash
+- Energy Ball
+- Hypnosis
 
 SPECIES_HATTERENE @ Chesto Berry
 Level: 55
 IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Psychic
+- Dazzling Gleam
+- Mystical Fire
+- Pain Split
 
 SPECIES_BRAVIARY_HISUI
 Level: 55
 IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Psychic
+- Hurricane
+- Heat Wave
+- Dazzling Gleam
 
 SPECIES_STARMIE @ ITEM_STARMINITE
 Level: 55
 IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
 Ability: ABILITY_ANALYTIC
+- Surf
+- Psychic
+- Ice Beam
+- Light Screen
 
 === TRAINER_TATE_AND_LIZA_3 ===
 Name: TATE&LIZA
@@ -14116,27 +15504,51 @@ AI: Basic Trainer
 SPECIES_REUNICLUS
 Level: 53
 IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Psychic
+- Focus Blast
+- Energy Ball
+- Trick Room
 
 SPECIES_KIRLIA
 Level: 54
 IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Psychic
+- Ice Beam
+- Mystical Fire
+- Encore
 
 SPECIES_SIGILYPH @ Chesto Berry
 Level: 54
 IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Psychic
+- Air Slash
+- Energy Ball
+- Ice Beam
 
 SPECIES_HATTERENE @ Chesto Berry
 Level: 55
 IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Psychic
+- Dazzling Gleam
+- Mystical Fire
+- Giga Drain
 
 SPECIES_BRAVIARY_HISUI
 Level: 55
 IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Psychic
+- Hurricane
+- Heat Wave
+- Dazzling Gleam
 
 SPECIES_STARMIE @ ITEM_STARMINITE
 Level: 55
 IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
 Ability: ABILITY_ANALYTIC
+- Surf
+- Psychic
+- Ice Beam
+- Light Screen
 
 === TRAINER_TATE_AND_LIZA_4 ===
 Name: TATE&LIZA
@@ -14151,27 +15563,51 @@ AI: Basic Trainer
 SPECIES_REUNICLUS
 Level: 53
 IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Psychic
+- Focus Blast
+- Energy Ball
+- Toxic
 
 SPECIES_KIRLIA
 Level: 54
 IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Psychic
+- Ice Beam
+- Mystical Fire
+- Substitute
 
 SPECIES_SIGILYPH @ Chesto Berry
 Level: 54
 IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Psychic
+- Air Slash
+- Energy Ball
+- Ice Beam
 
 SPECIES_HATTERENE @ Chesto Berry
 Level: 55
 IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Psychic
+- Dazzling Gleam
+- Mystical Fire
+- Giga Drain
 
 SPECIES_BRAVIARY_HISUI
 Level: 55
 IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Psychic
+- Hurricane
+- Heat Wave
+- Protect
 
 SPECIES_STARMIE @ ITEM_STARMINITE
 Level: 55
 IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
 Ability: ABILITY_ANALYTIC
+- Surf
+- Psychic
+- Ice Beam
+- Pain Split
 
 === TRAINER_TATE_AND_LIZA_5 ===
 Name: TATE&LIZA
@@ -14186,27 +15622,51 @@ AI: Basic Trainer
 SPECIES_REUNICLUS
 Level: 53
 IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Psychic
+- Focus Blast
+- Energy Ball
+- Shadow Ball
 
 SPECIES_KIRLIA
 Level: 54
 IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Psychic
+- Ice Beam
+- Mystical Fire
+- Hypnosis
 
 SPECIES_SIGILYPH @ Chesto Berry
 Level: 54
 IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Psychic
+- Air Slash
+- Energy Ball
+- Ice Beam
 
 SPECIES_HATTERENE @ Chesto Berry
 Level: 55
 IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Psychic
+- Dazzling Gleam
+- Mystical Fire
+- Thunder Wave
 
 SPECIES_BRAVIARY_HISUI
 Level: 55
 IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Psychic
+- Hurricane
+- Heat Wave
+- Dazzling Gleam
 
 SPECIES_STARMIE @ ITEM_STARMINITE
 Level: 55
 IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
 Ability: ABILITY_ANALYTIC
+- Surf
+- Psychic
+- Ice Beam
+- Pain Split
 
 === TRAINER_JUAN_2 ===
 Name: JUAN
@@ -14221,27 +15681,51 @@ AI: Basic Trainer
 SPECIES_OMASTAR
 Level: 51
 IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Ancient Power
+- Surf
+- Earth Power
+- Toxic Spikes
 
 SPECIES_SLOWKING
 Level: 51
 IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Surf
+- Psychic
+- Fire Blast
+- Substitute
 
 SPECIES_BASCULIN_RED_STRIPED
 Level: 53
 IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Wave Crash
+- Superpower
+- Double Edge
+- Protect
 
 SPECIES_SLOWBRO @ Chesto Berry
 Level: 53
 IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Surf
+- Psychic
+- Fire Blast
+- Yawn
 
 SPECIES_LAPRAS
 Level: 53
 IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Sparkling Aria
+- Ice Beam
+- Earthquake
+- Haze
 
 SPECIES_BLASTOISE @ ITEM_BLASTOISINITE
 Level: 56
 IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
 Ability: ABILITY_RAIN_DISH
+- Water Spout
+- Outrage
+- Double Edge
+- Shell Smash
 
 === TRAINER_JUAN_3 ===
 Name: JUAN
@@ -14256,27 +15740,51 @@ AI: Basic Trainer
 SPECIES_OMASTAR
 Level: 51
 IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Ancient Power
+- Surf
+- Earth Power
+- Ice Beam
 
 SPECIES_SLOWKING
 Level: 51
 IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Surf
+- Psychic
+- Fire Blast
+- Protect
 
 SPECIES_BASCULIN_RED_STRIPED
 Level: 53
 IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Wave Crash
+- Superpower
+- Double Edge
+- Taunt
 
 SPECIES_SLOWBRO @ Chesto Berry
 Level: 53
 IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Surf
+- Psychic
+- Fire Blast
+- Ice Beam
 
 SPECIES_LAPRAS
 Level: 53
 IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Sparkling Aria
+- Ice Beam
+- Earthquake
+- Substitute
 
 SPECIES_BLASTOISE @ ITEM_BLASTOISINITE
 Level: 56
 IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
 Ability: ABILITY_RAIN_DISH
+- Water Spout
+- Outrage
+- Double Edge
+- Shell Smash
 
 === TRAINER_JUAN_4 ===
 Name: JUAN
@@ -14291,27 +15799,51 @@ AI: Basic Trainer
 SPECIES_OMASTAR
 Level: 51
 IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Ancient Power
+- Surf
+- Earth Power
+- Ice Beam
 
 SPECIES_SLOWKING
 Level: 51
 IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Surf
+- Psychic
+- Fire Blast
+- Ice Beam
 
 SPECIES_BASCULIN_RED_STRIPED
 Level: 53
 IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Wave Crash
+- Superpower
+- Double Edge
+- Taunt
 
 SPECIES_SLOWBRO @ Chesto Berry
 Level: 53
 IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Surf
+- Psychic
+- Fire Blast
+- Ice Beam
 
 SPECIES_LAPRAS
 Level: 53
 IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Sparkling Aria
+- Ice Beam
+- Earthquake
+- Megahorn
 
 SPECIES_BLASTOISE @ ITEM_BLASTOISINITE
 Level: 56
 IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
 Ability: ABILITY_RAIN_DISH
+- Water Spout
+- Outrage
+- Double Edge
+- Shell Smash
 
 === TRAINER_JUAN_5 ===
 Name: JUAN
@@ -14326,27 +15858,51 @@ AI: Basic Trainer
 SPECIES_OMASTAR
 Level: 51
 IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Ancient Power
+- Surf
+- Earth Power
+- Ice Beam
 
 SPECIES_SLOWKING
 Level: 51
 IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Surf
+- Psychic
+- Fire Blast
+- Ice Beam
 
 SPECIES_BASCULIN_RED_STRIPED
 Level: 53
 IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Wave Crash
+- Superpower
+- Double Edge
+- Taunt
 
 SPECIES_SLOWBRO @ Chesto Berry
 Level: 53
 IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Surf
+- Psychic
+- Fire Blast
+- Ice Beam
 
 SPECIES_LAPRAS
 Level: 53
 IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Sparkling Aria
+- Ice Beam
+- Earthquake
+- Protect
 
 SPECIES_BLASTOISE @ ITEM_BLASTOISINITE
 Level: 56
 IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
 Ability: ABILITY_RAIN_DISH
+- Water Spout
+- Outrage
+- Double Edge
+- Shell Smash
 
 === TRAINER_ANGELO ===
 Name: ANGELO
@@ -14391,27 +15947,51 @@ AI: Basic Trainer
 SPECIES_GOODRA_HISUI
 Level: 85
 IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
+- Draco Meteor
+- Flash Cannon
+- Fire Blast
+- Ice Beam
 
 SPECIES_REVAVROOM
 Level: 82
 IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
+- Spin Out
+- Gunk Shot
+- High Horsepower
+- Haze
 
 SPECIES_FERROTHORN
 Level: 84
 IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
+- Power Whip
+- Iron Head
+- Poison Jab
+- Strength
 
 SPECIES_KINGAMBIT
 Level: 84
 IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
+- Foul Play
+- Iron Head
+- Stone Edge
+- Brick Break
 
 SPECIES_BRONZONG
 Level: 84
 IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
+- Iron Head
+- Zen Headbutt
+- Ice Spinner
+- Earthquake
 
 SPECIES_METAGROSS @ ITEM_METAGROSSITE
 Level: 86
 IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
 Ability: ABILITY_LIGHT_METAL
+- Meteor Mash
+- Psychic Fangs
+- Ice Punch
+- Hone Claws
 
 === TRAINER_ANABEL ===
 Name: ANABEL
@@ -15363,6 +16943,10 @@ Double Battle: No
 SPECIES_HAPPINY
 Level: 6
 IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Pound
+- Draining Kiss
+- Mud Slap
+- Calm Mind
 
 === TRAINER_MAY_PLACEHOLDER ===
 Name: MAY
@@ -15375,3 +16959,7 @@ Double Battle: No
 SPECIES_GROOKEY
 Level: 6
 IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Trailblaze
+- Scratch
+- Branch Poke
+- Swords Dance

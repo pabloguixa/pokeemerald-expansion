@@ -167,6 +167,11 @@ def load_species_db(originals):
             a = re.search(r"\.abilities\s*=\s*\{([^}]*)\}", body)
             abilities = [x.strip() for x in a.group(1).split(",")] if a else []
             info = {"types": types, "evos": evos, "bst": bst, "abilities": abilities}
+            for key, f in (("atk", "baseAttack"), ("spa", "baseSpAttack")):
+                sm = re.search(r"\." + f + r"\s*=\s*([^,\n]+)", body)
+                info[key] = _stat_value(sm.group(1), defines) if sm else 0
+            ls = re.search(r"\.levelUpLearnset\s*=\s*(\w+)", body)
+            info["learnset"] = ls.group(1) if ls else None
             for f in FLAG_FIELDS:
                 info[f] = bool(re.search(r"\." + f + r"\s*=\s*TRUE", body))
             if name not in db:
@@ -1025,6 +1030,219 @@ def apply_rematches(texts, mega_aces):
 
 
 # --------------------------------------------------------------------------
+# Parte 10 · Movimientos de los jefes
+# Líderes, Alto Mando, Campeón, Steven, rival, Wally y jefes/admins Aqua/Magma
+# llevan sets pensados: STAB fuerte, cobertura y (a veces) un movimiento de
+# apoyo. El resto de entrenadores sigue con los movimientos por nivel.
+# --------------------------------------------------------------------------
+BOSS_PREFIXES = ("MAXIE", "ARCHIE", "TABITHA", "MATT", "SHELLY", "COURTNEY", "WALLY")
+TM_POWER_BASE, TM_POWER_PER_LEVEL = 40, 2     # tope de potencia de MT/tutor: 40 + 2·nivel
+BAD_EFFECT_WORDS = ("OHKO", "SOLAR", "TWO_TURN", "SEMI_INVULNERABLE", "FIRST_TURN", "FUTURE_SIGHT",
+                    "FOCUS_PUNCH", "DREAM_EATER", "SNORE", "SLEEP_TALK", "SPIT_UP", "LAST_RESORT", "BELCH",
+                    "FLING", "NATURAL_GIFT", "SYNCHRONOISE", "EXPLOSION", "MIND_BLOWN", "STEEL_BEAM",
+                    "FINAL_GAMBIT", "POLTERGEIST", "BURN_UP", "DOUBLE_SHOCK", "SHELL_TRAP", "BEAK_BLAST",
+                    "UPPER_HAND", "SKY_DROP", "METEOR_BEAM", "ELECTRO_SHOT", "GEOMANCY", "LOW_KICK",
+                    "LEVEL_DAMAGE", "FIXED", "COUNTER", "MIRROR_COAT", "METAL_BURST", "BIDE", "ENDEAVOR",
+                    "SUPER_FANG", "PSYWAVE", "DRAGON_RAGE", "SONICBOOM", "PRESENT", "RETURN", "FRUSTRATION",
+                    "MAGNITUDE", "SPIT", "STOCKPILE", "HIDDEN_POWER", "WEATHER_BALL", "TERRAIN_PULSE",
+                    "REVELATION_DANCE", "MULTI_ATTACK", "JUDGMENT", "TECHNO_BLAST", "RAGE_FIST", "STUFF_CHEEKS")
+BAD_MOVES = {"MOVE_SELF_DESTRUCT", "MOVE_EXPLOSION", "MOVE_MISTY_EXPLOSION", "MOVE_STRUGGLE", "MOVE_THIEF",
+             "MOVE_COVET", "MOVE_ROLLOUT", "MOVE_ICE_BALL", "MOVE_FURY_CUTTER", "MOVE_ECHOED_VOICE",
+             "MOVE_PAYBACK", "MOVE_ASSURANCE", "MOVE_REVENGE", "MOVE_AVALANCHE", "MOVE_ROUND", "MOVE_STOMPING_TANTRUM",
+             "MOVE_UPROAR", "MOVE_THRASH", "MOVE_PETAL_DANCE", "MOVE_RAGE", "MOVE_FALSE_SWIPE", "MOVE_HOLD_BACK",
+             "MOVE_SPLISHY_SPLASH", "MOVE_FLOATY_FALL", "MOVE_SIZZLY_SLIDE", "MOVE_ZIPPY_ZAP", "MOVE_BOUNCY_BUBBLE",
+             "MOVE_BUZZY_BUZZ", "MOVE_GLITZY_GLOW", "MOVE_BADDY_BAD", "MOVE_SAPPY_SEED", "MOVE_FREEZY_FROST",
+             "MOVE_SPARKLY_SWIRL", "MOVE_VEEVEE_VOLLEY", "MOVE_DOUBLE_IRON_BASH", "MOVE_DYNAMAX_CANNON",
+             "MOVE_BEHEMOTH_BLADE", "MOVE_BEHEMOTH_BASH", "MOVE_ETERNABEAM", "MOVE_STEEL_BEAM",
+             "MOVE_STEEL_ROLLER", "MOVE_BODY_PRESS", "MOVE_TERA_BLAST", "MOVE_ICE_HAMMER", "MOVE_HAMMER_ARM",
+             "MOVE_EXPANDING_FORCE", "MOVE_RISING_VOLTAGE", "MOVE_GRASSY_GLIDE", "MOVE_MISTY_TERRAIN",
+             "MOVE_SPIT_UP", "MOVE_DREAM_EATER", "MOVE_NIGHTMARE", "MOVE_HARD_PRESS", "MOVE_CRUSH_GRIP",
+             "MOVE_WRING_OUT", "MOVE_SHELL_SIDE_ARM"}
+SETUP_PHYS = ["MOVE_SWORDS_DANCE", "MOVE_DRAGON_DANCE", "MOVE_SHELL_SMASH", "MOVE_SHIFT_GEAR",
+              "MOVE_VICTORY_DANCE", "MOVE_BULK_UP", "MOVE_COIL", "MOVE_HONE_CLAWS"]
+SETUP_SPEC = ["MOVE_NASTY_PLOT", "MOVE_CALM_MIND", "MOVE_QUIVER_DANCE", "MOVE_TAIL_GLOW", "MOVE_SHELL_SMASH"]
+SUPPORT = ["MOVE_WILL_O_WISP", "MOVE_THUNDER_WAVE", "MOVE_TOXIC", "MOVE_SPORE", "MOVE_SLEEP_POWDER",
+           "MOVE_YAWN", "MOVE_LEECH_SEED", "MOVE_STEALTH_ROCK", "MOVE_SPIKES", "MOVE_TOXIC_SPIKES",
+           "MOVE_RECOVER", "MOVE_ROOST", "MOVE_SLACK_OFF", "MOVE_SOFT_BOILED", "MOVE_SYNTHESIS", "MOVE_MOONLIGHT",
+           "MOVE_MORNING_SUN", "MOVE_MILK_DRINK", "MOVE_SHORE_UP", "MOVE_WISH", "MOVE_REFLECT",
+           "MOVE_LIGHT_SCREEN", "MOVE_TAUNT", "MOVE_ENCORE", "MOVE_SUBSTITUTE", "MOVE_PROTECT", "MOVE_GLARE",
+           "MOVE_STUN_SPORE", "MOVE_HYPNOSIS", "MOVE_TRICK_ROOM", "MOVE_TAILWIND", "MOVE_HAZE", "MOVE_PAIN_SPLIT"]
+SUPPORT_CHANCE = 0.5          # los que no son el as llevan un movimiento de apoyo la mitad de las veces
+
+
+def _ternary_true(raw):
+    raw = raw.strip()
+    if "?" in raw:
+        raw = raw.split("?", 1)[1].split(":", 1)[0]
+    return raw.strip()
+
+
+def load_moves():
+    text = (ROOT / "src/data/moves_info.h").read_text(encoding="utf-8")
+    moves = {}
+    starts = [(m.start(), m.group(1)) for m in re.finditer(r"^    \[(MOVE_\w+)\]\s*=", text, re.M)]
+    for i, (pos, name) in enumerate(starts):
+        body = text[pos:starts[i + 1][0] if i + 1 < len(starts) else len(text)]
+        def field(f, default=""):
+            m = re.search(r"\n\s*\." + f + r"\s*=\s*([^\n]+?),?\s*\n", body)
+            return _ternary_true(m.group(1)) if m else default
+        def num(f):
+            m = re.search(r"\d+", field(f, "0"))
+            return int(m.group()) if m else 0
+        moves[name] = {
+            "effect": field("effect"), "type": field("type"), "category": field("category"),
+            "power": num("power"), "accuracy": num("accuracy") or 100, "priority": num("priority"),
+            "strikes": num("strikeCount") or (3 if "multiHit = TRUE" in body else 1),
+            "recharge": "MOVE_EFFECT_RECHARGE" in body,
+        }
+    return moves
+
+
+def load_levelup_learnsets():
+    out = {}
+    folder = ROOT / "src/data/pokemon/level_up_learnsets"
+    for f in sorted(folder.glob("gen_*.h")):
+        text = f.read_text(encoding="utf-8")
+        for m in re.finditer(r"struct LevelUpMove (\w+)\[\]\s*=\s*\{(.*?)\};", text, re.S):
+            out[m.group(1)] = [(int(l), mv) for l, mv in re.findall(r"LEVEL_UP_MOVE\(\s*(\d+),\s*(MOVE_\w+)\)", m.group(2))]
+    return out
+
+
+def load_teachables():
+    path = ROOT / "src/data/pokemon/all_learnables.json"
+    return json.loads(path.read_text(encoding="utf-8")) if path.exists() else {}
+
+
+def move_label(move):
+    return move[len("MOVE_"):].replace("_", " ").title()
+
+
+class MovePicker:
+    def __init__(self, db, rng):
+        self.db, self.rng = db, rng
+        self.moves = load_moves()
+        self.levelup = load_levelup_learnsets()
+        self.teach = load_teachables()
+        self.L = Lines(db)
+
+    def learnable(self, sp, level):
+        """{MOVE: viene_de_MT} con lo que aprende por nivel (él y sus preevoluciones) y por MT/tutor."""
+        res = {}
+        chain, x, seen = [sp], sp, set()
+        while x in self.L.pre and x not in seen:
+            seen.add(x)
+            x = self.L.pre[x]
+            chain.append(x)
+        for c in chain:
+            for lv, mv in self.levelup.get(self.db.get(c, {}).get("learnset"), []):
+                if lv <= level:
+                    res[mv] = False
+        key = sp[len("SPECIES_"):]
+        while key and key not in self.teach:
+            key = key.rsplit("_", 1)[0] if "_" in key else ""
+        for mv in self.teach.get(key, []):
+            res.setdefault(mv, True)
+        return {m: tm for m, tm in res.items() if m in self.moves}
+
+    def damaging(self, mv):
+        d = self.moves[mv]
+        if mv in BAD_MOVES or d["category"].endswith("STATUS") or d["power"] <= 1 or d["recharge"]:
+            return False
+        return not any(w in d["effect"] for w in BAD_EFFECT_WORDS)
+
+    def score(self, sp, mv):
+        d, info = self.moves[mv], self.db[sp]
+        stat = info["atk"] if d["category"].endswith("PHYSICAL") else info["spa"]
+        best = max(info["atk"], info["spa"], 1)
+        stab = 1.5 if d["type"] in info["types"] else 1.0
+        return d["power"] * d["strikes"] * d["accuracy"] / 100 * stab * (stat / best) ** 2
+
+    def moveset(self, sp, level, is_ace):
+        if sp not in self.db:
+            return []
+        info = self.db[sp]
+        avail = self.learnable(sp, level)
+        cap = TM_POWER_BASE + TM_POWER_PER_LEVEL * level
+        attacks = [m for m, tm in avail.items() if self.damaging(m)
+                   and (not tm or self.moves[m]["power"] * self.moves[m]["strikes"] <= cap)]
+        attacks.sort(key=lambda m: -self.score(sp, m))
+        chosen = []
+        # 1) STAB: el mejor de cada tipo propio
+        for t in info["types"]:
+            stab = [m for m in attacks if self.moves[m]["type"] == t and m not in chosen]
+            if stab and (not chosen or self.score(sp, stab[0]) >= 0.6 * self.score(sp, chosen[0])):
+                chosen.append(stab[0])
+        # 2) Apoyo
+        physical = info["atk"] >= info["spa"]
+        support = None
+        if is_ace:
+            opts = [m for m in (SETUP_PHYS if physical else SETUP_SPEC) if m in avail]
+            support = opts[0] if opts else None
+        if support is None and (is_ace or self.rng.random() < SUPPORT_CHANCE):
+            opts = [m for m in SUPPORT if m in avail]
+            support = self.rng.choice(opts) if opts else None
+        slots = 4 - (1 if support else 0)
+        # 3) Cobertura: lo que más tipos nuevos golpea supereficaz
+        def se_types(moves_):
+            return {d for m in moves_ for d in _T if type_mult(self.moves[m]["type"], [d]) > 1}
+        while len(chosen) < slots:
+            used_types = {self.moves[m]["type"] for m in chosen}
+            rest = [m for m in attacks if m not in chosen and self.moves[m]["type"] not in used_types]
+            if not rest:
+                rest = [m for m in attacks if m not in chosen]
+            if not rest:
+                break
+            strong = [m for m in rest if self.score(sp, m) >= 0.5 * self.score(sp, attacks[0])]
+            rest = strong or rest
+            have = se_types(chosen)
+            top = max(self.score(sp, m) for m in rest)
+            pick = max(rest, key=lambda m: self.score(sp, m) / top + 0.25 * len(se_types([m]) - have))
+            chosen.append(pick)
+        if support:
+            chosen.append(support)
+        # Si faltan (Pokémon con pocos movimientos), rellena con lo último que aprende por nivel
+        if len(chosen) < 4:
+            extra = [mv for c in [sp] for lv, mv in reversed(self.levelup.get(info.get("learnset"), []))
+                     if lv <= level and mv in self.moves and mv not in chosen]
+            for mv in extra:
+                if len(chosen) >= 4:
+                    break
+                if mv not in chosen:
+                    chosen.append(mv)
+        return chosen[:4]
+
+
+def is_boss(const):
+    role = trainer_role(const)[0]
+    return role in ("leader", "elite", "rival") or const.startswith(BOSS_PREFIXES) or const.startswith("STEVEN")
+
+
+def add_boss_moves(text, db, aliases, rng):
+    mp = MovePicker(db, rng)
+    idx = species_name_index(aliases)
+    blocks = re.split(r"(?m)^(?==== TRAINER_)", text)
+    out, n_mons = [], 0
+    for block in blocks:
+        m = re.match(r"=== TRAINER_(\w+) ===", block)
+        if not m or not is_boss(m.group(1)) or m.group(1).startswith("MATTHEW"):
+            out.append(block)
+            continue
+        parts = block.rstrip("\n").split("\n\n")
+        mon_idx = [i for i, p in enumerate(parts[1:], 1) if parse_mon(p)]
+        for i in mon_idx:
+            lines = [l for l in parts[i].split("\n") if not l.startswith("- ")]
+            first = lines[0].split("@")[0].strip()
+            sp = name_to_species(first, idx, aliases) or (first if first in db else None)
+            level = int(re.search(r"^Level:\s*(\d+)", parts[i], re.M).group(1))
+            ms = mp.moveset(sp, level, is_ace=(i == mon_idx[-1])) if sp else []
+            if ms:
+                n_mons += 1
+            parts[i] = "\n".join(lines + [f"- {move_label(x)}" for x in ms])
+        out.append("\n\n".join(parts) + "\n\n")
+    return "".join(out).rstrip("\n") + "\n", n_mons
+
+
+# --------------------------------------------------------------------------
 # Parte 9 · Megas durante la aventura
 # --------------------------------------------------------------------------
 # Steven da el MEGA RING junto al DEVON SCOPE (Ruta 120, antes de la 6ª medalla).
@@ -1155,6 +1373,8 @@ def main():
           "· Campeón:", ace_levels.get("champion"))
 
     text, rival_slot, n = randomize_rival(trainers_text, db, lines, rng)
+    text, n_moves = add_boss_moves(text, db, aliases, rng)
+    print(f"Movimientos: {n_moves} Pokémon de jefes con set propio (STAB, cobertura y apoyo)")
     (ROOT / "src/data/trainers.party").write_text(text, encoding="utf-8")
     result["rival"] = {pretty(starters[p]): pretty(starters[r]) for p, r in rival_slot.items()}
     print(f"Rival ({n} Pokémon cambiados):")
