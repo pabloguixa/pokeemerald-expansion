@@ -10,7 +10,7 @@ Siempre parte de los archivos originales (se guardan una sola vez en
 randomizer/_original/), así que puedes ejecutarlo tantas veces como quieras.
 Después: make -j$(nproc)
 
-Partes hechas: 1 · Iniciales  ·  2 · Rival  ·  3 · Rutas  ·  4 · Evoluciones por intercambio  ·  5 · Entrenadores y líderes.
+Partes hechas: 1 · Iniciales  ·  2 · Rival  ·  3 · Rutas  ·  4 · Evoluciones por intercambio  ·  5 · Entrenadores y líderes  ·  6 · Legendarios fijos  ·  7 · Nuzlocke (Revivir).
 """
 import json
 import random
@@ -30,7 +30,21 @@ FILES = [
     "src/data/trainers.party",
     "src/data/wild_encounters.json",
     "src/caps.c",
-] + [f"src/data/pokemon/species_info/gen_{g}_families.h" for g in range(1, 10)]
+] + [f"data/maps/{m}/{f}" for m in [
+    "DesertRuins", "IslandCave", "AncientTomb", "BirthIsland_Exterior", "FarawayIsland_Interior",
+    "NavelRock_Top", "NavelRock_Bottom", "SouthernIsland_Interior"] for f in ("scripts.inc", "map.json")]
+NUZLOCKE_MARTS = ["data/scripts/mart_clerk.inc"] + [f"data/maps/{m}/scripts.inc" for m in [
+    "MossdeepCity_Mart", "TrainerHill_Entrance", "SootopolisCity_Mart", "BattleFrontier_Mart",
+    "EverGrandeCity_PokemonLeague_1F", "LavaridgeTown_Mart", "LilycoveCity_DepartmentStore_2F",
+    "FortreeCity_Mart", "LavaridgeTown_HerbShop"]]
+NUZLOCKE_ITEMS_ON_MAP = [f"data/maps/{m}/map.json" for m in [
+    "Route121", "Route114", "SafariZone_Southwest", "Route109", "Route117", "Route110",
+    "AbandonedShip_Rooms2_1F", "PetalburgCity", "MagmaHideout_4F", "Route123", "Route120", "Route133",
+    "NavelRock_Top"]]
+GYM_SCRIPTS = [f"data/maps/{m}/scripts.inc" for m in [
+    "RustboroCity_Gym", "DewfordTown_Gym", "MauvilleCity_Gym", "LavaridgeTown_Gym_1F",
+    "PetalburgCity_Gym", "FortreeCity_Gym", "MossdeepCity_Gym", "SootopolisCity_Gym_1F"]]
+FILES = list(dict.fromkeys(FILES + NUZLOCKE_MARTS + NUZLOCKE_ITEMS_ON_MAP + GYM_SCRIPTS)) + [f"src/data/pokemon/species_info/gen_{g}_families.h" for g in range(1, 10)]
 
 # 115 líneas evolutivas de 3 etapas (incluye bebés, excluye Cosmog).
 STARTER_POOL = [
@@ -743,6 +757,75 @@ def update_level_caps(text, ace_levels):
     return text
 
 
+# --------------------------------------------------------------------------
+# Parte 6 · Legendarios de encuentro fijo (salvo Groudon, Kyogre y Rayquaza)
+# --------------------------------------------------------------------------
+# (carpeta del mapa, especie original, sprite original en el mapa)
+FIXED_LEGENDS = [
+    ("DesertRuins", "SPECIES_REGIROCK", "OBJ_EVENT_GFX_REGIROCK"),
+    ("IslandCave", "SPECIES_REGICE", "OBJ_EVENT_GFX_REGICE"),
+    ("AncientTomb", "SPECIES_REGISTEEL", "OBJ_EVENT_GFX_REGISTEEL"),
+    ("BirthIsland_Exterior", "SPECIES_DEOXYS_NORMAL", "OBJ_EVENT_GFX_DEOXYS"),
+    ("FarawayIsland_Interior", "SPECIES_MEW", "OBJ_EVENT_GFX_MEW"),
+    ("NavelRock_Top", "SPECIES_HO_OH", "OBJ_EVENT_GFX_HOOH"),
+    ("NavelRock_Bottom", "SPECIES_LUGIA", "OBJ_EVENT_GFX_LUGIA"),
+    ("SouthernIsland_Interior", "SPECIES_LATIOS", "OBJ_EVENT_GFX_LATIOS"),
+    ("SouthernIsland_Interior", "SPECIES_LATIAS", "OBJ_EVENT_GFX_LATIAS"),
+]
+# Si al compilar da error en algún map.json, pon esto a False: el combate será
+# contra el legendario nuevo, pero en el mapa se seguirá viendo el sprite original.
+CHANGE_LEGEND_SPRITES = True
+
+
+def randomize_fixed_legends(texts, db, aliases, rng):
+    dex = [s for s in national_dex_species(aliases) if s in db]
+    pool = [s for s in dex if (db[s]["isRestrictedLegendary"] or db[s]["isMythical"])
+            and s not in STORY_LEGENDS and db[s]["bst"] >= 500]   # nada de Cosmog o Meltan
+    chosen = rng.sample(pool, len(FIXED_LEGENDS))
+    out = dict(texts)
+    report = []
+    for (mapdir, old_sp, old_gfx), new_sp in zip(FIXED_LEGENDS, chosen):
+        scr = f"data/maps/{mapdir}/scripts.inc"
+        js = f"data/maps/{mapdir}/map.json"
+        out[scr] = re.sub(r"\b" + old_sp + r"\b", new_sp, out[scr])
+        if CHANGE_LEGEND_SPRITES:
+            gfx = "OBJ_EVENT_GFX_SPECIES(" + new_sp[len("SPECIES_"):] + ")"
+            pat = re.compile(re.escape(old_gfx) + r"(?![A-Z0-9_])")
+            out[scr] = pat.sub(gfx, out[scr])
+            out[js] = pat.sub(gfx, out[js])
+        report.append({"place": mapdir, "original": pretty(old_sp), "new": pretty(new_sp)})
+    return out, report
+
+
+# --------------------------------------------------------------------------
+# Parte 7 · Nuzlocke: sin Revivir en tiendas ni en el mapa; 1 Revivir por medalla
+# --------------------------------------------------------------------------
+REVIVE_ITEMS = ["ITEM_REVIVE", "ITEM_MAX_REVIVE", "ITEM_REVIVAL_HERB", "ITEM_SACRED_ASH"]
+REVIVE_SWAP = {   # lo que había en el suelo se cambia por una curación normal
+    "ITEM_REVIVE": "ITEM_HYPER_POTION", "ITEM_MAX_REVIVE": "ITEM_FULL_RESTORE",
+    "ITEM_REVIVAL_HERB": "ITEM_ENERGY_ROOT", "ITEM_SACRED_ASH": "ITEM_MAX_ELIXIR",
+}
+
+
+def apply_nuzlocke(texts):
+    out = dict(texts)
+    removed = swapped = gyms = 0
+    item_re = "|".join(REVIVE_ITEMS)
+    for rel in NUZLOCKE_MARTS:
+        new, n = re.subn(r"^[ \t]*\.2byte (?:" + item_re + r")[ \t]*\n", "", out[rel], flags=re.M)
+        out[rel], removed = new, removed + n
+    for rel in NUZLOCKE_ITEMS_ON_MAP:
+        def swap(m):
+            return m.group(1) + REVIVE_SWAP[m.group(2)] + '"'
+        new, n = re.subn(r'("(?:item|trainer_sight_or_berry_tree_id)":\s*")(' + item_re + r')"', swap, out[rel])
+        out[rel], swapped = new, swapped + n
+    for rel in GYM_SCRIPTS:
+        new, n = re.subn(r"^([ \t]*)(setflag FLAG_BADGE0[1-8]_GET)[ \t]*$",
+                         r"\1\2\n\1giveitem ITEM_REVIVE", out[rel], count=1, flags=re.M)
+        out[rel], gyms = new, gyms + n
+    return out, removed, swapped, gyms
+
+
 def main():
     seed = int(sys.argv[1]) if len(sys.argv) > 1 else random.randrange(1, 10**6)
     rng = random.Random(seed)
@@ -798,6 +881,17 @@ def main():
     print(f"Evoluciones por intercambio: {len(changes)} cambiadas (nivel {TRADE_LEVEL} u objeto)")
     if needed:
         print("  Objetos que habrá que poner en el juego:", ", ".join(n.replace("ITEM_", "").title() for n in needed))
+
+    map_texts = {k: v for k, v in originals.items() if k.startswith("data/")}
+    map_texts, legend_report = randomize_fixed_legends(map_texts, db, aliases, rng)
+    result["fixed_legends"] = legend_report
+    print("Legendarios fijos:", ", ".join(f"{r['original']} -> {r['new']}" for r in legend_report))
+
+    map_texts, removed, swapped, gyms = apply_nuzlocke(map_texts)
+    print(f"Nuzlocke: {removed} Revivir quitados de tiendas, {swapped} del mapa cambiados por curas, "
+          f"{gyms}/8 líderes dan 1 Revivir")
+    for rel, text in map_texts.items():
+        (ROOT / rel).write_text(text, encoding="utf-8")
 
     OUT.mkdir(exist_ok=True)
     (OUT / "last_run.json").write_text(json.dumps(result, indent=2), encoding="utf-8")

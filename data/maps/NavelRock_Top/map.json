@@ -17,7 +17,7 @@
   "object_events": [
     {
       "local_id": "LOCALID_NAVEL_ROCK_HO_OH",
-      "graphics_id": "OBJ_EVENT_GFX_HOOH",
+      "graphics_id": "OBJ_EVENT_GFX_SPECIES(KYUREM)",
       "x": 12,
       "y": 4,
       "elevation": 0,
@@ -56,7 +56,7 @@
       "x": 12,
       "y": 9,
       "elevation": 3,
-      "item": "ITEM_SACRED_ASH",
+      "item": "ITEM_MAX_ELIXIR",
       "flag": "FLAG_HIDDEN_ITEM_NAVEL_ROCK_TOP_SACRED_ASH"
     }
   ]

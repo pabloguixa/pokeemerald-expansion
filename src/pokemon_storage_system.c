@@ -1713,6 +1713,11 @@ void ResetPokemonStorageSystem(void)
         u8 *dest = StringCopy(GetBoxNamePtr(boxId), gText_Box);
         ConvertIntToDecimalStringN(dest, boxId + 1, STR_CONV_MODE_LEFT_ALIGN, 2);
     }
+    // Emerald Nuzlocke: la última caja es el cementerio
+    {
+        static const u8 sText_Cemetery[] = _("TUMBAS");
+        StringCopy(GetBoxNamePtr(TOTAL_BOXES_COUNT - 1), sText_Cemetery);
+    }
 
     for (boxId = 0; boxId < TOTAL_BOXES_COUNT; boxId++)
         SetBoxWallpaper(boxId, boxId % (MAX_DEFAULT_WALLPAPER + 1));

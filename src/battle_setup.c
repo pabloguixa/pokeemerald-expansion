@@ -48,6 +48,7 @@
 #include "tv.h"
 #include "overworld.h"
 #include "vs_seeker.h"
+#include "pokemon_storage_system.h"
 #include "wild_encounter_ow.h"
 #include "window.h"
 #include "constants/battle_frontier.h"
@@ -689,6 +690,51 @@ static void DowngradeBadPoison(void)
     }
 }
 
+// --------------------------------------------------------------------------
+// Emerald Nuzlocke: al acabar un combate (sin perder), los Pokémon debilitados
+// van a la última caja del PC ("TUMBAS") y no se pueden curar en el Centro.
+// --------------------------------------------------------------------------
+#define NUZLOCKE_CEMETERY_BOX (TOTAL_BOXES_COUNT - 1)
+
+static void NuzlockeSendFaintedToCemetery(void)
+{
+    s32 i;
+    u32 pos;
+    bool32 moved = FALSE;
+
+    if (IsPlayerDefeated(gBattleOutcome)
+     || (gBattleTypeFlags & BATTLE_TYPE_FRONTIER)
+     || CurrentBattlePyramidLocation() != PYRAMID_LOCATION_NONE
+     || InBattlePike()
+     || InTrainerHillChallenge())
+        return;
+
+    for (i = 0; i < PARTY_SIZE; i++)
+    {
+        struct Pokemon *mon = &gPlayerParty[i];
+
+        if (GetMonData(mon, MON_DATA_SPECIES) == SPECIES_NONE || GetMonData(mon, MON_DATA_IS_EGG))
+            continue;
+        if (GetMonData(mon, MON_DATA_HP) != 0)
+            continue;
+
+        for (pos = 0; pos < IN_BOX_COUNT; pos++)
+        {
+            if (GetBoxMonDataAt(NUZLOCKE_CEMETERY_BOX, pos, MON_DATA_SPECIES) == SPECIES_NONE)
+                break;
+        }
+        if (pos == IN_BOX_COUNT)
+            break; // caja llena: se quedan en el equipo
+
+        SetBoxMonAt(NUZLOCKE_CEMETERY_BOX, pos, &mon->box);
+        ZeroMonData(mon);
+        moved = TRUE;
+    }
+
+    if (moved)
+        CompactPartySlots();
+}
+
 static void CB2_EndWildBattle(void)
 {
     CpuFill16(0, (void *)(BG_PLTT), BG_PLTT_SIZE);
@@ -702,6 +748,8 @@ static void CB2_EndWildBattle(void)
          || FlagGet(FNPC_FLAG_HEAL_AFTER_FOLLOWER_BATTLE)))
             HealPlayerParty();
     }
+
+    NuzlockeSendFaintedToCemetery();
 
     if (IsPlayerDefeated(gBattleOutcome) == TRUE && CurrentBattlePyramidLocation() == PYRAMID_LOCATION_NONE && !InBattlePike())
     {
@@ -719,6 +767,7 @@ static void CB2_EndScriptedWildBattle(void)
 {
     CpuFill16(0, (void *)(BG_PLTT), BG_PLTT_SIZE);
     ResetOamRange(0, 128);
+    NuzlockeSendFaintedToCemetery();
 
     if (IsPlayerDefeated(gBattleOutcome) == TRUE)
     {
@@ -1582,6 +1631,8 @@ static void CB2_EndTrainerBattle(void)
          || FlagGet(FNPC_FLAG_HEAL_AFTER_FOLLOWER_BATTLE)))
             HealPlayerParty();
     }
+
+    NuzlockeSendFaintedToCemetery();
 
     if (TRAINER_BATTLE_PARAM.earlyRival)
     {
