@@ -114,7 +114,7 @@ MossdeepCity_Gym_EventScript_TateAndLizaRematch::
 	trainerbattle_rematch_double TRAINER_TATE_AND_LIZA_1, MossdeepCity_Gym_Text_TateAndLizaPreRematch, MossdeepCity_Gym_Text_TateAndLizaRematchDefeat, MossdeepCity_Gym_Text_TateAndLizaRematchNeedTwoMons
 	goto_if_set FLAG_UNUSED_0x026, MossdeepCity_Gym_EventScript_NuzRematchDone
 	msgbox MossdeepCity_Gym_Text_TateAndLizaNuzReward, MSGBOX_DEFAULT
-	giveitem ITEM_STARMINITE
+	giveitem ITEM_METAGROSSITE
 	giveitem ITEM_REVIVE
 	giveitem ITEM_MYSTIC_TICKET
 	setflag FLAG_ENABLE_SHIP_NAVEL_ROCK

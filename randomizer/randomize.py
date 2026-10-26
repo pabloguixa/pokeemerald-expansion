@@ -44,7 +44,12 @@ NUZLOCKE_ITEMS_ON_MAP = [f"data/maps/{m}/map.json" for m in [
 GYM_SCRIPTS = [f"data/maps/{m}/scripts.inc" for m in [
     "RustboroCity_Gym", "DewfordTown_Gym", "MauvilleCity_Gym", "LavaridgeTown_Gym_1F",
     "PetalburgCity_Gym", "FortreeCity_Gym", "MossdeepCity_Gym", "SootopolisCity_Gym_1F"]]
-MEGA_FILES = ["data/maps/Route120/scripts.inc", "data/maps/VictoryRoad_B2F/map.json"]
+MEGA_FILES = ["data/maps/Route120/scripts.inc", "data/maps/VictoryRoad_B2F/map.json",
+              "data/maps/LilycoveCity_DepartmentStore_2F/scripts.inc",
+              "data/maps/SealedChamber_InnerRoom/scripts.inc", "src/data/items.h",
+              "data/maps/SlateportCity/scripts.inc"] + [
+              f"data/maps/{m}/map.json" for m in ("SafariZone_Northeast", "SafariZone_Southeast",
+                                                   "ArtisanCave_B1F", "ArtisanCave_1F")]
 FILES = list(dict.fromkeys(FILES + NUZLOCKE_MARTS + NUZLOCKE_ITEMS_ON_MAP + GYM_SCRIPTS + MEGA_FILES)) + [f"src/data/pokemon/species_info/gen_{g}_families.h" for g in range(1, 10)]
 
 # 115 líneas evolutivas de 3 etapas (incluye bebés, excluye Cosmog).
@@ -842,7 +847,7 @@ def randomize_fixed_legends(texts, db, aliases, rng):
             pat = re.compile(re.escape(old_gfx) + r"(?![A-Z0-9_])")
             out[scr] = pat.sub(gfx, out[scr])
             out[js] = pat.sub(gfx, out[js])
-        report.append({"place": mapdir, "original": pretty(old_sp), "new": pretty(new_sp)})
+        report.append({"place": mapdir, "original": pretty(old_sp), "new": pretty(new_sp), "new_species": new_sp})
     return out, report
 
 
@@ -868,6 +873,18 @@ def apply_nuzlocke(texts):
             return m.group(1) + REVIVE_SWAP[m.group(2)] + '"'
         new, n = re.subn(r'("(?:item|trainer_sight_or_berry_tree_id)":\s*")(' + item_re + r')"', swap, out[rel])
         out[rel], swapped = new, swapped + n
+    # Tienda de polvo baya de Portual: la Hierba Revivir está "agotada"
+    rel = "data/maps/SlateportCity/scripts.inc"
+    old_herb = ("SlateportCity_EventScript_RevivalHerb::\n\tbufferitemname STR_VAR_1, ITEM_REVIVAL_HERB\n"
+                "\tsetvar VAR_0x8008, ITEM_REVIVAL_HERB\n\tsetvar VAR_0x8009, 300\n"
+                "\tgoto SlateportCity_EventScript_TryBuyBerryPowderItem\n")
+    if old_herb in out[rel]:
+        out[rel] = out[rel].replace(old_herb, "SlateportCity_EventScript_RevivalHerb::\n"
+                                    "\tmsgbox SlateportCity_Text_NuzHerbSoldOut, MSGBOX_DEFAULT\n"
+                                    "\tgoto SlateportCity_EventScript_ChooseBerryPowderItem\n", 1)
+        out[rel] = out[rel].rstrip("\n") + "\n\nSlateportCity_Text_NuzHerbSoldOut:\n" + \
+            gba_text(["Sorry, REVIVAL HERB is sold out. It may never come back…"])
+        removed += 1
     for rel in GYM_SCRIPTS:
         new, n = re.subn(r"^([ \t]*)(setflag FLAG_BADGE0[1-8]_GET)[ \t]*$",
                          r"\1\2\n\1giveitem ITEM_REVIVE", out[rel], count=1, flags=re.M)
@@ -1152,8 +1169,9 @@ class MovePicker:
 
     def score(self, sp, mv):
         d, info = self.moves[mv], self.db[sp]
-        stat = info["atk"] if d["category"].endswith("PHYSICAL") else info["spa"]
-        best = max(info["atk"], info["spa"], 1)
+        atk, spa = (info["atk"], info["spa"]) if (info["atk"] or info["spa"]) else (100, 100)
+        stat = atk if d["category"].endswith("PHYSICAL") else spa
+        best = max(atk, spa, 1)
         stab = 1.5 if d["type"] in info["types"] else 1.0
         return d["power"] * d["strikes"] * d["accuracy"] / 100 * stab * (stat / best) ** 2
 
@@ -1192,10 +1210,10 @@ class MovePicker:
                 rest = [m for m in attacks if m not in chosen]
             if not rest:
                 break
-            strong = [m for m in rest if self.score(sp, m) >= 0.5 * self.score(sp, attacks[0])]
+            strong = [m for m in rest if self.score(sp, m) > 0 and self.score(sp, m) >= 0.5 * self.score(sp, attacks[0])]
             rest = strong or rest
             have = se_types(chosen)
-            top = max(self.score(sp, m) for m in rest)
+            top = max(self.score(sp, m) for m in rest) or 1
             pick = max(rest, key=lambda m: self.score(sp, m) / top + 0.25 * len(se_types([m]) - have))
             chosen.append(pick)
         if support:
@@ -1340,8 +1358,118 @@ def apply_megas(texts, db, route_report, starter_lines, mega_aces, needed_items,
     return out, report
 
 
+# --------------------------------------------------------------------------
+# Parte 11 · Post-game: megapiedras y cámara de los Regis
+# - 12 piedras escondidas en zonas del post-game (Safari ampliado y Cueva Artesana)
+# - El resto, a la venta (caro) en la tienda de Arrecípolis cuando eres Campeón
+# - La Cámara Sellada se abre sin exigir Wailord/Relicanth (pueden no existir en tus rutas)
+# --------------------------------------------------------------------------
+POSTGAME_STONE_SPOTS = [
+    ("SafariZone_Northeast", "ITEM_NUGGET"), ("SafariZone_Northeast", "ITEM_RARE_CANDY"),
+    ("SafariZone_Northeast", "ITEM_ZINC"), ("SafariZone_Southeast", "ITEM_BIG_PEARL"),
+    ("SafariZone_Southeast", "ITEM_PP_UP"), ("SafariZone_Southeast", "ITEM_FULL_RESTORE"),
+    ("ArtisanCave_B1F", "ITEM_HP_UP"), ("ArtisanCave_B1F", "ITEM_ZINC"), ("ArtisanCave_B1F", "ITEM_CALCIUM"),
+    ("ArtisanCave_B1F", "ITEM_PROTEIN"), ("ArtisanCave_B1F", "ITEM_IRON"), ("ArtisanCave_1F", "ITEM_CARBOS"),
+]
+MEGA_STONE_PRICE = 30000
+MEGA_SHOP_FILE = "data/maps/SootopolisCity_Mart/scripts.inc"
+MEGA_SHOP_TEXT = [
+    "Oh! You're the new CHAMPION!",
+    "A collector left us some very rare MEGA STONES. They aren't cheap… Would you like to see them?",
+]
+
+
+def apply_postgame(texts, items_h, db, route_report, starter_lines, fixed_legends, taken, rng):
+    out = dict(texts)
+    stones = load_mega_stones()
+    # Pokémon que puedes llegar a tener: todo lo salvaje, tus iniciales, los legendarios fijos y sus evoluciones
+    seen = {sp for z in route_report for sp in z["species"]} | {z["legend"] for z in route_report if z["legend"]}
+    for line in starter_lines:
+        seen.update(line)
+    seen.update(fixed_legends)
+    reach = set()
+    for sp in seen:
+        reach |= descendants(db, sp)
+    taken = set(taken)
+    cand = sorted(sp for sp in reach if sp in stones)
+    rng.shuffle(cand)
+    hidden = []
+    for sp in cand:
+        free = [st for st in stones[sp] if st not in taken]
+        if free and len(hidden) < len(POSTGAME_STONE_SPOTS):
+            st = rng.choice(free)
+            taken.add(st)
+            hidden.append((sp, st))
+    report = []
+    for (mp, old), (sp, st) in zip(POSTGAME_STONE_SPOTS, hidden):
+        rel = f"data/maps/{mp}/map.json"
+        pat = re.compile(r'("(?:item|trainer_sight_or_berry_tree_id)":\s*")' + old + '"')
+        if not pat.search(out[rel]):
+            sys.exit(f"ERROR: no encuentro {old} en {mp}")
+        out[rel] = pat.sub(lambda m: m.group(1) + st + '"', out[rel], count=1)
+        report.append({"map": mp, "stone": st, "for": pretty(sp)})
+    # Tienda de megapiedras (el resto)
+    shop = sorted({st for lst in stones.values() for st in lst} - taken)
+    t = out[MEGA_SHOP_FILE]
+    anchor = "\tpokemart SootopolisCity_Mart_Pokemart\n"
+    if anchor not in t:
+        sys.exit("ERROR: no encuentro la tienda de Arrecípolis")
+    t = t.replace(anchor, anchor +
+                  "\tgoto_if_unset FLAG_IS_CHAMPION, SootopolisCity_Mart_EventScript_NuzNoMegaShop\n"
+                  "\tmsgbox SootopolisCity_Mart_Text_NuzMegaShop, MSGBOX_YESNO\n"
+                  "\tgoto_if_eq VAR_RESULT, NO, SootopolisCity_Mart_EventScript_NuzNoMegaShop\n"
+                  "\tmessage gText_HowMayIServeYou\n\twaitmessage\n"
+                  "\tpokemart SootopolisCity_Mart_NuzMegaStones\n"
+                  "SootopolisCity_Mart_EventScript_NuzNoMegaShop::\n", 1)
+    t = t.rstrip("\n") + "\n\nSootopolisCity_Mart_Text_NuzMegaShop:\n" + gba_text(MEGA_SHOP_TEXT)
+    t += "\n\t.align 2\nSootopolisCity_Mart_NuzMegaStones:\n" + "".join(f"\t.2byte {x}\n" for x in shop) + "\tpokemartlistend\n"
+    out[MEGA_SHOP_FILE] = t
+    # Precio de las megapiedras (en el juego base valen 0)
+    def price(m):
+        block = m.group(0)
+        if "HOLD_EFFECT_MEGA_STONE" in block:
+            block = re.sub(r"\.price\s*=\s*0\s*,", f".price = {MEGA_STONE_PRICE},", block, count=1)
+        return block
+    items_h = re.sub(r"(?ms)^    \[ITEM_\w+\]\s*=\s*\{.*?^    \},", price, items_h)
+    # Cámara Sellada: se abre al leer la pared, sin pedir Wailord/Relicanth
+    rel = "data/maps/SealedChamber_InnerRoom/scripts.inc"
+    if "specialvar VAR_RESULT, CheckRelicanthWailord" not in out[rel]:
+        sys.exit("ERROR: no encuentro la comprobación de la Cámara Sellada")
+    out[rel] = out[rel].replace("specialvar VAR_RESULT, CheckRelicanthWailord", "setvar VAR_RESULT, TRUE", 1)
+    return out, items_h, report, len(shop)
+
+
 def main():
-    seed = int(sys.argv[1]) if len(sys.argv) > 1 else random.randrange(1, 10**6)
+    args = [a for a in sys.argv[1:] if not a.startswith("--")]
+    secret = "--secreto" in sys.argv
+    real_stdout = sys.stdout
+    if secret:
+        # Modo sin spoilers: todo lo que normalmente se imprime va a un archivo que no hay que abrir
+        OUT.mkdir(exist_ok=True)
+        sys.stdout = open(OUT / "SPOILERS_no_abrir.txt", "w", encoding="utf-8")
+    if not secret:
+        _run(args)
+        return
+    failed = False
+    try:
+        _run(args)
+    except BaseException:
+        import traceback
+        traceback.print_exc(file=sys.stdout)       # el error también va al archivo: puede contener spoilers
+        failed = True
+    finally:
+        sys.stdout.close()
+        sys.stdout = real_stdout
+    if failed:
+        print("Ha fallado (sin enseñarte nada). Pásale a Claude el archivo")
+        print("randomizer/output/SPOILERS_no_abrir.txt sin abrirlo. NO compiles todavía.")
+        sys.exit(1)
+    print("Listo, sin spoilers. Todo lo que ha salido está en randomizer/output/ (¡no lo abras!).")
+    print("Ahora compila: make -j$(nproc)")
+
+
+def _run(args):
+    seed = int(args[0]) if args else random.randrange(1, 10**6)
     rng = random.Random(seed)
     print(f"Semilla: {seed}")
 
@@ -1358,7 +1486,7 @@ def main():
     print("Iniciales:", ", ".join(pretty(s) for s in starters))
 
     # Líneas evolutivas fijas de cada inicial (la rama se decide aquí, con la semilla)
-    lines = [choose_line(db, s, rng) for s in starters]
+    lines = [choose_line(db, resolve(s, aliases), rng) for s in starters]   # p. ej. FLABEBE -> FLABEBE_RED
     result["starter_lines"] = [[x[0] for x in l] for l in lines]
 
     normal_pool, _ = build_pools(db, aliases)
@@ -1415,6 +1543,14 @@ def main():
           ", ".join(f"{r['stone'].replace('ITEM_', '').title()} ({r['map']})" for r in stone_report))
     if needed:
         print("  Objetos de evolución a la venta en Lilycove (C. Comercial, 2ª planta)")
+    taken = {v[1] for v in mega_aces.values()} | {r["stone"] for r in stone_report} | {"ITEM_METAGROSSITE"}
+    fixed = [resolve(r["new_species"], aliases) for r in legend_report if r.get("new_species")]
+    map_texts, items_h, post_report, n_shop = apply_postgame(
+        map_texts, originals["src/data/items.h"], db, report, result["starter_lines"], fixed, taken, rng)
+    (ROOT / "src/data/items.h").write_text(items_h, encoding="utf-8")
+    result["postgame_stones"] = post_report
+    print(f"Post-game: {len(post_report)} megapiedras escondidas (Safari y Cueva Artesana), "
+          f"{n_shop} a la venta en Arrecípolis ({MEGA_STONE_PRICE}₽) al ser Campeón; Cámara Sellada abierta")
     for rel, text in map_texts.items():
         (ROOT / rel).write_text(text, encoding="utf-8")
 

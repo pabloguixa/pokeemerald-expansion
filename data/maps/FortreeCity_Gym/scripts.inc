@@ -69,7 +69,7 @@ FortreeCity_Gym_EventScript_WinonaRematch::
 	trainerbattle_rematch_double TRAINER_WINONA_1, FortreeCity_Gym_Text_WinonaPreRematch, FortreeCity_Gym_Text_WinonaRematchDefeat, FortreeCity_Gym_Text_WinonaRematchNeedTwoMons
 	goto_if_set FLAG_UNUSED_0x025, FortreeCity_Gym_EventScript_NuzRematchDone
 	msgbox FortreeCity_Gym_Text_WinonaNuzReward, MSGBOX_DEFAULT
-	giveitem ITEM_SALAMENCITE
+	giveitem ITEM_PIDGEOTITE
 	giveitem ITEM_REVIVE
 	giveitem ITEM_EON_TICKET
 	setflag FLAG_ENABLE_SHIP_SOUTHERN_ISLAND

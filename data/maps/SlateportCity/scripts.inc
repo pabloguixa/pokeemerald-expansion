@@ -771,10 +771,8 @@ SlateportCity_EventScript_HealPowder::
 	end
 
 SlateportCity_EventScript_RevivalHerb::
-	bufferitemname STR_VAR_1, ITEM_REVIVAL_HERB
-	setvar VAR_0x8008, ITEM_REVIVAL_HERB
-	setvar VAR_0x8009, 300
-	goto SlateportCity_EventScript_TryBuyBerryPowderItem
+	msgbox SlateportCity_Text_NuzHerbSoldOut, MSGBOX_DEFAULT
+	goto SlateportCity_EventScript_ChooseBerryPowderItem
 	end
 
 SlateportCity_EventScript_Protein::
@@ -1350,3 +1348,7 @@ SlateportCity_Text_TakingBattleTentChallenge:
 	.string "After all, a tough TRAINER is\n"
 	.string "the perfect fit for the BATTLE TENT!\p"
 	.string "Give it your best effort!$"
+
+SlateportCity_Text_NuzHerbSoldOut:
+	.string "Sorry, REVIVAL HERB is sold out. It\n"
+	.string "may never come back…$"

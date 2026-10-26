@@ -7,6 +7,13 @@ SootopolisCity_Mart_EventScript_Clerk::
 	message gText_HowMayIServeYou
 	waitmessage
 	pokemart SootopolisCity_Mart_Pokemart
+	goto_if_unset FLAG_IS_CHAMPION, SootopolisCity_Mart_EventScript_NuzNoMegaShop
+	msgbox SootopolisCity_Mart_Text_NuzMegaShop, MSGBOX_YESNO
+	goto_if_eq VAR_RESULT, NO, SootopolisCity_Mart_EventScript_NuzNoMegaShop
+	message gText_HowMayIServeYou
+	waitmessage
+	pokemart SootopolisCity_Mart_NuzMegaStones
+SootopolisCity_Mart_EventScript_NuzNoMegaShop::
 	msgbox gText_PleaseComeAgain, MSGBOX_DEFAULT
 	release
 	end
@@ -72,3 +79,80 @@ SootopolisCity_Mart_Text_DidSomethingAwaken:
 	.string "This weather…\n"
 	.string "Did something awaken?$"
 
+SootopolisCity_Mart_Text_NuzMegaShop:
+	.string "Oh! You're the new CHAMPION!\p"
+	.string "A collector left us some very rare\n"
+	.string "MEGA STONES. They aren't cheap…\p"
+	.string "Would you like to see them?$"
+
+	.align 2
+SootopolisCity_Mart_NuzMegaStones:
+	.2byte ITEM_ABOMASITE
+	.2byte ITEM_ABSOLITE
+	.2byte ITEM_ABSOLITE_Z
+	.2byte ITEM_ALAKAZITE
+	.2byte ITEM_AMPHAROSITE
+	.2byte ITEM_AUDINITE
+	.2byte ITEM_BARBARACITE
+	.2byte ITEM_BAXCALIBRITE
+	.2byte ITEM_BLASTOISINITE
+	.2byte ITEM_BLAZIKENITE
+	.2byte ITEM_CAMERUPTITE
+	.2byte ITEM_CHANDELURITE
+	.2byte ITEM_CHARIZARDITE_X
+	.2byte ITEM_CHARIZARDITE_Y
+	.2byte ITEM_CHESNAUGHTITE
+	.2byte ITEM_CHIMECHITE
+	.2byte ITEM_CRABOMINITE
+	.2byte ITEM_DARKRANITE
+	.2byte ITEM_DELPHOXITE
+	.2byte ITEM_DIANCITE
+	.2byte ITEM_DRAGALGITE
+	.2byte ITEM_DRAMPANITE
+	.2byte ITEM_EELEKTROSSITE
+	.2byte ITEM_EXCADRITE
+	.2byte ITEM_FALINKSITE
+	.2byte ITEM_FERALIGITE
+	.2byte ITEM_FLOETTITE
+	.2byte ITEM_FROSLASSITE
+	.2byte ITEM_GARCHOMPITE
+	.2byte ITEM_GARCHOMPITE_Z
+	.2byte ITEM_GARDEVOIRITE
+	.2byte ITEM_GENGARITE
+	.2byte ITEM_GLALITITE
+	.2byte ITEM_GOLISOPITE
+	.2byte ITEM_GOLURKITE
+	.2byte ITEM_HAWLUCHANITE
+	.2byte ITEM_HEATRANITE
+	.2byte ITEM_HERACRONITE
+	.2byte ITEM_HOUNDOOMINITE
+	.2byte ITEM_LATIASITE
+	.2byte ITEM_LATIOSITE
+	.2byte ITEM_LOPUNNITE
+	.2byte ITEM_LUCARIONITE
+	.2byte ITEM_LUCARIONITE_Z
+	.2byte ITEM_MAGEARNITE
+	.2byte ITEM_MANECTITE
+	.2byte ITEM_MAWILITE
+	.2byte ITEM_MEWTWONITE_X
+	.2byte ITEM_MEWTWONITE_Y
+	.2byte ITEM_PYROARITE
+	.2byte ITEM_RAICHUNITE_Y
+	.2byte ITEM_SABLENITE
+	.2byte ITEM_SALAMENCITE
+	.2byte ITEM_SCEPTILITE
+	.2byte ITEM_SCIZORITE
+	.2byte ITEM_SCOLIPITE
+	.2byte ITEM_SCOVILLAINITE
+	.2byte ITEM_SCRAFTINITE
+	.2byte ITEM_SHARPEDONITE
+	.2byte ITEM_SKARMORITE
+	.2byte ITEM_SLOWBRONITE
+	.2byte ITEM_STARMINITE
+	.2byte ITEM_TATSUGIRINITE
+	.2byte ITEM_TYRANITARITE
+	.2byte ITEM_VENUSAURITE
+	.2byte ITEM_VICTREEBELITE
+	.2byte ITEM_ZERAORITE
+	.2byte ITEM_ZYGARDITE
+	pokemartlistend

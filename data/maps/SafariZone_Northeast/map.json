@@ -139,7 +139,7 @@
       "movement_range_x": 1,
       "movement_range_y": 1,
       "trainer_type": "TRAINER_TYPE_NONE",
-      "trainer_sight_or_berry_tree_id": "ITEM_NUGGET",
+      "trainer_sight_or_berry_tree_id": "ITEM_GYARADOSITE",
       "script": "Common_EventScript_FindItem",
       "flag": "FLAG_ITEM_SAFARI_ZONE_NORTH_EAST_NUGGET"
     }
@@ -152,7 +152,7 @@
       "x": 31,
       "y": 35,
       "elevation": 3,
-      "item": "ITEM_RARE_CANDY",
+      "item": "ITEM_MEOWSTICITE",
       "flag": "FLAG_HIDDEN_ITEM_SAFARI_ZONE_NORTH_EAST_RARE_CANDY"
     },
     {
@@ -160,7 +160,7 @@
       "x": 21,
       "y": 5,
       "elevation": 3,
-      "item": "ITEM_ZINC",
+      "item": "ITEM_MALAMARITE",
       "flag": "FLAG_HIDDEN_ITEM_SAFARI_ZONE_NORTH_EAST_ZINC"
     }
   ]

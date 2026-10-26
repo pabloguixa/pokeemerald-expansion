@@ -1,0 +1,20 @@
+Semilla: 580192
+Iniciales: Rolycoly, Pichu, Chikorita
+Entrenadores: +10 % de nivel; líderes y Alto Mando por tipo con as final
+  Límites de nivel: 16, 21, 26, 32, 34, 36, 46, 51 · Campeón: 64
+Movimientos: 399 Pokémon de jefes con set propio (STAB, cobertura y apoyo)
+Rival (30 Pokémon cambiados):
+  si eliges Rolycoly -> el rival lleva Pichu
+  si eliges Pichu -> el rival lleva Rolycoly
+  si eliges Chikorita -> el rival lleva Rolycoly
+Rutas: 388 zonas randomizadas, 47 con un legendario escondido (1 %)
+Evoluciones por intercambio: 30 cambiadas (nivel 36 u objeto)
+  Objetos que habrá que poner en el juego: Dubious_Disc, Electirizer, Magmarizer, Prism_Scale, Protector, Reaper_Cloth, Sachet, Upgrade, Whipped_Dream
+Legendarios fijos: Regirock -> Meloetta Aria, Regice -> Darkrai, Registeel -> Giratina Altered, Deoxys Normal -> Mewtwo, Mew -> Mew, Ho Oh -> Zekrom, Lugia -> Pecharunt, Latios -> Calyrex, Latias -> Zarude
+Nuzlocke: 11 Revivir quitados de tiendas, 16 del mapa cambiados por curas, 8/8 líderes dan 1 Revivir
+Revanchas: Roxanne (Aggron), Brawly (Medicham), Wattson (Raichu), Flannery (Emboar), Norman (Kangaskhan), Winona (Pidgeot), Tate_And_Liza (Metagross), Juan (Swampert)
+Megas: MEGA RING de Steven (Ruta 120), PIEDRA UNIVERSAL de Juan; piedras escondidas: Altarianite (Route120), Steelixite (Route121), Pinsirite (Route123), Dragoninite (VictoryRoad_B2F)
+  Objetos de evolución a la venta en Lilycove (C. Comercial, 2ª planta)
+Post-game: 12 megapiedras escondidas (Safari y Cueva Artesana), 68 a la venta en Arrecípolis (30000₽) al ser Campeón; Cámara Sellada abierta
+Resumen guardado en randomizer/output/last_run.json
+Ahora compila: make -j$(nproc)
