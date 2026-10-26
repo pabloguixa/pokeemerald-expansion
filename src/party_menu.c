@@ -5232,6 +5232,184 @@ void ItemUseCB_Mint(u8 taskId, TaskFunc task)
 #undef tNewNature
 #undef tOldFunc
 
+// --------------------------------------------------------------------------
+// Emerald Nuzlocke: Piedra Universal
+// Elige un Pokémon del equipo y se convierte en su megapiedra (un solo uso).
+// Si no tiene mega, o ya tienes su piedra, avisa y la conservas.
+// --------------------------------------------------------------------------
+#define tState      data[0]
+#define tMonId      data[1]
+#define tStone1     data[2]
+#define tStone2     data[3]
+#define tOldFunc    4
+#define tCount      data[6]
+#define tAsking     data[7]
+
+static bool32 UniversalStone_PlayerHasItem(u16 item)
+{
+    u32 i, box, pos;
+
+    if (CheckBagHasItem(item, 1))
+        return TRUE;
+    for (i = 0; i < PARTY_SIZE; i++)
+    {
+        if (GetMonData(&gParties[B_TRAINER_PLAYER][i], MON_DATA_HELD_ITEM) == item)
+            return TRUE;
+    }
+    for (box = 0; box < TOTAL_BOXES_COUNT; box++)
+    {
+        for (pos = 0; pos < IN_BOX_COUNT; pos++)
+        {
+            if (GetBoxMonDataAt(box, pos, MON_DATA_HELD_ITEM) == item)
+                return TRUE;
+        }
+    }
+    return FALSE;
+}
+
+static void Task_UniversalStone(u8 taskId)
+{
+    static const u8 sText_NoReact[] = _("The {STR_VAR_2} doesn't\nreact to {STR_VAR_1}…{PAUSE_UNTIL_PRESS}");
+    static const u8 sText_AlreadyHave[] = _("You already have the\n{STR_VAR_2}!{PAUSE_UNTIL_PRESS}");
+    static const u8 sText_Ask[] = _("Turn it into the\n{STR_VAR_2}?");
+    static const u8 sText_BagFull[] = _("There's no room in the BAG\nfor the {STR_VAR_2}!{PAUSE_UNTIL_PRESS}");
+    static const u8 sText_Done[] = _("It became the\n{STR_VAR_2}!{PAUSE_UNTIL_PRESS}");
+    s16 *data = gTasks[taskId].data;
+
+    switch (tState)
+    {
+    case 0:
+    {
+        u32 species = GetMonData(&gParties[B_TRAINER_PLAYER][tMonId], MON_DATA_SPECIES_OR_EGG);
+        const struct FormChange *fc = GetSpeciesFormChanges(species);
+        u16 owned = ITEM_NONE;
+        u32 i;
+
+        tCount = 0;
+        for (i = 0; fc != NULL && fc[i].method != FORM_CHANGE_TERMINATOR; i++)
+        {
+            if (fc[i].method != FORM_CHANGE_BATTLE_MEGA_EVOLUTION_ITEM)
+                continue;
+            if (UniversalStone_PlayerHasItem(fc[i].param1))
+                owned = fc[i].param1;
+            else if (tCount == 0)
+                tStone1 = fc[i].param1, tCount = 1;
+            else if (tCount == 1 && fc[i].param1 != tStone1)
+                tStone2 = fc[i].param1, tCount = 2;
+        }
+        PlaySE(SE_SELECT);
+        if (tCount == 0)
+        {
+            gPartyMenuUseExitCallback = FALSE;
+            if (owned != ITEM_NONE)
+            {
+                CopyItemName(owned, gStringVar2);
+                StringExpandPlaceholders(gStringVar4, sText_AlreadyHave);
+            }
+            else
+            {
+                GetMonNickname(&gParties[B_TRAINER_PLAYER][tMonId], gStringVar1);
+                CopyItemName(gSpecialVar_ItemId, gStringVar2);
+                StringExpandPlaceholders(gStringVar4, sText_NoReact);
+            }
+            DisplayPartyMenuMessage(gStringVar4, TRUE);
+            ScheduleBgCopyTilemapToVram(2);
+            gTasks[taskId].func = Task_ReturnToChooseMonAfterText;
+            return;
+        }
+        gPartyMenuUseExitCallback = TRUE;
+        tAsking = 0;
+        tState = 1;
+        break;
+    }
+    case 1:
+        CopyItemName(tAsking == 0 ? tStone1 : tStone2, gStringVar2);
+        StringExpandPlaceholders(gStringVar4, sText_Ask);
+        DisplayPartyMenuMessage(gStringVar4, TRUE);
+        ScheduleBgCopyTilemapToVram(2);
+        tState++;
+        break;
+    case 2:
+        if (!IsPartyMenuTextPrinterActive())
+        {
+            PartyMenuDisplayYesNoMenu();
+            tState++;
+        }
+        break;
+    case 3:
+        switch (Menu_ProcessInputNoWrapClearOnChoose())
+        {
+        case 0:
+            tState = 4;
+            break;
+        case 1:
+        case MENU_B_PRESSED:
+            PlaySE(SE_SELECT);
+            if (tAsking == 0 && tCount == 2)
+            {
+                // Megas X / Y: ofrece la otra
+                tAsking = 1;
+                tState = 1;
+                break;
+            }
+            gPartyMenuUseExitCallback = FALSE;
+            ScheduleBgCopyTilemapToVram(2);
+            ClearStdWindowAndFrameToTransparent(6, 0);
+            ClearWindowTilemap(6);
+            DisplayPartyMenuStdMessage(5);
+            gTasks[taskId].func = (void *)GetWordTaskArg(taskId, tOldFunc);
+            return;
+        }
+        break;
+    case 4:
+    {
+        u16 stone = (tAsking == 0) ? tStone1 : tStone2;
+
+        CopyItemName(stone, gStringVar2);
+        if (!CheckBagHasSpace(stone, 1))
+        {
+            gPartyMenuUseExitCallback = FALSE;
+            PlaySE(SE_SELECT);
+            StringExpandPlaceholders(gStringVar4, sText_BagFull);
+            DisplayPartyMenuMessage(gStringVar4, TRUE);
+            ScheduleBgCopyTilemapToVram(2);
+            gTasks[taskId].func = Task_ReturnToChooseMonAfterText;
+            return;
+        }
+        PlaySE(SE_USE_ITEM);
+        RemoveBagItem(gSpecialVar_ItemId, 1);
+        AddBagItem(stone, 1);
+        StringExpandPlaceholders(gStringVar4, sText_Done);
+        DisplayPartyMenuMessage(gStringVar4, TRUE);
+        ScheduleBgCopyTilemapToVram(2);
+        tState++;
+        break;
+    }
+    case 5:
+        if (!IsPartyMenuTextPrinterActive())
+            gTasks[taskId].func = Task_ClosePartyMenu;
+        break;
+    }
+}
+
+void ItemUseCB_UniversalStone(u8 taskId, TaskFunc task)
+{
+    s16 *data = gTasks[taskId].data;
+
+    tState = 0;
+    tMonId = gPartyMenu.slotId;
+    SetWordTaskArg(taskId, tOldFunc, (uintptr_t)(gTasks[taskId].func));
+    gTasks[taskId].func = Task_UniversalStone;
+}
+
+#undef tState
+#undef tMonId
+#undef tStone1
+#undef tStone2
+#undef tOldFunc
+#undef tCount
+#undef tAsking
+
 static void Task_DisplayHPRestoredMessage(u8 taskId)
 {
     struct Pokemon *party = NULL;

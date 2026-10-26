@@ -1119,6 +1119,13 @@ void ItemUseOutOfBattle_EvolutionStone(u8 taskId)
     SetUpItemUseCallback(taskId);
 }
 
+// Emerald Nuzlocke
+void ItemUseOutOfBattle_UniversalStone(u8 taskId)
+{
+    gItemUseCB = ItemUseCB_UniversalStone;
+    SetUpItemUseCallback(taskId);
+}
+
 static u32 GetBallThrowableState(void)
 {
     if (IsBattlerAlive(GetBattlerAtPosition(B_POSITION_OPPONENT_LEFT))

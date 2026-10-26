@@ -97,6 +97,8 @@ SootopolisCity_Gym_1F_EventScript_JuanDefeated::
 	setflag FLAG_DEFEATED_SOOTOPOLIS_GYM
 	setflag FLAG_BADGE08_GET
 	giveitem ITEM_REVIVE
+	msgbox SootopolisCity_Gym_1F_Text_NuzUniversalStone, MSGBOX_DEFAULT
+	giveitem ITEM_UNIVERSAL_STONE
 	setflag FLAG_HIDE_SOOTOPOLIS_CITY_RESIDENTS
 	setflag FLAG_HIDE_SOOTOPOLIS_CITY_STEVEN
 	setflag FLAG_HIDE_SOOTOPOLIS_CITY_WALLACE
@@ -322,3 +324,10 @@ SootopolisCity_Gym_1F_Text_JuanNuzReward:
 	.string "jewel worthy of your talent. And a\p"
 	.string "REVIVE, for those who fell along the\n"
 	.string "way.$"
+
+SootopolisCity_Gym_1F_Text_NuzUniversalStone:
+	.string "JUAN: One more gift. This is a\n"
+	.string "UNIVERSAL STONE.\p"
+	.string "Show it to the POKéMON you trust\n"
+	.string "most and it becomes its MEGA STONE.\p"
+	.string "It works only once… choose wisely.$"

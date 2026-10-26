@@ -7307,6 +7307,23 @@ const struct ItemInfo gItemsInfo[] =
         .iconPalette = gItemIconPalette_Glimmoranite,
     },
 
+    // Emerald Nuzlocke: se convierte en la megapiedra del Pokémon elegido
+    [ITEM_UNIVERSAL_STONE] =
+    {
+        .name = ITEM_NAME("Universal Stone"),
+        .price = 0,
+        .importance = 1,
+        .description = COMPOUND_STRING(
+            "Becomes the Mega\n"
+            "Stone of the Pokémon\n"
+            "you choose. 1 use."),
+        .pocket = POCKET_KEY_ITEMS,
+        .type = ITEM_USE_PARTY_MENU,
+        .fieldUseFunc = ItemUseOutOfBattle_UniversalStone,
+        .iconPic = gItemIcon_ShinyStone,
+        .iconPalette = gItemIconPalette_ShinyStone,
+    },
+
 // Gems
 #if I_PRICE >= GEN_9
     #define GEM_PRICE 15000

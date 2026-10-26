@@ -1043,6 +1043,11 @@ STEVEN_MEGA_RING_TEXT = [
     "A POKéMON holding its MEGA STONE can MEGA EVOLVE if its trainer wears it.",
     "A few of those stones are hidden around HOENN. Keep your eyes open!",
 ]
+JUAN_UNIVERSAL_TEXT = [
+    "JUAN: One more gift. This is a UNIVERSAL STONE.",
+    "Show it to the POKéMON you trust most and it becomes its MEGA STONE.",
+    "It works only once… choose wisely.",
+]
 EVO_SHOP_FILE = "data/maps/LilycoveCity_DepartmentStore_2F/scripts.inc"
 
 
@@ -1098,7 +1103,16 @@ def apply_megas(texts, db, route_report, starter_lines, mega_aces, needed_items,
             sys.exit(f"ERROR: no encuentro la bola con {old} en {mp}")
         out[rel] = out[rel].replace(key, f'"trainer_sight_or_berry_tree_id": "{st}"', 1)
         report.append({"map": mp, "stone": st, "for": pretty(sp)})
-    # 3) Objetos de evolución que Emerald no tiene -> tienda de Lilycove (2ª planta, izquierda)
+    # 3) Piedra Universal de Juan (8ª medalla). Requiere universal_stone.patch
+    rel = "data/maps/SootopolisCity_Gym_1F/scripts.inc"
+    t = out[rel]
+    anchor = "\tsetflag FLAG_BADGE08_GET\n\tgiveitem ITEM_REVIVE\n"
+    if anchor not in t:
+        sys.exit("ERROR: no encuentro la entrega de la 8ª medalla")
+    t = t.replace(anchor, anchor + "\tmsgbox SootopolisCity_Gym_1F_Text_NuzUniversalStone, MSGBOX_DEFAULT\n"
+                  "\tgiveitem ITEM_UNIVERSAL_STONE\n", 1)
+    out[rel] = t.rstrip("\n") + "\n\nSootopolisCity_Gym_1F_Text_NuzUniversalStone:\n" + gba_text(JUAN_UNIVERSAL_TEXT)
+    # 4) Objetos de evolución que Emerald no tiene -> tienda de Lilycove (2ª planta, izquierda)
     t = out[EVO_SHOP_FILE]
     m = re.search(r"(LilycoveCity_DepartmentStore_2F_Pokemart1:\n(?:.*\n)*?)(\tpokemartlistend)", t)
     if not m:
@@ -1177,7 +1191,7 @@ def main():
     print("Revanchas:", ", ".join(f"{r['leader'].title()} ({r['mega_ace']})" for r in rematch_report))
     map_texts, stone_report = apply_megas(map_texts, db, report, result["starter_lines"], mega_aces, needed, rng)
     result["mega_stones"] = stone_report
-    print("Megas: MEGA RING de Steven (Ruta 120); piedras escondidas:",
+    print("Megas: MEGA RING de Steven (Ruta 120), PIEDRA UNIVERSAL de Juan; piedras escondidas:",
           ", ".join(f"{r['stone'].replace('ITEM_', '').title()} ({r['map']})" for r in stone_report))
     if needed:
         print("  Objetos de evolución a la venta en Lilycove (C. Comercial, 2ª planta)")
