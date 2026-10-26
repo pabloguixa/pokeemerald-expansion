@@ -216,6 +216,8 @@ Route120_EventScript_StevenGiveDeconScope::
 	waitmovement 0
 	msgbox Route120_Text_StevenGiveDevonScope, MSGBOX_DEFAULT
 	giveitem ITEM_DEVON_SCOPE
+	msgbox Route120_Text_StevenMegaRing, MSGBOX_DEFAULT
+	giveitem ITEM_MEGA_RING
 	setflag FLAG_RECEIVED_DEVON_SCOPE
 	msgbox Route120_Text_StevenGoodbye, MSGBOX_DEFAULT
 	closemessage
@@ -427,3 +429,11 @@ Route120_Text_RouteSignFortree:
 Route120_Text_RouteSign121:
 	.string "{RIGHT_ARROW} ROUTE 121\n"
 	.string "{LEFT_ARROW} ROUTE 120$"
+
+Route120_Text_StevenMegaRing:
+	.string "STEVEN: One more thing. Take this\n"
+	.string "MEGA RING as well.\p"
+	.string "A POKéMON holding its MEGA STONE can\n"
+	.string "MEGA EVOLVE if its trainer wears it.\p"
+	.string "A few of those stones are hidden\n"
+	.string "around HOENN. Keep your eyes open!$"

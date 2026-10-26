@@ -36,6 +36,15 @@ LilycoveCity_DepartmentStore_2F_Pokemart1:
 	.2byte ITEM_ICE_HEAL
 	.2byte ITEM_AWAKENING
 	.2byte ITEM_FLUFFY_TAIL
+	.2byte ITEM_DUBIOUS_DISC
+	.2byte ITEM_ELECTIRIZER
+	.2byte ITEM_MAGMARIZER
+	.2byte ITEM_PRISM_SCALE
+	.2byte ITEM_PROTECTOR
+	.2byte ITEM_REAPER_CLOTH
+	.2byte ITEM_SACHET
+	.2byte ITEM_UPGRADE
+	.2byte ITEM_WHIPPED_DREAM
 	pokemartlistend
 
 LilycoveCity_DepartmentStore_2F_EventScript_ClerkRight::

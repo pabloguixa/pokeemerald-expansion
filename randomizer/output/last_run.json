@@ -9838,5 +9838,27 @@
       "stone": "ITEM_BLASTOISINITE",
       "unlock": null
     }
+  ],
+  "mega_stones": [
+    {
+      "map": "Route120",
+      "stone": "ITEM_SCEPTILITE",
+      "for": "Sceptile"
+    },
+    {
+      "map": "Route121",
+      "stone": "ITEM_CHARIZARDITE_Y",
+      "for": "Charizard"
+    },
+    {
+      "map": "Route123",
+      "stone": "ITEM_ABOMASITE",
+      "for": "Abomasnow"
+    },
+    {
+      "map": "VictoryRoad_B2F",
+      "stone": "ITEM_GENGARITE",
+      "for": "Gengar"
+    }
   ]
 }

@@ -44,7 +44,8 @@ NUZLOCKE_ITEMS_ON_MAP = [f"data/maps/{m}/map.json" for m in [
 GYM_SCRIPTS = [f"data/maps/{m}/scripts.inc" for m in [
     "RustboroCity_Gym", "DewfordTown_Gym", "MauvilleCity_Gym", "LavaridgeTown_Gym_1F",
     "PetalburgCity_Gym", "FortreeCity_Gym", "MossdeepCity_Gym", "SootopolisCity_Gym_1F"]]
-FILES = list(dict.fromkeys(FILES + NUZLOCKE_MARTS + NUZLOCKE_ITEMS_ON_MAP + GYM_SCRIPTS)) + [f"src/data/pokemon/species_info/gen_{g}_families.h" for g in range(1, 10)]
+MEGA_FILES = ["data/maps/Route120/scripts.inc", "data/maps/VictoryRoad_B2F/map.json"]
+FILES = list(dict.fromkeys(FILES + NUZLOCKE_MARTS + NUZLOCKE_ITEMS_ON_MAP + GYM_SCRIPTS + MEGA_FILES)) + [f"src/data/pokemon/species_info/gen_{g}_families.h" for g in range(1, 10)]
 
 # 115 líneas evolutivas de 3 etapas (incluye bebés, excluye Cosmog).
 STARTER_POOL = [
@@ -1023,6 +1024,90 @@ def apply_rematches(texts, mega_aces):
     return out, report
 
 
+# --------------------------------------------------------------------------
+# Parte 9 · Megas durante la aventura
+# --------------------------------------------------------------------------
+# Steven da el MEGA RING junto al DEVON SCOPE (Ruta 120, antes de la 6ª medalla).
+# 4 megapiedras escondidas en bolas de objeto de la segunda mitad del juego,
+# elegidas entre Pokémon que de verdad puedes llevar (salen en rutas hasta ese
+# punto, o evolucionan de alguno, o son de tu línea inicial).
+MEGA_STONE_SPOTS = [   # (mapa, objeto original de la bola)
+    ("Route120", "ITEM_NEST_BALL"),
+    ("Route121", "ITEM_ZINC"),
+    ("Route123", "ITEM_PP_UP"),
+    ("VictoryRoad_B2F", "ITEM_FULL_HEAL"),
+]
+MEGA_STONE_MAX_ZONE_LEVEL = 38
+STEVEN_MEGA_RING_TEXT = [
+    "STEVEN: One more thing. Take this MEGA RING as well.",
+    "A POKéMON holding its MEGA STONE can MEGA EVOLVE if its trainer wears it.",
+    "A few of those stones are hidden around HOENN. Keep your eyes open!",
+]
+EVO_SHOP_FILE = "data/maps/LilycoveCity_DepartmentStore_2F/scripts.inc"
+
+
+def descendants(db, sp):
+    out, todo = set(), [sp]
+    while todo:
+        x = todo.pop()
+        if x in out or x not in db:
+            continue
+        out.add(x)
+        todo += [e[2] for e in db[x]["evos"]]
+    return out
+
+
+def apply_megas(texts, db, route_report, starter_lines, mega_aces, needed_items, rng):
+    out = dict(texts)
+    stones = load_mega_stones()
+    # 1) MEGA RING de Steven
+    rel = "data/maps/Route120/scripts.inc"
+    t = out[rel]
+    anchor = "\tgiveitem ITEM_DEVON_SCOPE\n"
+    if anchor not in t:
+        sys.exit("ERROR: no encuentro la entrega del DEVON SCOPE en la Ruta 120")
+    t = t.replace(anchor, anchor + "\tmsgbox Route120_Text_StevenMegaRing, MSGBOX_DEFAULT\n"
+                  "\tgiveitem ITEM_MEGA_RING\n", 1)
+    t = t.rstrip("\n") + "\n\nRoute120_Text_StevenMegaRing:\n" + gba_text(STEVEN_MEGA_RING_TEXT)
+    out[rel] = t
+    # 2) Piedras escondidas
+    seen = set()
+    for z in route_report:
+        if z["level"] <= MEGA_STONE_MAX_ZONE_LEVEL:
+            seen.update(z["species"])
+    for line in starter_lines:
+        seen.update(line)
+    reach = set()
+    for sp in seen:
+        reach |= descendants(db, sp)
+    taken = {v[1] for v in mega_aces.values()}
+    cand = sorted(sp for sp in reach if sp in stones)
+    rng.shuffle(cand)
+    picks = []
+    for sp in cand:
+        free = [st for st in stones[sp] if st not in taken]
+        if free and len(picks) < len(MEGA_STONE_SPOTS):
+            st = rng.choice(free)
+            taken.add(st)
+            picks.append((sp, st))
+    report = []
+    for (mp, old), (sp, st) in zip(MEGA_STONE_SPOTS, picks):
+        rel = f"data/maps/{mp}/map.json"
+        key = f'"trainer_sight_or_berry_tree_id": "{old}"'
+        if key not in out[rel]:
+            sys.exit(f"ERROR: no encuentro la bola con {old} en {mp}")
+        out[rel] = out[rel].replace(key, f'"trainer_sight_or_berry_tree_id": "{st}"', 1)
+        report.append({"map": mp, "stone": st, "for": pretty(sp)})
+    # 3) Objetos de evolución que Emerald no tiene -> tienda de Lilycove (2ª planta, izquierda)
+    t = out[EVO_SHOP_FILE]
+    m = re.search(r"(LilycoveCity_DepartmentStore_2F_Pokemart1:\n(?:.*\n)*?)(\tpokemartlistend)", t)
+    if not m:
+        sys.exit("ERROR: no encuentro la tienda de Lilycove 2F")
+    extra = "".join(f"\t.2byte {it}\n" for it in needed_items)
+    out[EVO_SHOP_FILE] = t[:m.end(1)] + extra + t[m.end(1):]
+    return out, report
+
+
 def main():
     seed = int(sys.argv[1]) if len(sys.argv) > 1 else random.randrange(1, 10**6)
     rng = random.Random(seed)
@@ -1090,6 +1175,12 @@ def main():
     map_texts, rematch_report = apply_rematches(map_texts, mega_aces)
     result["rematches"] = rematch_report
     print("Revanchas:", ", ".join(f"{r['leader'].title()} ({r['mega_ace']})" for r in rematch_report))
+    map_texts, stone_report = apply_megas(map_texts, db, report, result["starter_lines"], mega_aces, needed, rng)
+    result["mega_stones"] = stone_report
+    print("Megas: MEGA RING de Steven (Ruta 120); piedras escondidas:",
+          ", ".join(f"{r['stone'].replace('ITEM_', '').title()} ({r['map']})" for r in stone_report))
+    if needed:
+        print("  Objetos de evolución a la venta en Lilycove (C. Comercial, 2ª planta)")
     for rel, text in map_texts.items():
         (ROOT / rel).write_text(text, encoding="utf-8")
 
