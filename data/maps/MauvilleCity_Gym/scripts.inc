@@ -136,7 +136,7 @@ MauvilleCity_Gym_EventScript_WattsonRematch::
 	trainerbattle_rematch_double TRAINER_WATTSON_1, MauvilleCity_Gym_Text_WattsonPreRematch, MauvilleCity_Gym_Text_WattsonRematchDefeat, MauvilleCity_Gym_Text_WattsonRematchNeedTwoMons
 	goto_if_set FLAG_UNUSED_0x022, MauvilleCity_Gym_EventScript_NuzRematchDone
 	msgbox MauvilleCity_Gym_Text_WattsonNuzReward, MSGBOX_DEFAULT
-	giveitem ITEM_RAICHUNITE_X
+	giveitem ITEM_MANECTITE
 	giveitem ITEM_REVIVE
 	setflag FLAG_UNUSED_0x022
 MauvilleCity_Gym_EventScript_NuzRematchDone::

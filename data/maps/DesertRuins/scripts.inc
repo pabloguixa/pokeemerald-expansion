@@ -58,10 +58,10 @@ DesertRuins_EventScript_Regirock::
 	lock
 	faceplayer
 	waitse
-	playmoncry SPECIES_MELOETTA_ARIA, CRY_MODE_ENCOUNTER
+	playmoncry SPECIES_MELMETAL, CRY_MODE_ENCOUNTER
 	delay 40
 	waitmoncry
-	setwildbattle SPECIES_MELOETTA_ARIA, 40
+	setwildbattle SPECIES_MELMETAL, 40
 	setflag FLAG_SYS_CTRL_OBJ_DELETE
 	special StartRegiBattle
 	clearflag FLAG_SYS_CTRL_OBJ_DELETE
@@ -79,7 +79,7 @@ DesertRuins_EventScript_DefeatedRegirock::
 	end
 
 DesertRuins_EventScript_RanFromRegirock::
-	setvar VAR_0x8004, SPECIES_MELOETTA_ARIA
+	setvar VAR_0x8004, SPECIES_MELMETAL
 	goto Common_EventScript_LegendaryFlewAway
 	end
 

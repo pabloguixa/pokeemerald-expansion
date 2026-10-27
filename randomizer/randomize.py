@@ -112,8 +112,17 @@ def pretty(species):
     return species.replace("SPECIES_", "").replace("_", " ").title()
 
 
-def randomize_starters(text, rng):
-    starters = rng.sample(STARTER_POOL, 3)
+STARTER_MIN_BST = 500        # la evolución final del inicial tiene que valer la pena
+
+
+def randomize_starters(text, rng, db=None, aliases=None):
+    pool = STARTER_POOL
+    if db is not None:
+        def best(sp):
+            sp = resolve(sp, aliases)
+            return max((db[x]["bst"] for x in descendants(db, sp)), default=0)
+        pool = [sp for sp in STARTER_POOL if best(sp) >= STARTER_MIN_BST]
+    starters = rng.sample(pool, 3)
     slots = ["GRASS_STARTER", "FIRE_STARTER", "WATER_STARTER"]
     for slot, species in zip(slots, starters):
         pattern = re.compile(r"^#define " + slot + r"\b.*$", re.M)
@@ -513,6 +522,7 @@ LEADER_TEAM_SIZE = [3, 3, 4, 4, 5, 5, 6, 6]   # el equipo crece con cada medalla
 REMATCH_TEAM_SIZE = 6
 ELITE_TEAM_SIZE = 6
 IVS_REGULAR, IVS_BOSS, IVS_CHAMPION = 15, 25, 31
+EASY_LEADERS = 2             # los N primeros líderes: IVs normales y sin movimiento de apoyo (salvo el as)
 KEEP_FIELDS = ("Nature:", "Shiny:", "Ball:", "Happiness:", "EVs:")
 
 
@@ -743,6 +753,8 @@ def randomize_trainers(text, db, aliases, normal, rng):
             ivs = IVS_BOSS
         if who in ("WALLACE", "STEVEN"):
             ivs = IVS_CHAMPION
+        if role == "leader" and not rematch and badge < EASY_LEADERS:
+            ivs = IVS_REGULAR                    # Roxanne y Brawly: IVs normales
         team, new_parts = [], []
         n_real = len(real)
         for i, (raw, mon) in enumerate(mons):
@@ -1153,7 +1165,8 @@ class MovePicker:
         for c in chain:
             for lv, mv in self.levelup.get(self.db.get(c, {}).get("learnset"), []):
                 if lv <= level:
-                    res[mv] = False
+                    # los de nivel 0-1 (recordador/evolución) llevan el mismo tope de potencia que las MT
+                    res[mv] = res.get(mv, True) and lv <= 1
         key = sp[len("SPECIES_"):]
         while key and key not in self.teach:
             key = key.rsplit("_", 1)[0] if "_" in key else ""
@@ -1175,7 +1188,7 @@ class MovePicker:
         stab = 1.5 if d["type"] in info["types"] else 1.0
         return d["power"] * d["strikes"] * d["accuracy"] / 100 * stab * (stat / best) ** 2
 
-    def moveset(self, sp, level, is_ace):
+    def moveset(self, sp, level, is_ace, support_chance=SUPPORT_CHANCE):
         if sp not in self.db:
             return []
         info = self.db[sp]
@@ -1196,7 +1209,7 @@ class MovePicker:
         if is_ace:
             opts = [m for m in (SETUP_PHYS if physical else SETUP_SPEC) if m in avail]
             support = opts[0] if opts else None
-        if support is None and (is_ace or self.rng.random() < SUPPORT_CHANCE):
+        if support is None and (is_ace or self.rng.random() < support_chance):
             opts = [m for m in SUPPORT if m in avail]
             support = self.rng.choice(opts) if opts else None
         slots = 4 - (1 if support else 0)
@@ -1230,6 +1243,29 @@ class MovePicker:
         return chosen[:4]
 
 
+# Primeros combates contra el rival (Ruta 103 y 110): suaves. No usa el RNG, así que
+# con la misma semilla todo lo demás sale idéntico.
+SOFT_RIVAL_RE = re.compile(r"(MAY|BRENDAN)_ROUTE_1(03|10)_")
+
+
+def soften_early_rival(text):
+    blocks = re.split(r"(?m)^(?==== TRAINER_)", text)
+    out, n = [], 0
+    for block in blocks:
+        m = re.match(r"=== TRAINER_(\w+) ===", block)
+        if not m or not SOFT_RIVAL_RE.match(m.group(1)):
+            out.append(block)
+            continue
+        n += 1
+        block = re.sub(r"(?m)^- .*\n?", "", block)                                   # sin set especial
+        block = re.sub(r"(?m)^IVs: .*$", "IVs: " + " / ".join(f"{IVS_REGULAR} {x}" for x in
+                       ["HP", "Atk", "Def", "SpA", "SpD", "Spe"]), block)              # IVs normales
+        block = re.sub(r"(?m)^Level: (\d+)$",
+                       lambda mm: f"Level: {max(1, round(int(mm.group(1)) / LEVEL_MULT))}", block)  # sin +10 %
+        out.append(block)
+    return "".join(out), n
+
+
 def is_boss(const):
     role = trainer_role(const)[0]
     return role in ("leader", "elite", "rival") or const.startswith(BOSS_PREFIXES) or const.startswith("STEVEN")
@@ -1252,7 +1288,8 @@ def add_boss_moves(text, db, aliases, rng):
             first = lines[0].split("@")[0].strip()
             sp = name_to_species(first, idx, aliases) or (first if first in db else None)
             level = int(re.search(r"^Level:\s*(\d+)", parts[i], re.M).group(1))
-            ms = mp.moveset(sp, level, is_ace=(i == mon_idx[-1])) if sp else []
+            easy = m.group(1) in [f"{n}_1" for n in list(LEADERS)[:EASY_LEADERS]]
+            ms = mp.moveset(sp, level, is_ace=(i == mon_idx[-1]), support_chance=0 if easy else SUPPORT_CHANCE) if sp else []
             if ms:
                 n_mons += 1
             parts[i] = "\n".join(lines + [f"- {move_label(x)}" for x in ms])
@@ -1469,7 +1506,10 @@ def main():
 
 
 def _run(args):
-    seed = int(args[0]) if args else random.randrange(1, 10**6)
+    if "--misma" in sys.argv and (OUT / "last_run.json").exists():
+        seed = json.loads((OUT / "last_run.json").read_text(encoding="utf-8"))["seed"]
+    else:
+        seed = int(args[0]) if args else random.randrange(1, 10**6)
     rng = random.Random(seed)
     print(f"Semilla: {seed}")
 
@@ -1480,7 +1520,7 @@ def _run(args):
 
     result = {"seed": seed}
 
-    text, starters = randomize_starters(originals["src/starter_choose.c"], rng)
+    text, starters = randomize_starters(originals["src/starter_choose.c"], rng, db, aliases)
     (ROOT / "src/starter_choose.c").write_text(text, encoding="utf-8")
     result["starters"] = starters
     print("Iniciales:", ", ".join(pretty(s) for s in starters))
@@ -1502,6 +1542,7 @@ def _run(args):
 
     text, rival_slot, n = randomize_rival(trainers_text, db, lines, rng)
     text, n_moves = add_boss_moves(text, db, aliases, rng)
+    text, n_soft = soften_early_rival(text)
     print(f"Movimientos: {n_moves} Pokémon de jefes con set propio (STAB, cobertura y apoyo)")
     (ROOT / "src/data/trainers.party").write_text(text, encoding="utf-8")
     result["rival"] = {pretty(starters[p]): pretty(starters[r]) for p, r in rival_slot.items()}

@@ -20,13 +20,13 @@ SouthernIsland_Interior_OnTransition:
 	end
 
 SouthernIsland_Interior_EventScript_SetUpLatios::
-	setvar VAR_OBJ_GFX_ID_1, OBJ_EVENT_GFX_SPECIES(CALYREX)
-	setvar VAR_TEMP_4, SPECIES_CALYREX
+	setvar VAR_OBJ_GFX_ID_1, OBJ_EVENT_GFX_SPECIES(KORAIDON)
+	setvar VAR_TEMP_4, SPECIES_KORAIDON
 	return
 
 SouthernIsland_Interior_EventScript_SetUpLatias::
-	setvar VAR_OBJ_GFX_ID_1, OBJ_EVENT_GFX_SPECIES(ZARUDE)
-	setvar VAR_TEMP_4, SPECIES_ZARUDE
+	setvar VAR_OBJ_GFX_ID_1, OBJ_EVENT_GFX_SPECIES(RESHIRAM)
+	setvar VAR_TEMP_4, SPECIES_RESHIRAM
 	return
 
 SouthernIsland_Interior_EventScript_SetUpPlayerGfx::
@@ -102,11 +102,11 @@ SouthernIsland_Interior_EventScript_Sign::
 	end
 
 SouthernIsland_Interior_EventScript_SetLatiosBattleVars::
-	seteventmon SPECIES_CALYREX, 50, ITEM_SOUL_DEW
+	seteventmon SPECIES_KORAIDON, 50, ITEM_SOUL_DEW
 	return
 
 SouthernIsland_Interior_EventScript_SetLatiasBattleVars::
-	seteventmon SPECIES_ZARUDE, 50, ITEM_SOUL_DEW
+	seteventmon SPECIES_RESHIRAM, 50, ITEM_SOUL_DEW
 	return
 
 SouthernIsland_Interior_Movement_CameraPanUp:
