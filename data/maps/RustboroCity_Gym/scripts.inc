@@ -38,7 +38,7 @@ RustboroCity_Gym_EventScript_RoxanneRematch::
 	trainerbattle_rematch_double TRAINER_ROXANNE_1, RustboroCity_Gym_Text_RoxannePreRematch, RustboroCity_Gym_Text_RoxanneRematchDefeat, RustboroCity_Gym_Text_RoxanneRematchNeedTwoMons
 	goto_if_set FLAG_UNUSED_0x020, RustboroCity_Gym_EventScript_NuzRematchDone
 	msgbox RustboroCity_Gym_Text_RoxanneNuzReward, MSGBOX_DEFAULT
-	giveitem ITEM_GLIMMORANITE
+	giveitem ITEM_BARBARACITE
 	giveitem ITEM_REVIVE
 	setflag FLAG_UNUSED_0x020
 RustboroCity_Gym_EventScript_NuzRematchDone::

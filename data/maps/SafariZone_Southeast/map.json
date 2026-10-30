@@ -74,7 +74,7 @@
       "movement_range_x": 1,
       "movement_range_y": 1,
       "trainer_type": "TRAINER_TYPE_NONE",
-      "trainer_sight_or_berry_tree_id": "ITEM_SWAMPERTITE",
+      "trainer_sight_or_berry_tree_id": "ITEM_SCEPTILITE",
       "script": "Common_EventScript_FindItem",
       "flag": "FLAG_ITEM_SAFARI_ZONE_SOUTH_EAST_BIG_PEARL"
     },
@@ -100,7 +100,7 @@
       "x": 19,
       "y": 36,
       "elevation": 3,
-      "item": "ITEM_DRAGALGITE",
+      "item": "ITEM_HERACRONITE",
       "flag": "FLAG_HIDDEN_ITEM_SAFARI_ZONE_SOUTH_EAST_PP_UP"
     },
     {
@@ -108,7 +108,7 @@
       "x": 32,
       "y": 33,
       "elevation": 0,
-      "item": "ITEM_PINSIRITE",
+      "item": "ITEM_SCOLIPITE",
       "flag": "FLAG_HIDDEN_ITEM_SAFARI_ZONE_SOUTH_EAST_FULL_RESTORE"
     }
   ]

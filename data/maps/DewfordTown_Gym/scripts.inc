@@ -187,7 +187,7 @@ DewfordTown_Gym_EventScript_BrawlyRematch::
 	trainerbattle_rematch_double TRAINER_BRAWLY_1, DewfordTown_Gym_Text_BrawlyPreRematch, DewfordTown_Gym_Text_BrawlyRematchDefeat, DewfordTown_Gym_Text_BrawlyRematchNeedTwoMons
 	goto_if_set FLAG_UNUSED_0x021, DewfordTown_Gym_EventScript_NuzRematchDone
 	msgbox DewfordTown_Gym_Text_BrawlyNuzReward, MSGBOX_DEFAULT
-	giveitem ITEM_MEDICHAMITE
+	giveitem ITEM_EMBOARITE
 	giveitem ITEM_REVIVE
 	setflag FLAG_UNUSED_0x021
 DewfordTown_Gym_EventScript_NuzRematchDone::

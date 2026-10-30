@@ -142,7 +142,7 @@ SootopolisCity_Gym_1F_EventScript_JuanRematch::
 	trainerbattle_rematch_double TRAINER_JUAN_1, SootopolisCity_Gym_1F_Text_JuanPreRematch, SootopolisCity_Gym_1F_Text_JuanRematchDefeat, SootopolisCity_Gym_1F_Text_JuanRematchNeedTwoMons
 	goto_if_set FLAG_UNUSED_0x027, SootopolisCity_Gym_1F_EventScript_NuzRematchDone
 	msgbox SootopolisCity_Gym_1F_Text_JuanNuzReward, MSGBOX_DEFAULT
-	giveitem ITEM_GOLISOPITE
+	giveitem ITEM_SLOWBRONITE
 	giveitem ITEM_REVIVE
 	setflag FLAG_UNUSED_0x027
 SootopolisCity_Gym_1F_EventScript_NuzRematchDone::

@@ -344,7 +344,7 @@ PetalburgCity_Gym_EventScript_NormanRematch::
 	trainerbattle_rematch_double TRAINER_NORMAN_1, PetalburgCity_Gym_Text_NormanPreRematch, PetalburgCity_Gym_Text_NormanRematchDefeat, PetalburgCity_Gym_Text_NormanRematchNeedTwoMons
 	goto_if_set FLAG_UNUSED_0x024, PetalburgCity_Gym_EventScript_NuzRematchDone
 	msgbox PetalburgCity_Gym_Text_NormanNuzReward, MSGBOX_DEFAULT
-	giveitem ITEM_STARAPTITE
+	giveitem ITEM_DRAMPANITE
 	giveitem ITEM_REVIVE
 	giveitem ITEM_AURORA_TICKET
 	setflag FLAG_ENABLE_SHIP_BIRTH_ISLAND
